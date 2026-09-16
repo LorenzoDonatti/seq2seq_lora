@@ -1,0 +1,208 @@
+"""Command-line interface for the LoRaWAN forecasting benchmark."""
+
+from __future__ import annotations
+
+import argparse
+from typing import Any, Dict
+
+from src.config_store import load_optimized_configs, save_optimized_configs
+from src.evaluation import run_full_benchmark, run_multi_horizon_benchmark
+from src.hyperparameter_search import search_integrated_models, save_search
+from src.statistical_search import search_statistical_models, save_statistical_search
+
+
+def print_single_table(results: dict, horizon: int) -> None:
+    """Print accuracy by model, accuracy by node, and all-node resource cost."""
+    print(f"\n{'=' * 75}")
+    print(f" BENCHMARK SUMMARY (Horizon H = {horizon} hour(s))")
+    print(f"{'=' * 75}")
+    header = (
+        f"{'Model':<24} | {'MAE (dBm)':<10} | {'RMSE (dBm)':<10} | "
+        f"{'Params':<9} | {'Latency':<8}"
+    )
+    print(header)
+    print("-" * len(header))
+    sorted_models = sorted(
+        results, key=lambda name: results[name]["metrics"]["global"]["mae_dbm"]
+    )
+    for name in sorted_models:
+        row = results[name]
+        params = row.get("parameters", 0)
+        latency = row.get("latency_ms", 0.0)
+        print(
+            f"{name:<24} | {row['metrics']['global']['mae_dbm']:<10.4f} | "
+            f"{row['metrics']['global']['rmse_dbm']:<10.4f} | "
+            f"{f'{params:,}' if params else '-':<9} | "
+            f"{f'{latency:.2f}ms' if latency else '-':<8}"
+        )
+    print(f"{'=' * 75}\n")
+
+    nodes = list(next(iter(results.values()))["metrics"]["per_node"])
+    print("MAE POR NÓ (dBm; menor é melhor)")
+    node_header = f"{'Model':<24}" + "".join(f" | {node:<7}" for node in nodes) + " | média"
+    print(node_header)
+    print("-" * len(node_header))
+    for name in sorted_models:
+        values = results[name]["metrics"]["per_node"]
+        columns = "".join(f" | {values[node]['mae_dbm']:<7.4f}" for node in nodes)
+        print(f"{name:<24}{columns} | {results[name]['metrics']['global']['mae_dbm']:.4f}")
+
+    print("\nCUSTO PARA ATENDER TODOS OS NÓS")
+    print(
+        f"{'Model':<24} | {'preditores':>10} | {'parâmetros':>12} | "
+        f"{'KiB pesos':>10} | {'treino(s)':>9}"
+    )
+    for name in sorted_models:
+        row = results[name]
+        print(
+            f"{name:<24} | {row.get('model_instances', 1):>10} | "
+            f"{row.get('parameters', 0):>12,} | "
+            f"{row.get('parameter_storage_kib', 0):>10.2f} | "
+            f"{row.get('training_seconds', 0):>9.2f}"
+        )
+
+
+def print_multi_horizon_table(multi_results: Dict[int, Dict[str, Any]]) -> None:
+    """Print the same global-MAE multi-horizon summary as the original CLI."""
+    horizons = sorted(multi_results)
+    models = list(multi_results[horizons[0]])
+    print(f"\n{'=' * 85}")
+    print(" CONSOLIDATED MULTI-HORIZON BENCHMARK (MAE in dBm)")
+    print(f"{'=' * 85}")
+    header = (
+        f"{'Model':<24}" + "".join(f" | H={h:<5}" for h in horizons)
+        + " | Params   | Latency"
+    )
+    print(header)
+    print("-" * len(header))
+    for name in models:
+        values = "".join(
+            f" | {multi_results[h][name]['metrics']['global']['mae_dbm']:<7.4f}"
+            for h in horizons
+        )
+        row = multi_results[horizons[0]][name]
+        params = row.get("parameters", 0)
+        latency = row.get("latency_ms", 0.0)
+        print(
+            f"{name:<24}{values} | {f'{params:,}' if params else '-':<8} | "
+            f"{f'{latency:.2f}ms' if latency else '-':<8}"
+        )
+
+
+def _selected_configs(statistical: Dict[str, Any], neural: Dict[str, Any]) -> Dict[str, Any]:
+    """Extract validation-selected configurations from in-memory search reports."""
+    selected = {
+        "AR": min(
+            (row for row in statistical["trials"] if row["model"] == "AR"),
+            key=lambda row: row["val_mae_dbm"],
+        )["config"],
+        "ARIMA": min(
+            (row for row in statistical["trials"] if row["model"] == "ARIMA"),
+            key=lambda row: row["val_mae_dbm"],
+        )["config"],
+        "Joint_VAR": min(
+            (row for row in statistical["trials"] if row["model"] == "Joint_VAR"),
+            key=lambda row: row["val_mae_dbm"],
+        )["config"],
+        "Joint_VARX": min(
+            (row for row in statistical["trials"] if row["model"] == "Joint_VARX"),
+            key=lambda row: row["val_mae_dbm"],
+        )["config"],
+    }
+    selected.update({name: value["best"]["config"] for name, value in neural["models"].items()})
+    return selected
+
+
+def _optimize_horizon(args: argparse.Namespace, horizon: int) -> Dict[str, Any]:
+    """Optimize and persist every model family for one forecast horizon."""
+    print(f"\n{'=' * 72}\nOtimizando horizonte H={horizon}\n{'=' * 72}\n", flush=True)
+    statistical = search_statistical_models(args.data_file, args.history, horizon)
+    neural = search_integrated_models(
+        args.data_file, horizon, args.history, args.trials,
+        args.search_epochs, args.seed,
+    )
+    save_statistical_search(
+        statistical, f"{args.output_dir}/statistical_search_H{horizon}.json"
+    )
+    save_search(neural, f"{args.output_dir}/neural_search_H{horizon}.json")
+    return _selected_configs(statistical, neural)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="LoRaWAN multi-node RSSI benchmark")
+    horizon_group = parser.add_mutually_exclusive_group()
+    horizon_group.add_argument("--horizon", "-H", type=int, choices=[1, 6, 12, 24])
+    horizon_group.add_argument("--horizons", nargs="+", type=int, choices=[1, 6, 12, 24])
+    parser.add_argument("--history", "-L", type=int, default=24)
+    parser.add_argument("--epochs", "-e", type=int, default=128)
+    config_group = parser.add_mutually_exclusive_group()
+    config_group.add_argument("--optimize", "--search", action="store_true",
+                              help="Select and persist all model configurations on validation")
+    config_group.add_argument("--use-defaults", action="store_true",
+                              help="Ignore saved optimized configurations and use built-in defaults")
+    parser.add_argument("--trials", type=int, default=12,
+                        help="Neural configurations per model when --optimize is enabled")
+    parser.add_argument("--search-epochs", type=int, default=10,
+                        help="Training epochs per neural configuration during optimization")
+    parser.add_argument("--data-file", "--data_file", "-d", default="data/combined_hourly_data.csv")
+    parser.add_argument("--output-dir", "--output_dir", "-o", default="benchmark_results")
+    parser.add_argument("--seed", type=int, default=42)
+    args = parser.parse_args()
+
+    if args.horizon is None and args.horizons is None:
+        args.horizon = 1
+
+    requested_horizons = [args.horizon] if args.horizon is not None else args.horizons
+    selected_configs_by_horizon = None
+    config_source = "built_in_defaults"
+    if args.optimize:
+        selected_configs_by_horizon = {
+            horizon: _optimize_horizon(args, horizon)
+            for horizon in requested_horizons
+        }
+        save_optimized_configs(
+            selected_configs_by_horizon, data_file=args.data_file, history=args.history,
+            seed=args.seed, trials=args.trials, search_epochs=args.search_epochs,
+        )
+        config_source = "fresh_optimization"
+        print("\nOtimização concluída; executando benchmark final...\n", flush=True)
+    elif not args.use_defaults:
+        try:
+            selected_configs_by_horizon = load_optimized_configs(
+                requested_horizons, data_file=args.data_file, history=args.history,
+            )
+        except (FileNotFoundError, ValueError) as error:
+            parser.error(str(error))
+        config_source = "last_saved_optimization"
+        print(
+            "\nReutilizando configurações da última otimização salva em "
+            ".lora_benchmark/last_optimized_configs.json.\n",
+            flush=True,
+        )
+    else:
+        print("\nUsando configurações padrão por solicitação explícita.\n", flush=True)
+
+    selected_configs = (
+        selected_configs_by_horizon[args.horizon]
+        if args.horizon is not None and selected_configs_by_horizon else None
+    )
+
+    if args.horizon is not None:
+        results = run_full_benchmark(
+            data_file=args.data_file, seq_length=args.history, pred_length=args.horizon,
+            epochs=args.epochs, output_dir=args.output_dir, seed=args.seed,
+            selected_configs=selected_configs, config_source=config_source,
+        )
+        print_single_table(results, args.horizon)
+    else:
+        results = run_multi_horizon_benchmark(
+            horizons=args.horizons, data_file=args.data_file, seq_length=args.history,
+            epochs=args.epochs, output_dir=args.output_dir, seed=args.seed,
+            selected_configs_by_horizon=selected_configs_by_horizon,
+            config_source=config_source,
+        )
+        print_multi_horizon_table(results)
+
+
+if __name__ == "__main__":
+    main()

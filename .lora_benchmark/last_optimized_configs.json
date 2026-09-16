@@ -1,0 +1,238 @@
+{
+  "version": 1,
+  "horizons": {
+    "1": {
+      "configs": {
+        "AR": {
+          "lags": 24
+        },
+        "ARIMA": {
+          "order": [
+            3,
+            0,
+            1
+          ]
+        },
+        "Joint_VAR": {
+          "lags": 6,
+          "alpha": 0.0
+        },
+        "Joint_VARX": {
+          "lags": 6,
+          "alpha": 0.01
+        },
+        "MultiNode_Seq2Seq": {
+          "lr": 0.003,
+          "dropout": 0.0,
+          "weight_decay": 0.0,
+          "batch_size": 16,
+          "hidden_dim": 64,
+          "num_layers": 1
+        },
+        "PhysicalAdaptive_STGNN": {
+          "lr": 0.001,
+          "dropout": 0.1,
+          "weight_decay": 0.0001,
+          "batch_size": 16,
+          "hidden_dim": 32,
+          "blocks": 2
+        },
+        "SingleNode_LSTM": {
+          "lr": 0.003,
+          "dropout": 0.0,
+          "weight_decay": 0.0,
+          "batch_size": 16,
+          "hidden_dim": 32,
+          "num_layers": 1
+        },
+        "NLinear": {
+          "lr": 0.001,
+          "weight_decay": 0.001,
+          "batch_size": 32,
+          "dropout": 0.0
+        }
+      },
+      "data_file": "sha256:c58da8397d9db7d28135c8d6de27ab00c3b6d3c848ad6fb6af20d4db1c6028f0",
+      "history": 24,
+      "seed": 42,
+      "trials": 12,
+      "search_epochs": 32,
+      "optimized_at": "2026-09-16T21:27:19.130837+00:00"
+    },
+    "6": {
+      "configs": {
+        "AR": {
+          "lags": 24
+        },
+        "ARIMA": {
+          "order": [
+            4,
+            0,
+            1
+          ]
+        },
+        "Joint_VAR": {
+          "lags": 6,
+          "alpha": 0.0
+        },
+        "Joint_VARX": {
+          "lags": 6,
+          "alpha": 0.01
+        },
+        "MultiNode_Seq2Seq": {
+          "lr": 0.003,
+          "dropout": 0.0,
+          "weight_decay": 0.0,
+          "batch_size": 16,
+          "hidden_dim": 64,
+          "num_layers": 1
+        },
+        "PhysicalAdaptive_STGNN": {
+          "lr": 0.001,
+          "dropout": 0.1,
+          "weight_decay": 0.0001,
+          "batch_size": 16,
+          "hidden_dim": 32,
+          "blocks": 2
+        },
+        "SingleNode_LSTM": {
+          "lr": 0.003,
+          "dropout": 0.3,
+          "weight_decay": 0.001,
+          "batch_size": 16,
+          "hidden_dim": 64,
+          "num_layers": 2
+        },
+        "NLinear": {
+          "lr": 0.0003,
+          "weight_decay": 0.0001,
+          "batch_size": 16,
+          "dropout": 0.0
+        }
+      },
+      "data_file": "sha256:c58da8397d9db7d28135c8d6de27ab00c3b6d3c848ad6fb6af20d4db1c6028f0",
+      "history": 24,
+      "seed": 42,
+      "trials": 12,
+      "search_epochs": 32,
+      "optimized_at": "2026-09-16T21:27:19.130837+00:00"
+    },
+    "12": {
+      "configs": {
+        "AR": {
+          "lags": 24
+        },
+        "ARIMA": {
+          "order": [
+            4,
+            0,
+            1
+          ]
+        },
+        "Joint_VAR": {
+          "lags": 24,
+          "alpha": 1.0
+        },
+        "Joint_VARX": {
+          "lags": 12,
+          "alpha": 0.1
+        },
+        "MultiNode_Seq2Seq": {
+          "lr": 0.003,
+          "dropout": 0.0,
+          "weight_decay": 0.0,
+          "batch_size": 16,
+          "hidden_dim": 64,
+          "num_layers": 1
+        },
+        "PhysicalAdaptive_STGNN": {
+          "lr": 0.001,
+          "dropout": 0.1,
+          "weight_decay": 0.0001,
+          "batch_size": 16,
+          "hidden_dim": 32,
+          "blocks": 2
+        },
+        "SingleNode_LSTM": {
+          "lr": 0.003,
+          "dropout": 0.3,
+          "weight_decay": 0.001,
+          "batch_size": 16,
+          "hidden_dim": 64,
+          "num_layers": 2
+        },
+        "NLinear": {
+          "lr": 0.0003,
+          "weight_decay": 0.0001,
+          "batch_size": 16,
+          "dropout": 0.0
+        }
+      },
+      "data_file": "sha256:c58da8397d9db7d28135c8d6de27ab00c3b6d3c848ad6fb6af20d4db1c6028f0",
+      "history": 24,
+      "seed": 42,
+      "trials": 12,
+      "search_epochs": 32,
+      "optimized_at": "2026-09-16T21:27:19.130837+00:00"
+    },
+    "24": {
+      "configs": {
+        "AR": {
+          "lags": 24
+        },
+        "ARIMA": {
+          "order": [
+            4,
+            0,
+            1
+          ]
+        },
+        "Joint_VAR": {
+          "lags": 24,
+          "alpha": 1.0
+        },
+        "Joint_VARX": {
+          "lags": 6,
+          "alpha": 1.0
+        },
+        "MultiNode_Seq2Seq": {
+          "lr": 0.003,
+          "dropout": 0.3,
+          "weight_decay": 0.001,
+          "batch_size": 16,
+          "hidden_dim": 128,
+          "num_layers": 2
+        },
+        "PhysicalAdaptive_STGNN": {
+          "lr": 0.0003,
+          "dropout": 0.3,
+          "weight_decay": 0.0001,
+          "batch_size": 16,
+          "hidden_dim": 24,
+          "blocks": 1
+        },
+        "SingleNode_LSTM": {
+          "lr": 0.003,
+          "dropout": 0.3,
+          "weight_decay": 0.001,
+          "batch_size": 16,
+          "hidden_dim": 64,
+          "num_layers": 2
+        },
+        "NLinear": {
+          "lr": 0.0003,
+          "weight_decay": 0.0001,
+          "batch_size": 16,
+          "dropout": 0.0
+        }
+      },
+      "data_file": "sha256:c58da8397d9db7d28135c8d6de27ab00c3b6d3c848ad6fb6af20d4db1c6028f0",
+      "history": 24,
+      "seed": 42,
+      "trials": 12,
+      "search_epochs": 32,
+      "optimized_at": "2026-09-16T21:27:19.130837+00:00"
+    }
+  },
+  "updated_at": "2026-09-16T21:27:19.130837+00:00"
+}

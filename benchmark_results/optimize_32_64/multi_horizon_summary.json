@@ -1,0 +1,3790 @@
+{
+    "1": {
+        "Persistence": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 0.9246,
+                    "rmse_dbm": 1.2498
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 0.9246,
+                    "rmse_dbm": 1.2498
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.9246,
+                        "rmse_dbm": 1.2498
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.5969,
+                        "rmse_dbm": 0.7444
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.7058,
+                        "rmse_dbm": 2.1548
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.7487,
+                        "rmse_dbm": 0.9178
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.8751,
+                        "rmse_dbm": 1.0571
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 0.8225,
+                        "rmse_dbm": 1.098
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 0.8839,
+                        "rmse_dbm": 1.1396
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.4673,
+                        "rmse_dbm": 0.584
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.297,
+                        "rmse_dbm": 1.5794
+                    }
+                }
+            },
+            "parameters": 0,
+            "model_instances": 1,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 0.0,
+            "parameter_storage_kib": 0.0,
+            "training_seconds": 0.0,
+            "training": {},
+            "latency_ms": 0.001,
+            "type": "baseline_persistence"
+        },
+        "AR_Baseline": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 0.6769,
+                    "rmse_dbm": 0.9925
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 0.6769,
+                    "rmse_dbm": 0.9925
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.6769,
+                        "rmse_dbm": 0.9925
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.4654,
+                        "rmse_dbm": 0.6065
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.421,
+                        "rmse_dbm": 1.8692
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4038,
+                        "rmse_dbm": 0.5082
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.5213,
+                        "rmse_dbm": 0.6656
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 0.8065,
+                        "rmse_dbm": 1.066
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 0.6864,
+                        "rmse_dbm": 0.9693
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.3727,
+                        "rmse_dbm": 0.4889
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 0.7385,
+                        "rmse_dbm": 1.0016
+                    }
+                }
+            },
+            "parameters": 200,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 25.0,
+            "parameter_storage_kib": 1.562,
+            "training_seconds": 0.003,
+            "training": {},
+            "latency_ms": 1.508,
+            "type": "baseline_autoregressive"
+        },
+        "Joint_VAR": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 0.7273,
+                    "rmse_dbm": 1.0474
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 0.7273,
+                    "rmse_dbm": 1.0474
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.7273,
+                        "rmse_dbm": 1.0474
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.5058,
+                        "rmse_dbm": 0.6432
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.3643,
+                        "rmse_dbm": 1.8323
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4296,
+                        "rmse_dbm": 0.5435
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.5763,
+                        "rmse_dbm": 0.7224
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 0.8467,
+                        "rmse_dbm": 1.1295
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 0.8101,
+                        "rmse_dbm": 1.1344
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.3777,
+                        "rmse_dbm": 0.5047
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 0.908,
+                        "rmse_dbm": 1.1709
+                    }
+                }
+            },
+            "parameters": 392,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 49.0,
+            "parameter_storage_kib": 3.062,
+            "training_seconds": 0.001,
+            "training": {},
+            "latency_ms": 0.231,
+            "type": "joint_statistical_var",
+            "config": {
+                "lags": 6,
+                "alpha": 0.0
+            }
+        },
+        "Joint_VARX": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 0.8423,
+                    "rmse_dbm": 1.2197
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 0.8423,
+                    "rmse_dbm": 1.2197
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8423,
+                        "rmse_dbm": 1.2197
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.6268,
+                        "rmse_dbm": 0.7997
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.7103,
+                        "rmse_dbm": 2.2532
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.6644,
+                        "rmse_dbm": 0.8298
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.5653,
+                        "rmse_dbm": 0.7269
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.058,
+                        "rmse_dbm": 1.4477
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 0.814,
+                        "rmse_dbm": 1.1146
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.4076,
+                        "rmse_dbm": 0.5396
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 0.8915,
+                        "rmse_dbm": 1.1569
+                    }
+                }
+            },
+            "parameters": 584,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 73.0,
+            "parameter_storage_kib": 4.562,
+            "training_seconds": 0.001,
+            "training": {},
+            "latency_ms": 0.006,
+            "type": "joint_statistical_varx_historical_weather",
+            "config": {
+                "lags": 6,
+                "alpha": 0.01
+            }
+        },
+        "ARIMA": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 0.7044,
+                    "rmse_dbm": 1.0225
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 0.7044,
+                    "rmse_dbm": 1.0225
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.7044,
+                        "rmse_dbm": 1.0225
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.4854,
+                        "rmse_dbm": 0.6283
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.4247,
+                        "rmse_dbm": 1.8848
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4328,
+                        "rmse_dbm": 0.5479
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.5428,
+                        "rmse_dbm": 0.6843
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 0.785,
+                        "rmse_dbm": 1.0588
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 0.7532,
+                        "rmse_dbm": 1.0323
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.3823,
+                        "rmse_dbm": 0.5024
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 0.8287,
+                        "rmse_dbm": 1.0992
+                    }
+                }
+            },
+            "parameters": 40,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 5.0,
+            "parameter_storage_kib": 0.312,
+            "training_seconds": 3.398,
+            "training": {},
+            "latency_ms": 1.256,
+            "type": "baseline_arima",
+            "order": [
+                3,
+                0,
+                1
+            ]
+        },
+        "SingleNode_LSTM": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 0.7466,
+                    "rmse_dbm": 1.0677
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 0.7466,
+                    "rmse_dbm": 1.0677
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.7466,
+                        "rmse_dbm": 1.0677
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.4932,
+                        "rmse_dbm": 0.6468
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.4225,
+                        "rmse_dbm": 1.9062
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.489,
+                        "rmse_dbm": 0.6174
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.6292,
+                        "rmse_dbm": 0.8262
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 0.76,
+                        "rmse_dbm": 1.0283
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 0.8979,
+                        "rmse_dbm": 1.1693
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.4005,
+                        "rmse_dbm": 0.5133
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 0.8803,
+                        "rmse_dbm": 1.1472
+                    }
+                }
+            },
+            "parameters": 48648,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 6081.0,
+            "parameter_storage_kib": 190.031,
+            "training_seconds": 32.219,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch_per_node": [
+                    51,
+                    54,
+                    28,
+                    40,
+                    37,
+                    54,
+                    60,
+                    28
+                ],
+                "optimizer_updates": 36864,
+                "batch_size": 16
+            },
+            "latency_ms": 1.82,
+            "type": "single_node_ensemble"
+        },
+        "MultiNode_Seq2Seq": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 0.8193,
+                    "rmse_dbm": 1.1444
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 0.8193,
+                    "rmse_dbm": 1.1444
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8193,
+                        "rmse_dbm": 1.1444
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.5613,
+                        "rmse_dbm": 0.6963
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.5596,
+                        "rmse_dbm": 1.9753
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4455,
+                        "rmse_dbm": 0.5522
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.6528,
+                        "rmse_dbm": 0.8079
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 0.836,
+                        "rmse_dbm": 1.131
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 0.8149,
+                        "rmse_dbm": 1.0802
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.4153,
+                        "rmse_dbm": 0.5233
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.2688,
+                        "rmse_dbm": 1.5534
+                    }
+                }
+            },
+            "parameters": 37064,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 4633.0,
+            "parameter_storage_kib": 144.781,
+            "training_seconds": 7.264,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 22,
+                "optimizer_updates": 4608,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.005838992539793253
+            },
+            "latency_ms": 0.504,
+            "type": "integrated_recurrent"
+        },
+        "NLinear": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 0.8741,
+                    "rmse_dbm": 1.229
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 0.8741,
+                    "rmse_dbm": 1.229
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8741,
+                        "rmse_dbm": 1.229
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.5529,
+                        "rmse_dbm": 0.7063
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.4698,
+                        "rmse_dbm": 1.9784
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.48,
+                        "rmse_dbm": 0.5971
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.7065,
+                        "rmse_dbm": 0.8874
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.0369,
+                        "rmse_dbm": 1.3443
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.2303,
+                        "rmse_dbm": 1.627
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5194,
+                        "rmse_dbm": 0.6529
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 0.997,
+                        "rmse_dbm": 1.2831
+                    }
+                }
+            },
+            "parameters": 2312,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 289.0,
+            "parameter_storage_kib": 9.031,
+            "training_seconds": 0.776,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 28,
+                "optimizer_updates": 2304,
+                "batch_size": 32,
+                "best_val_mse_scaled": 0.006029914133250713
+            },
+            "latency_ms": 0.04,
+            "type": "integrated_linear_decomposition"
+        },
+        "PhysicalAdaptive_STGNN": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 0.6977,
+                    "rmse_dbm": 0.9962
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 0.6977,
+                    "rmse_dbm": 0.9962
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.6977,
+                        "rmse_dbm": 0.9962
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.4799,
+                        "rmse_dbm": 0.6174
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.3932,
+                        "rmse_dbm": 1.8259
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4338,
+                        "rmse_dbm": 0.5283
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.5212,
+                        "rmse_dbm": 0.6681
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 0.8083,
+                        "rmse_dbm": 1.0664
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 0.7499,
+                        "rmse_dbm": 1.0012
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.4085,
+                        "rmse_dbm": 0.5245
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 0.7865,
+                        "rmse_dbm": 1.0414
+                    }
+                }
+            },
+            "parameters": 35747,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 4468.38,
+            "parameter_storage_kib": 139.637,
+            "training_seconds": 26.149,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 44,
+                "optimizer_updates": 4608,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.00536741828545928
+            },
+            "latency_ms": 1.465,
+            "type": "spatio_temporal_graph"
+        }
+    },
+    "6": {
+        "Persistence": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.1366,
+                    "rmse_dbm": 1.6754
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.3471,
+                    "rmse_dbm": 1.9956
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.9223,
+                        "rmse_dbm": 1.2471
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8193,
+                        "rmse_dbm": 1.2586
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.2019,
+                        "rmse_dbm": 1.6963
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1243,
+                        "rmse_dbm": 1.6977
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.4048,
+                        "rmse_dbm": 1.9899
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3471,
+                        "rmse_dbm": 1.9956
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.65,
+                        "rmse_dbm": 0.8598
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.1591,
+                        "rmse_dbm": 2.8339
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.65,
+                        "rmse_dbm": 0.8274
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.9233,
+                        "rmse_dbm": 1.2055
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.3754,
+                        "rmse_dbm": 1.9113
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.2915,
+                        "rmse_dbm": 1.9458
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5952,
+                        "rmse_dbm": 0.8113
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.4485,
+                        "rmse_dbm": 1.8572
+                    }
+                }
+            },
+            "parameters": 0,
+            "model_instances": 1,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 0.0,
+            "parameter_storage_kib": 0.0,
+            "training_seconds": 0.0,
+            "training": {},
+            "latency_ms": 0.002,
+            "type": "baseline_persistence"
+        },
+        "AR_Baseline": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 0.9585,
+                    "rmse_dbm": 1.4432
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.175,
+                    "rmse_dbm": 1.7166
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.6754,
+                        "rmse_dbm": 0.9934
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.7887,
+                        "rmse_dbm": 1.1964
+                    },
+                    "t+3": {
+                        "mae_dbm": 0.954,
+                        "rmse_dbm": 1.4293
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.0301,
+                        "rmse_dbm": 1.5311
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.128,
+                        "rmse_dbm": 1.6569
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.175,
+                        "rmse_dbm": 1.7166
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.5462,
+                        "rmse_dbm": 0.7177
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.9294,
+                        "rmse_dbm": 2.5303
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4366,
+                        "rmse_dbm": 0.5504
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.7355,
+                        "rmse_dbm": 0.9533
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.2648,
+                        "rmse_dbm": 1.7895
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.1454,
+                        "rmse_dbm": 1.6442
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.4868,
+                        "rmse_dbm": 0.6539
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.1237,
+                        "rmse_dbm": 1.4835
+                    }
+                }
+            },
+            "parameters": 200,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 25.0,
+            "parameter_storage_kib": 1.562,
+            "training_seconds": 0.003,
+            "training": {},
+            "latency_ms": 4.241,
+            "type": "baseline_autoregressive"
+        },
+        "Joint_VAR": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.1195,
+                    "rmse_dbm": 1.6047
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.4533,
+                    "rmse_dbm": 1.9684
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.7207,
+                        "rmse_dbm": 1.042
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8692,
+                        "rmse_dbm": 1.2686
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.0957,
+                        "rmse_dbm": 1.5647
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.2087,
+                        "rmse_dbm": 1.6963
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.3693,
+                        "rmse_dbm": 1.8856
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.4533,
+                        "rmse_dbm": 1.9684
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.648,
+                        "rmse_dbm": 0.8261
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.8779,
+                        "rmse_dbm": 2.5009
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.5078,
+                        "rmse_dbm": 0.6525
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.1076,
+                        "rmse_dbm": 1.3538
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.3543,
+                        "rmse_dbm": 1.8404
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.4983,
+                        "rmse_dbm": 2.0389
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5173,
+                        "rmse_dbm": 0.6908
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.4446,
+                        "rmse_dbm": 1.8396
+                    }
+                }
+            },
+            "parameters": 392,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 49.0,
+            "parameter_storage_kib": 3.062,
+            "training_seconds": 0.001,
+            "training": {},
+            "latency_ms": 1.112,
+            "type": "joint_statistical_var",
+            "config": {
+                "lags": 6,
+                "alpha": 0.0
+            }
+        },
+        "Joint_VARX": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.5455,
+                    "rmse_dbm": 2.2517
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 2.3011,
+                    "rmse_dbm": 3.1221
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8221,
+                        "rmse_dbm": 1.1936
+                    },
+                    "t+2": {
+                        "mae_dbm": 1.0818,
+                        "rmse_dbm": 1.5441
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.4133,
+                        "rmse_dbm": 2.0063
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.6643,
+                        "rmse_dbm": 2.3205
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.9906,
+                        "rmse_dbm": 2.7305
+                    },
+                    "t+6": {
+                        "mae_dbm": 2.3011,
+                        "rmse_dbm": 3.1221
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.8688,
+                        "rmse_dbm": 1.0937
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 3.0663,
+                        "rmse_dbm": 4.0037
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.9752,
+                        "rmse_dbm": 1.2259
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.3499,
+                        "rmse_dbm": 1.7044
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 2.0031,
+                        "rmse_dbm": 2.566
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 2.0716,
+                        "rmse_dbm": 2.8648
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5721,
+                        "rmse_dbm": 0.7634
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.4571,
+                        "rmse_dbm": 1.8855
+                    }
+                }
+            },
+            "parameters": 3504,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 438.0,
+            "parameter_storage_kib": 27.375,
+            "training_seconds": 0.001,
+            "training": {},
+            "latency_ms": 0.009,
+            "type": "joint_statistical_varx_historical_weather",
+            "config": {
+                "lags": 6,
+                "alpha": 0.01
+            }
+        },
+        "ARIMA": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.0301,
+                    "rmse_dbm": 1.5457
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.3097,
+                    "rmse_dbm": 1.8922
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.6999,
+                        "rmse_dbm": 1.0198
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8114,
+                        "rmse_dbm": 1.2277
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.0179,
+                        "rmse_dbm": 1.5109
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1022,
+                        "rmse_dbm": 1.6305
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.2394,
+                        "rmse_dbm": 1.8073
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3097,
+                        "rmse_dbm": 1.8922
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.582,
+                        "rmse_dbm": 0.7567
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.0252,
+                        "rmse_dbm": 2.6165
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4827,
+                        "rmse_dbm": 0.6147
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.7975,
+                        "rmse_dbm": 1.0418
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.2841,
+                        "rmse_dbm": 1.8115
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.2208,
+                        "rmse_dbm": 1.8488
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5078,
+                        "rmse_dbm": 0.6973
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.3406,
+                        "rmse_dbm": 1.7452
+                    }
+                }
+            },
+            "parameters": 48,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 6.0,
+            "parameter_storage_kib": 0.375,
+            "training_seconds": 2.954,
+            "training": {},
+            "latency_ms": 2.047,
+            "type": "baseline_arima",
+            "order": [
+                4,
+                0,
+                1
+            ]
+        },
+        "SingleNode_LSTM": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.0502,
+                    "rmse_dbm": 1.5116
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.3047,
+                    "rmse_dbm": 1.8162
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.7488,
+                        "rmse_dbm": 1.0489
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8174,
+                        "rmse_dbm": 1.2083
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.0658,
+                        "rmse_dbm": 1.5031
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1102,
+                        "rmse_dbm": 1.5857
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.2543,
+                        "rmse_dbm": 1.7541
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3047,
+                        "rmse_dbm": 1.8162
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.707,
+                        "rmse_dbm": 0.9245
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.8782,
+                        "rmse_dbm": 2.4975
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.635,
+                        "rmse_dbm": 0.7979
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.8186,
+                        "rmse_dbm": 1.0319
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.273,
+                        "rmse_dbm": 1.7421
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.3133,
+                        "rmse_dbm": 1.8016
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.4996,
+                        "rmse_dbm": 0.6682
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.2769,
+                        "rmse_dbm": 1.6608
+                    }
+                }
+            },
+            "parameters": 448048,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 56006.0,
+            "parameter_storage_kib": 1750.188,
+            "training_seconds": 83.939,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch_per_node": [
+                    33,
+                    29,
+                    34,
+                    40,
+                    29,
+                    36,
+                    28,
+                    53
+                ],
+                "optimizer_updates": 36352,
+                "batch_size": 16
+            },
+            "latency_ms": 4.986,
+            "type": "single_node_ensemble"
+        },
+        "MultiNode_Seq2Seq": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.0851,
+                    "rmse_dbm": 1.5561
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.3254,
+                    "rmse_dbm": 1.8478
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.856,
+                        "rmse_dbm": 1.1906
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8023,
+                        "rmse_dbm": 1.1963
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.1049,
+                        "rmse_dbm": 1.569
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1173,
+                        "rmse_dbm": 1.5936
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.3045,
+                        "rmse_dbm": 1.8069
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3254,
+                        "rmse_dbm": 1.8478
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.655,
+                        "rmse_dbm": 0.8393
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.9621,
+                        "rmse_dbm": 2.5035
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4884,
+                        "rmse_dbm": 0.6147
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.8154,
+                        "rmse_dbm": 1.0856
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.2845,
+                        "rmse_dbm": 1.7215
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.3956,
+                        "rmse_dbm": 1.924
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5944,
+                        "rmse_dbm": 0.7852
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.485,
+                        "rmse_dbm": 1.8874
+                    }
+                }
+            },
+            "parameters": 39664,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 4958.0,
+            "parameter_storage_kib": 154.938,
+            "training_seconds": 8.414,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 13,
+                "optimizer_updates": 4544,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.0126167181879282
+            },
+            "latency_ms": 0.571,
+            "type": "integrated_recurrent"
+        },
+        "NLinear": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.1439,
+                    "rmse_dbm": 1.6355
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.3502,
+                    "rmse_dbm": 1.8911
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8336,
+                        "rmse_dbm": 1.1673
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.9727,
+                        "rmse_dbm": 1.3747
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.1227,
+                        "rmse_dbm": 1.6115
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.2633,
+                        "rmse_dbm": 1.7775
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.3208,
+                        "rmse_dbm": 1.8613
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3502,
+                        "rmse_dbm": 1.8911
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.6698,
+                        "rmse_dbm": 0.8572
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.948,
+                        "rmse_dbm": 2.5672
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.5136,
+                        "rmse_dbm": 0.6381
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.9947,
+                        "rmse_dbm": 1.2638
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.5248,
+                        "rmse_dbm": 1.9885
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.5403,
+                        "rmse_dbm": 2.0778
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.6015,
+                        "rmse_dbm": 0.7912
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.3584,
+                        "rmse_dbm": 1.781
+                    }
+                }
+            },
+            "parameters": 13872,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 1734.0,
+            "parameter_storage_kib": 54.188,
+            "training_seconds": 1.686,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 51,
+                "optimizer_updates": 4544,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.012725632637739182
+            },
+            "latency_ms": 0.054,
+            "type": "integrated_linear_decomposition"
+        },
+        "PhysicalAdaptive_STGNN": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.0086,
+                    "rmse_dbm": 1.4815
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.2088,
+                    "rmse_dbm": 1.7468
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.7756,
+                        "rmse_dbm": 1.0899
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8038,
+                        "rmse_dbm": 1.2031
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.0236,
+                        "rmse_dbm": 1.4829
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.056,
+                        "rmse_dbm": 1.5376
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.1839,
+                        "rmse_dbm": 1.7085
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.2088,
+                        "rmse_dbm": 1.7468
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.5542,
+                        "rmse_dbm": 0.7195
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 1.8675,
+                        "rmse_dbm": 2.4938
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.5065,
+                        "rmse_dbm": 0.6295
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.75,
+                        "rmse_dbm": 0.9627
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.1792,
+                        "rmse_dbm": 1.667
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.2621,
+                        "rmse_dbm": 1.6734
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5636,
+                        "rmse_dbm": 0.7592
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.3859,
+                        "rmse_dbm": 1.8283
+                    }
+                }
+            },
+            "parameters": 35912,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 4489.0,
+            "parameter_storage_kib": 140.281,
+            "training_seconds": 26.967,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 20,
+                "optimizer_updates": 4544,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.012380141764879227
+            },
+            "latency_ms": 1.512,
+            "type": "spatio_temporal_graph"
+        }
+    },
+    "12": {
+        "Persistence": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.4114,
+                    "rmse_dbm": 2.0767
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.7636,
+                    "rmse_dbm": 2.5355
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.9183,
+                        "rmse_dbm": 1.2428
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8263,
+                        "rmse_dbm": 1.2729
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.2054,
+                        "rmse_dbm": 1.7033
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1304,
+                        "rmse_dbm": 1.713
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.4126,
+                        "rmse_dbm": 2.0015
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3578,
+                        "rmse_dbm": 2.0117
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.581,
+                        "rmse_dbm": 2.2235
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.526,
+                        "rmse_dbm": 2.2421
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.7233,
+                        "rmse_dbm": 2.4259
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.6857,
+                        "rmse_dbm": 2.4353
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.8066,
+                        "rmse_dbm": 2.5464
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.7636,
+                        "rmse_dbm": 2.5355
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.766,
+                        "rmse_dbm": 1.0154
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.5181,
+                        "rmse_dbm": 3.2608
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.6841,
+                        "rmse_dbm": 0.8699
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.1846,
+                        "rmse_dbm": 1.5851
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.8714,
+                        "rmse_dbm": 2.5706
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.8066,
+                        "rmse_dbm": 2.6646
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.7069,
+                        "rmse_dbm": 0.987
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.7537,
+                        "rmse_dbm": 2.2105
+                    }
+                }
+            },
+            "parameters": 0,
+            "model_instances": 1,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 0.0,
+            "parameter_storage_kib": 0.0,
+            "training_seconds": 0.0,
+            "training": {},
+            "latency_ms": 0.002,
+            "type": "baseline_persistence"
+        },
+        "AR_Baseline": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.153,
+                    "rmse_dbm": 1.6988
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.4024,
+                    "rmse_dbm": 1.9873
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.6766,
+                        "rmse_dbm": 0.992
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.7988,
+                        "rmse_dbm": 1.2103
+                    },
+                    "t+3": {
+                        "mae_dbm": 0.96,
+                        "rmse_dbm": 1.4371
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.038,
+                        "rmse_dbm": 1.5434
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.1366,
+                        "rmse_dbm": 1.6676
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.1869,
+                        "rmse_dbm": 1.7308
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.248,
+                        "rmse_dbm": 1.8013
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.2911,
+                        "rmse_dbm": 1.8513
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.3407,
+                        "rmse_dbm": 1.9125
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.3648,
+                        "rmse_dbm": 1.9434
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.3921,
+                        "rmse_dbm": 1.9752
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.4024,
+                        "rmse_dbm": 1.9873
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.6286,
+                        "rmse_dbm": 0.8141
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.1714,
+                        "rmse_dbm": 2.7595
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4495,
+                        "rmse_dbm": 0.5655
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 0.9268,
+                        "rmse_dbm": 1.2085
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.6483,
+                        "rmse_dbm": 2.2749
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.4846,
+                        "rmse_dbm": 2.0529
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5417,
+                        "rmse_dbm": 0.7263
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.3733,
+                        "rmse_dbm": 1.764
+                    }
+                }
+            },
+            "parameters": 200,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 25.0,
+            "parameter_storage_kib": 1.562,
+            "training_seconds": 0.003,
+            "training": {},
+            "latency_ms": 7.724,
+            "type": "baseline_autoregressive"
+        },
+        "Joint_VAR": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.3456,
+                    "rmse_dbm": 1.8593
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.6226,
+                    "rmse_dbm": 2.1674
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.7684,
+                        "rmse_dbm": 1.0918
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.9305,
+                        "rmse_dbm": 1.3298
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.1167,
+                        "rmse_dbm": 1.5657
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.2121,
+                        "rmse_dbm": 1.6876
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.3338,
+                        "rmse_dbm": 1.8317
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3924,
+                        "rmse_dbm": 1.8985
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.4783,
+                        "rmse_dbm": 1.9899
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.5162,
+                        "rmse_dbm": 2.0323
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.5707,
+                        "rmse_dbm": 2.0944
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.59,
+                        "rmse_dbm": 2.1137
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.6149,
+                        "rmse_dbm": 2.1495
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.6226,
+                        "rmse_dbm": 2.1674
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.6781,
+                        "rmse_dbm": 0.8589
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.067,
+                        "rmse_dbm": 2.6443
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.644,
+                        "rmse_dbm": 0.7901
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.2321,
+                        "rmse_dbm": 1.5358
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.6863,
+                        "rmse_dbm": 2.2242
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 2.0303,
+                        "rmse_dbm": 2.5808
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.6571,
+                        "rmse_dbm": 0.8282
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.7695,
+                        "rmse_dbm": 2.1558
+                    }
+                }
+            },
+            "parameters": 1544,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 193.0,
+            "parameter_storage_kib": 12.062,
+            "training_seconds": 0.004,
+            "training": {},
+            "latency_ms": 2.672,
+            "type": "joint_statistical_var",
+            "config": {
+                "lags": 24,
+                "alpha": 1.0
+            }
+        },
+        "Joint_VARX": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 2.1913,
+                    "rmse_dbm": 3.0126
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 2.7295,
+                    "rmse_dbm": 3.6495
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.9882,
+                        "rmse_dbm": 1.3578
+                    },
+                    "t+2": {
+                        "mae_dbm": 1.3338,
+                        "rmse_dbm": 1.8136
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.7366,
+                        "rmse_dbm": 2.3275
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.9714,
+                        "rmse_dbm": 2.6561
+                    },
+                    "t+5": {
+                        "mae_dbm": 2.2305,
+                        "rmse_dbm": 2.9916
+                    },
+                    "t+6": {
+                        "mae_dbm": 2.3561,
+                        "rmse_dbm": 3.1346
+                    },
+                    "t+7": {
+                        "mae_dbm": 2.475,
+                        "rmse_dbm": 3.2674
+                    },
+                    "t+8": {
+                        "mae_dbm": 2.4887,
+                        "rmse_dbm": 3.285
+                    },
+                    "t+9": {
+                        "mae_dbm": 2.6149,
+                        "rmse_dbm": 3.4659
+                    },
+                    "t+10": {
+                        "mae_dbm": 2.633,
+                        "rmse_dbm": 3.5233
+                    },
+                    "t+11": {
+                        "mae_dbm": 2.7382,
+                        "rmse_dbm": 3.649
+                    },
+                    "t+12": {
+                        "mae_dbm": 2.7295,
+                        "rmse_dbm": 3.6495
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 1.0037,
+                        "rmse_dbm": 1.2331
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 3.7091,
+                        "rmse_dbm": 4.6216
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 1.3603,
+                        "rmse_dbm": 1.6511
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.7123,
+                        "rmse_dbm": 2.05
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 3.4696,
+                        "rmse_dbm": 4.3563
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 3.2797,
+                        "rmse_dbm": 4.0639
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 1.5307,
+                        "rmse_dbm": 1.9644
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.4652,
+                        "rmse_dbm": 1.856
+                    }
+                }
+            },
+            "parameters": 13920,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 1740.0,
+            "parameter_storage_kib": 108.75,
+            "training_seconds": 0.001,
+            "training": {},
+            "latency_ms": 0.021,
+            "type": "joint_statistical_varx_historical_weather",
+            "config": {
+                "lags": 12,
+                "alpha": 0.1
+            }
+        },
+        "ARIMA": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.2795,
+                    "rmse_dbm": 1.8812
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.6326,
+                    "rmse_dbm": 2.279
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.6969,
+                        "rmse_dbm": 1.0136
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8142,
+                        "rmse_dbm": 1.2377
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.0193,
+                        "rmse_dbm": 1.5109
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.0961,
+                        "rmse_dbm": 1.6318
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.2363,
+                        "rmse_dbm": 1.8006
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.2984,
+                        "rmse_dbm": 1.8829
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.402,
+                        "rmse_dbm": 2.0024
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.4505,
+                        "rmse_dbm": 2.0705
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.5334,
+                        "rmse_dbm": 2.1685
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.5625,
+                        "rmse_dbm": 2.2066
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.6122,
+                        "rmse_dbm": 2.2615
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.6326,
+                        "rmse_dbm": 2.279
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.7105,
+                        "rmse_dbm": 0.8864
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.4112,
+                        "rmse_dbm": 2.9847
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.5235,
+                        "rmse_dbm": 0.6642
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.0473,
+                        "rmse_dbm": 1.368
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.7317,
+                        "rmse_dbm": 2.3448
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.6489,
+                        "rmse_dbm": 2.4483
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5538,
+                        "rmse_dbm": 0.7561
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.6093,
+                        "rmse_dbm": 2.0595
+                    }
+                }
+            },
+            "parameters": 48,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 6.0,
+            "parameter_storage_kib": 0.375,
+            "training_seconds": 3.389,
+            "training": {},
+            "latency_ms": 2.576,
+            "type": "baseline_arima",
+            "order": [
+                4,
+                0,
+                1
+            ]
+        },
+        "SingleNode_LSTM": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.3066,
+                    "rmse_dbm": 1.9009
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.6271,
+                    "rmse_dbm": 2.304
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.7653,
+                        "rmse_dbm": 1.0847
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8227,
+                        "rmse_dbm": 1.2518
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.0763,
+                        "rmse_dbm": 1.5601
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1207,
+                        "rmse_dbm": 1.6497
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.2828,
+                        "rmse_dbm": 1.8289
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3337,
+                        "rmse_dbm": 1.8958
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.4299,
+                        "rmse_dbm": 2.0168
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.4577,
+                        "rmse_dbm": 2.071
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.5631,
+                        "rmse_dbm": 2.182
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.564,
+                        "rmse_dbm": 2.1917
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.6361,
+                        "rmse_dbm": 2.3009
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.6271,
+                        "rmse_dbm": 2.304
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.7647,
+                        "rmse_dbm": 0.9432
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.6226,
+                        "rmse_dbm": 3.4569
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.5925,
+                        "rmse_dbm": 0.7449
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.2321,
+                        "rmse_dbm": 1.5193
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.5719,
+                        "rmse_dbm": 2.079
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.5754,
+                        "rmse_dbm": 2.1698
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.6414,
+                        "rmse_dbm": 0.8585
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.4522,
+                        "rmse_dbm": 1.8543
+                    }
+                }
+            },
+            "parameters": 451168,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 56396.0,
+            "parameter_storage_kib": 1762.375,
+            "training_seconds": 69.077,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch_per_node": [
+                    14,
+                    53,
+                    51,
+                    25,
+                    11,
+                    16,
+                    23,
+                    24
+                ],
+                "optimizer_updates": 35328,
+                "batch_size": 16
+            },
+            "latency_ms": 4.282,
+            "type": "single_node_ensemble"
+        },
+        "MultiNode_Seq2Seq": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.3055,
+                    "rmse_dbm": 1.8608
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.6073,
+                    "rmse_dbm": 2.2244
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8644,
+                        "rmse_dbm": 1.2049
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8335,
+                        "rmse_dbm": 1.2498
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.1127,
+                        "rmse_dbm": 1.5871
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1247,
+                        "rmse_dbm": 1.6336
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.2989,
+                        "rmse_dbm": 1.8373
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.2973,
+                        "rmse_dbm": 1.825
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.4503,
+                        "rmse_dbm": 2.0021
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.4238,
+                        "rmse_dbm": 1.9874
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.5383,
+                        "rmse_dbm": 2.1247
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.5011,
+                        "rmse_dbm": 2.0734
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.6135,
+                        "rmse_dbm": 2.2189
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.6073,
+                        "rmse_dbm": 2.2244
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.7036,
+                        "rmse_dbm": 0.8727
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.3739,
+                        "rmse_dbm": 3.0141
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.5863,
+                        "rmse_dbm": 0.7439
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.1122,
+                        "rmse_dbm": 1.4247
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.63,
+                        "rmse_dbm": 2.1473
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.6591,
+                        "rmse_dbm": 2.291
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.6886,
+                        "rmse_dbm": 0.9241
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.69,
+                        "rmse_dbm": 2.1348
+                    }
+                }
+            },
+            "parameters": 42784,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 5348.0,
+            "parameter_storage_kib": 167.125,
+            "training_seconds": 6.931,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 8,
+                "optimizer_updates": 4416,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.01794677972793579
+            },
+            "latency_ms": 0.498,
+            "type": "integrated_recurrent"
+        },
+        "NLinear": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.316,
+                    "rmse_dbm": 1.8719
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.5449,
+                    "rmse_dbm": 2.1889
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8958,
+                        "rmse_dbm": 1.2595
+                    },
+                    "t+2": {
+                        "mae_dbm": 1.0063,
+                        "rmse_dbm": 1.3975
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.1253,
+                        "rmse_dbm": 1.5952
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1784,
+                        "rmse_dbm": 1.6811
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.3422,
+                        "rmse_dbm": 1.8639
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3553,
+                        "rmse_dbm": 1.9027
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.3573,
+                        "rmse_dbm": 1.9112
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.4099,
+                        "rmse_dbm": 1.9756
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.5042,
+                        "rmse_dbm": 2.1176
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.5485,
+                        "rmse_dbm": 2.1131
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.5242,
+                        "rmse_dbm": 2.1785
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.5449,
+                        "rmse_dbm": 2.1889
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.8163,
+                        "rmse_dbm": 1.0226
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.1523,
+                        "rmse_dbm": 2.7901
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.5221,
+                        "rmse_dbm": 0.6481
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.0566,
+                        "rmse_dbm": 1.3643
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.8942,
+                        "rmse_dbm": 2.495
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.799,
+                        "rmse_dbm": 2.4008
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.703,
+                        "rmse_dbm": 0.9037
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.5846,
+                        "rmse_dbm": 2.0282
+                    }
+                }
+            },
+            "parameters": 27744,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 3468.0,
+            "parameter_storage_kib": 108.375,
+            "training_seconds": 1.45,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 29,
+                "optimizer_updates": 4416,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.01719546690583229
+            },
+            "latency_ms": 0.048,
+            "type": "integrated_linear_decomposition"
+        },
+        "PhysicalAdaptive_STGNN": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.3271,
+                    "rmse_dbm": 1.9017
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.6349,
+                    "rmse_dbm": 2.2868
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8299,
+                        "rmse_dbm": 1.1484
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8389,
+                        "rmse_dbm": 1.2405
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.1012,
+                        "rmse_dbm": 1.5569
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1361,
+                        "rmse_dbm": 1.6416
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.2993,
+                        "rmse_dbm": 1.8378
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3249,
+                        "rmse_dbm": 1.8737
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.4485,
+                        "rmse_dbm": 2.0251
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.4722,
+                        "rmse_dbm": 2.0558
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.5686,
+                        "rmse_dbm": 2.1746
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.5971,
+                        "rmse_dbm": 2.2135
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.6734,
+                        "rmse_dbm": 2.3121
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.6349,
+                        "rmse_dbm": 2.2868
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.7352,
+                        "rmse_dbm": 0.9259
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.5755,
+                        "rmse_dbm": 3.2433
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.5677,
+                        "rmse_dbm": 0.7176
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.0725,
+                        "rmse_dbm": 1.3126
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.6491,
+                        "rmse_dbm": 2.1984
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.6495,
+                        "rmse_dbm": 2.1863
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.6237,
+                        "rmse_dbm": 0.8469
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.7434,
+                        "rmse_dbm": 2.2329
+                    }
+                }
+            },
+            "parameters": 36110,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 4513.75,
+            "parameter_storage_kib": 141.055,
+            "training_seconds": 24.751,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 17,
+                "optimizer_updates": 4416,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.017369531095027924
+            },
+            "latency_ms": 1.469,
+            "type": "spatio_temporal_graph"
+        }
+    },
+    "24": {
+        "Persistence": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.5942,
+                    "rmse_dbm": 2.3201
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.6761,
+                    "rmse_dbm": 2.4253
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.926,
+                        "rmse_dbm": 1.2587
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8258,
+                        "rmse_dbm": 1.268
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.2169,
+                        "rmse_dbm": 1.715
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1361,
+                        "rmse_dbm": 1.7179
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.4348,
+                        "rmse_dbm": 2.0258
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3658,
+                        "rmse_dbm": 2.023
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.5991,
+                        "rmse_dbm": 2.2421
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.5342,
+                        "rmse_dbm": 2.2496
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.7405,
+                        "rmse_dbm": 2.436
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.6995,
+                        "rmse_dbm": 2.4476
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.8261,
+                        "rmse_dbm": 2.5633
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.7867,
+                        "rmse_dbm": 2.561
+                    },
+                    "t+13": {
+                        "mae_dbm": 1.8765,
+                        "rmse_dbm": 2.6382
+                    },
+                    "t+14": {
+                        "mae_dbm": 1.8328,
+                        "rmse_dbm": 2.6238
+                    },
+                    "t+15": {
+                        "mae_dbm": 1.8708,
+                        "rmse_dbm": 2.6284
+                    },
+                    "t+16": {
+                        "mae_dbm": 1.8336,
+                        "rmse_dbm": 2.6058
+                    },
+                    "t+17": {
+                        "mae_dbm": 1.8174,
+                        "rmse_dbm": 2.5876
+                    },
+                    "t+18": {
+                        "mae_dbm": 1.7938,
+                        "rmse_dbm": 2.5545
+                    },
+                    "t+19": {
+                        "mae_dbm": 1.7317,
+                        "rmse_dbm": 2.4924
+                    },
+                    "t+20": {
+                        "mae_dbm": 1.746,
+                        "rmse_dbm": 2.501
+                    },
+                    "t+21": {
+                        "mae_dbm": 1.6794,
+                        "rmse_dbm": 2.4425
+                    },
+                    "t+22": {
+                        "mae_dbm": 1.7035,
+                        "rmse_dbm": 2.456
+                    },
+                    "t+23": {
+                        "mae_dbm": 1.6086,
+                        "rmse_dbm": 2.377
+                    },
+                    "t+24": {
+                        "mae_dbm": 1.6761,
+                        "rmse_dbm": 2.4253
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.8022,
+                        "rmse_dbm": 1.0658
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.678,
+                        "rmse_dbm": 3.4291
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.7067,
+                        "rmse_dbm": 0.8902
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.369,
+                        "rmse_dbm": 1.8464
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 2.272,
+                        "rmse_dbm": 3.0765
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 2.2113,
+                        "rmse_dbm": 3.0903
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.7894,
+                        "rmse_dbm": 1.0753
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.9256,
+                        "rmse_dbm": 2.4072
+                    }
+                }
+            },
+            "parameters": 0,
+            "model_instances": 1,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 0.0,
+            "parameter_storage_kib": 0.0,
+            "training_seconds": 0.0,
+            "training": {},
+            "latency_ms": 0.002,
+            "type": "baseline_persistence"
+        },
+        "AR_Baseline": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.3117,
+                    "rmse_dbm": 1.8935
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.4991,
+                    "rmse_dbm": 2.1054
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.674,
+                        "rmse_dbm": 0.9965
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.7934,
+                        "rmse_dbm": 1.2033
+                    },
+                    "t+3": {
+                        "mae_dbm": 0.9592,
+                        "rmse_dbm": 1.4375
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.0373,
+                        "rmse_dbm": 1.5441
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.1397,
+                        "rmse_dbm": 1.6771
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.1892,
+                        "rmse_dbm": 1.7332
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.256,
+                        "rmse_dbm": 1.8114
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.2978,
+                        "rmse_dbm": 1.8559
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.3502,
+                        "rmse_dbm": 1.9204
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.3782,
+                        "rmse_dbm": 1.9518
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.4077,
+                        "rmse_dbm": 1.988
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.424,
+                        "rmse_dbm": 2.0083
+                    },
+                    "t+13": {
+                        "mae_dbm": 1.4432,
+                        "rmse_dbm": 2.035
+                    },
+                    "t+14": {
+                        "mae_dbm": 1.4547,
+                        "rmse_dbm": 2.0471
+                    },
+                    "t+15": {
+                        "mae_dbm": 1.4519,
+                        "rmse_dbm": 2.0439
+                    },
+                    "t+16": {
+                        "mae_dbm": 1.4533,
+                        "rmse_dbm": 2.0496
+                    },
+                    "t+17": {
+                        "mae_dbm": 1.4551,
+                        "rmse_dbm": 2.0548
+                    },
+                    "t+18": {
+                        "mae_dbm": 1.4577,
+                        "rmse_dbm": 2.0551
+                    },
+                    "t+19": {
+                        "mae_dbm": 1.4576,
+                        "rmse_dbm": 2.0571
+                    },
+                    "t+20": {
+                        "mae_dbm": 1.4658,
+                        "rmse_dbm": 2.067
+                    },
+                    "t+21": {
+                        "mae_dbm": 1.469,
+                        "rmse_dbm": 2.0762
+                    },
+                    "t+22": {
+                        "mae_dbm": 1.4816,
+                        "rmse_dbm": 2.0859
+                    },
+                    "t+23": {
+                        "mae_dbm": 1.4857,
+                        "rmse_dbm": 2.0924
+                    },
+                    "t+24": {
+                        "mae_dbm": 1.4991,
+                        "rmse_dbm": 2.1054
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.6639,
+                        "rmse_dbm": 0.8561
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.344,
+                        "rmse_dbm": 2.8803
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4463,
+                        "rmse_dbm": 0.5644
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.1174,
+                        "rmse_dbm": 1.4341
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.9754,
+                        "rmse_dbm": 2.6107
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.7541,
+                        "rmse_dbm": 2.3754
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5828,
+                        "rmse_dbm": 0.7638
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.6099,
+                        "rmse_dbm": 2.0583
+                    }
+                }
+            },
+            "parameters": 200,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 25.0,
+            "parameter_storage_kib": 1.562,
+            "training_seconds": 0.003,
+            "training": {},
+            "latency_ms": 12.944,
+            "type": "baseline_autoregressive"
+        },
+        "Joint_VAR": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.5083,
+                    "rmse_dbm": 2.0586
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.823,
+                    "rmse_dbm": 2.4066
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.7761,
+                        "rmse_dbm": 1.108
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.9334,
+                        "rmse_dbm": 1.3289
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.1124,
+                        "rmse_dbm": 1.5607
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1996,
+                        "rmse_dbm": 1.67
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.3149,
+                        "rmse_dbm": 1.8126
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3633,
+                        "rmse_dbm": 1.8673
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.4469,
+                        "rmse_dbm": 1.9567
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.4776,
+                        "rmse_dbm": 1.9894
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.5339,
+                        "rmse_dbm": 2.051
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.5468,
+                        "rmse_dbm": 2.0661
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.5659,
+                        "rmse_dbm": 2.0986
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.5774,
+                        "rmse_dbm": 2.1215
+                    },
+                    "t+13": {
+                        "mae_dbm": 1.5946,
+                        "rmse_dbm": 2.1523
+                    },
+                    "t+14": {
+                        "mae_dbm": 1.6105,
+                        "rmse_dbm": 2.1753
+                    },
+                    "t+15": {
+                        "mae_dbm": 1.6253,
+                        "rmse_dbm": 2.1926
+                    },
+                    "t+16": {
+                        "mae_dbm": 1.6407,
+                        "rmse_dbm": 2.2096
+                    },
+                    "t+17": {
+                        "mae_dbm": 1.6571,
+                        "rmse_dbm": 2.227
+                    },
+                    "t+18": {
+                        "mae_dbm": 1.6735,
+                        "rmse_dbm": 2.242
+                    },
+                    "t+19": {
+                        "mae_dbm": 1.6924,
+                        "rmse_dbm": 2.2573
+                    },
+                    "t+20": {
+                        "mae_dbm": 1.7206,
+                        "rmse_dbm": 2.2864
+                    },
+                    "t+21": {
+                        "mae_dbm": 1.7435,
+                        "rmse_dbm": 2.3075
+                    },
+                    "t+22": {
+                        "mae_dbm": 1.7783,
+                        "rmse_dbm": 2.3426
+                    },
+                    "t+23": {
+                        "mae_dbm": 1.7918,
+                        "rmse_dbm": 2.3639
+                    },
+                    "t+24": {
+                        "mae_dbm": 1.823,
+                        "rmse_dbm": 2.4066
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.7433,
+                        "rmse_dbm": 0.9111
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.3345,
+                        "rmse_dbm": 2.9077
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.6908,
+                        "rmse_dbm": 0.8441
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.6181,
+                        "rmse_dbm": 1.9528
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 1.9602,
+                        "rmse_dbm": 2.5786
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.9276,
+                        "rmse_dbm": 2.5286
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.7359,
+                        "rmse_dbm": 0.9053
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 2.056,
+                        "rmse_dbm": 2.496
+                    }
+                }
+            },
+            "parameters": 1544,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 193.0,
+            "parameter_storage_kib": 12.062,
+            "training_seconds": 0.001,
+            "training": {},
+            "latency_ms": 3.378,
+            "type": "joint_statistical_var",
+            "config": {
+                "lags": 24,
+                "alpha": 1.0
+            }
+        },
+        "Joint_VARX": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 2.411,
+                    "rmse_dbm": 3.3646
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 2.4154,
+                    "rmse_dbm": 3.2582
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8349,
+                        "rmse_dbm": 1.1723
+                    },
+                    "t+2": {
+                        "mae_dbm": 1.0664,
+                        "rmse_dbm": 1.4869
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.3673,
+                        "rmse_dbm": 1.8743
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.5799,
+                        "rmse_dbm": 2.153
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.8716,
+                        "rmse_dbm": 2.5145
+                    },
+                    "t+6": {
+                        "mae_dbm": 2.1343,
+                        "rmse_dbm": 2.8497
+                    },
+                    "t+7": {
+                        "mae_dbm": 2.4433,
+                        "rmse_dbm": 3.2742
+                    },
+                    "t+8": {
+                        "mae_dbm": 2.6709,
+                        "rmse_dbm": 3.616
+                    },
+                    "t+9": {
+                        "mae_dbm": 2.9163,
+                        "rmse_dbm": 3.9682
+                    },
+                    "t+10": {
+                        "mae_dbm": 3.0347,
+                        "rmse_dbm": 4.1498
+                    },
+                    "t+11": {
+                        "mae_dbm": 3.1659,
+                        "rmse_dbm": 4.3104
+                    },
+                    "t+12": {
+                        "mae_dbm": 3.1722,
+                        "rmse_dbm": 4.3114
+                    },
+                    "t+13": {
+                        "mae_dbm": 3.1607,
+                        "rmse_dbm": 4.2265
+                    },
+                    "t+14": {
+                        "mae_dbm": 3.0393,
+                        "rmse_dbm": 4.0418
+                    },
+                    "t+15": {
+                        "mae_dbm": 2.949,
+                        "rmse_dbm": 3.8892
+                    },
+                    "t+16": {
+                        "mae_dbm": 2.792,
+                        "rmse_dbm": 3.7121
+                    },
+                    "t+17": {
+                        "mae_dbm": 2.703,
+                        "rmse_dbm": 3.5734
+                    },
+                    "t+18": {
+                        "mae_dbm": 2.5442,
+                        "rmse_dbm": 3.4089
+                    },
+                    "t+19": {
+                        "mae_dbm": 2.4827,
+                        "rmse_dbm": 3.3574
+                    },
+                    "t+20": {
+                        "mae_dbm": 2.3898,
+                        "rmse_dbm": 3.2745
+                    },
+                    "t+21": {
+                        "mae_dbm": 2.3871,
+                        "rmse_dbm": 3.2621
+                    },
+                    "t+22": {
+                        "mae_dbm": 2.3528,
+                        "rmse_dbm": 3.2181
+                    },
+                    "t+23": {
+                        "mae_dbm": 2.3906,
+                        "rmse_dbm": 3.2364
+                    },
+                    "t+24": {
+                        "mae_dbm": 2.4154,
+                        "rmse_dbm": 3.2582
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.8251,
+                        "rmse_dbm": 1.0269
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 4.8077,
+                        "rmse_dbm": 5.8629
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 1.124,
+                        "rmse_dbm": 1.344
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 2.3786,
+                        "rmse_dbm": 2.9059
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 3.2865,
+                        "rmse_dbm": 4.14
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 3.2751,
+                        "rmse_dbm": 4.1611
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 1.4746,
+                        "rmse_dbm": 1.8724
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 2.1165,
+                        "rmse_dbm": 2.6312
+                    }
+                }
+            },
+            "parameters": 14016,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 1752.0,
+            "parameter_storage_kib": 109.5,
+            "training_seconds": 0.001,
+            "training": {},
+            "latency_ms": 0.02,
+            "type": "joint_statistical_varx_historical_weather",
+            "config": {
+                "lags": 6,
+                "alpha": 1.0
+            }
+        },
+        "ARIMA": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.4971,
+                    "rmse_dbm": 2.1419
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.7147,
+                    "rmse_dbm": 2.3841
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.6975,
+                        "rmse_dbm": 1.0226
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8167,
+                        "rmse_dbm": 1.2369
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.0304,
+                        "rmse_dbm": 1.5238
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1137,
+                        "rmse_dbm": 1.646
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.2617,
+                        "rmse_dbm": 1.8299
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3268,
+                        "rmse_dbm": 1.9088
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.4337,
+                        "rmse_dbm": 2.0368
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.4812,
+                        "rmse_dbm": 2.0994
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.5666,
+                        "rmse_dbm": 2.2006
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.5988,
+                        "rmse_dbm": 2.2378
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.6459,
+                        "rmse_dbm": 2.2945
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.6731,
+                        "rmse_dbm": 2.3174
+                    },
+                    "t+13": {
+                        "mae_dbm": 1.6943,
+                        "rmse_dbm": 2.3547
+                    },
+                    "t+14": {
+                        "mae_dbm": 1.6977,
+                        "rmse_dbm": 2.3597
+                    },
+                    "t+15": {
+                        "mae_dbm": 1.6997,
+                        "rmse_dbm": 2.3601
+                    },
+                    "t+16": {
+                        "mae_dbm": 1.6872,
+                        "rmse_dbm": 2.354
+                    },
+                    "t+17": {
+                        "mae_dbm": 1.6882,
+                        "rmse_dbm": 2.3544
+                    },
+                    "t+18": {
+                        "mae_dbm": 1.6804,
+                        "rmse_dbm": 2.3418
+                    },
+                    "t+19": {
+                        "mae_dbm": 1.671,
+                        "rmse_dbm": 2.3351
+                    },
+                    "t+20": {
+                        "mae_dbm": 1.6795,
+                        "rmse_dbm": 2.3375
+                    },
+                    "t+21": {
+                        "mae_dbm": 1.6803,
+                        "rmse_dbm": 2.3433
+                    },
+                    "t+22": {
+                        "mae_dbm": 1.6917,
+                        "rmse_dbm": 2.354
+                    },
+                    "t+23": {
+                        "mae_dbm": 1.6986,
+                        "rmse_dbm": 2.3624
+                    },
+                    "t+24": {
+                        "mae_dbm": 1.7147,
+                        "rmse_dbm": 2.3841
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.8154,
+                        "rmse_dbm": 0.9715
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.6974,
+                        "rmse_dbm": 3.2392
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.5719,
+                        "rmse_dbm": 0.7189
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.2823,
+                        "rmse_dbm": 1.5988
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 2.2258,
+                        "rmse_dbm": 2.8907
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 1.9106,
+                        "rmse_dbm": 2.7576
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.5853,
+                        "rmse_dbm": 0.7878
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.8877,
+                        "rmse_dbm": 2.3689
+                    }
+                }
+            },
+            "parameters": 48,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 6.0,
+            "parameter_storage_kib": 0.375,
+            "training_seconds": 3.582,
+            "training": {},
+            "latency_ms": 2.592,
+            "type": "baseline_arima",
+            "order": [
+                4,
+                0,
+                1
+            ]
+        },
+        "SingleNode_LSTM": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.4709,
+                    "rmse_dbm": 2.1329
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.5535,
+                    "rmse_dbm": 2.2941
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.809,
+                        "rmse_dbm": 1.1424
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8327,
+                        "rmse_dbm": 1.2423
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.0956,
+                        "rmse_dbm": 1.582
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1559,
+                        "rmse_dbm": 1.6651
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.3373,
+                        "rmse_dbm": 1.8898
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3708,
+                        "rmse_dbm": 1.9565
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.4745,
+                        "rmse_dbm": 2.0893
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.5047,
+                        "rmse_dbm": 2.1393
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.5845,
+                        "rmse_dbm": 2.2243
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.5882,
+                        "rmse_dbm": 2.2437
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.6094,
+                        "rmse_dbm": 2.2871
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.6136,
+                        "rmse_dbm": 2.2796
+                    },
+                    "t+13": {
+                        "mae_dbm": 1.6521,
+                        "rmse_dbm": 2.3313
+                    },
+                    "t+14": {
+                        "mae_dbm": 1.6386,
+                        "rmse_dbm": 2.3062
+                    },
+                    "t+15": {
+                        "mae_dbm": 1.6566,
+                        "rmse_dbm": 2.3542
+                    },
+                    "t+16": {
+                        "mae_dbm": 1.6464,
+                        "rmse_dbm": 2.3316
+                    },
+                    "t+17": {
+                        "mae_dbm": 1.6511,
+                        "rmse_dbm": 2.3511
+                    },
+                    "t+18": {
+                        "mae_dbm": 1.6217,
+                        "rmse_dbm": 2.3069
+                    },
+                    "t+19": {
+                        "mae_dbm": 1.6172,
+                        "rmse_dbm": 2.317
+                    },
+                    "t+20": {
+                        "mae_dbm": 1.5887,
+                        "rmse_dbm": 2.2935
+                    },
+                    "t+21": {
+                        "mae_dbm": 1.5732,
+                        "rmse_dbm": 2.2967
+                    },
+                    "t+22": {
+                        "mae_dbm": 1.5688,
+                        "rmse_dbm": 2.2958
+                    },
+                    "t+23": {
+                        "mae_dbm": 1.557,
+                        "rmse_dbm": 2.3009
+                    },
+                    "t+24": {
+                        "mae_dbm": 1.5535,
+                        "rmse_dbm": 2.2941
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.7877,
+                        "rmse_dbm": 0.9684
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.5688,
+                        "rmse_dbm": 3.3665
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4692,
+                        "rmse_dbm": 0.5858
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.0483,
+                        "rmse_dbm": 1.3397
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 2.0137,
+                        "rmse_dbm": 2.712
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 2.2377,
+                        "rmse_dbm": 2.8692
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.7906,
+                        "rmse_dbm": 1.0147
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.851,
+                        "rmse_dbm": 2.3173
+                    }
+                }
+            },
+            "parameters": 457408,
+            "model_instances": 8,
+            "joint_multi_node_model": false,
+            "parameters_per_node": 57176.0,
+            "parameter_storage_kib": 1786.75,
+            "training_seconds": 66.677,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch_per_node": [
+                    15,
+                    21,
+                    25,
+                    11,
+                    3,
+                    5,
+                    4,
+                    26
+                ],
+                "optimizer_updates": 33792,
+                "batch_size": 16
+            },
+            "latency_ms": 4.282,
+            "type": "single_node_ensemble"
+        },
+        "MultiNode_Seq2Seq": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.5758,
+                    "rmse_dbm": 2.2626
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.7192,
+                    "rmse_dbm": 2.5043
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8954,
+                        "rmse_dbm": 1.227
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.8451,
+                        "rmse_dbm": 1.2596
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.186,
+                        "rmse_dbm": 1.6641
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1393,
+                        "rmse_dbm": 1.6525
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.3598,
+                        "rmse_dbm": 1.9051
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3358,
+                        "rmse_dbm": 1.9016
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.5225,
+                        "rmse_dbm": 2.13
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.5214,
+                        "rmse_dbm": 2.1293
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.6583,
+                        "rmse_dbm": 2.2985
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.6373,
+                        "rmse_dbm": 2.2917
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.7347,
+                        "rmse_dbm": 2.4002
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.7382,
+                        "rmse_dbm": 2.3997
+                    },
+                    "t+13": {
+                        "mae_dbm": 1.7955,
+                        "rmse_dbm": 2.4738
+                    },
+                    "t+14": {
+                        "mae_dbm": 1.8106,
+                        "rmse_dbm": 2.5079
+                    },
+                    "t+15": {
+                        "mae_dbm": 1.8129,
+                        "rmse_dbm": 2.52
+                    },
+                    "t+16": {
+                        "mae_dbm": 1.8061,
+                        "rmse_dbm": 2.5018
+                    },
+                    "t+17": {
+                        "mae_dbm": 1.8137,
+                        "rmse_dbm": 2.5478
+                    },
+                    "t+18": {
+                        "mae_dbm": 1.7899,
+                        "rmse_dbm": 2.5173
+                    },
+                    "t+19": {
+                        "mae_dbm": 1.7597,
+                        "rmse_dbm": 2.5102
+                    },
+                    "t+20": {
+                        "mae_dbm": 1.7808,
+                        "rmse_dbm": 2.5482
+                    },
+                    "t+21": {
+                        "mae_dbm": 1.7218,
+                        "rmse_dbm": 2.5209
+                    },
+                    "t+22": {
+                        "mae_dbm": 1.7399,
+                        "rmse_dbm": 2.5293
+                    },
+                    "t+23": {
+                        "mae_dbm": 1.6962,
+                        "rmse_dbm": 2.4964
+                    },
+                    "t+24": {
+                        "mae_dbm": 1.7192,
+                        "rmse_dbm": 2.5043
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.7422,
+                        "rmse_dbm": 0.9505
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.6327,
+                        "rmse_dbm": 3.4342
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.7067,
+                        "rmse_dbm": 0.8895
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.4096,
+                        "rmse_dbm": 1.8052
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 2.2396,
+                        "rmse_dbm": 2.9994
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 2.2508,
+                        "rmse_dbm": 2.9922
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.8368,
+                        "rmse_dbm": 1.137
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.7883,
+                        "rmse_dbm": 2.2278
+                    }
+                }
+            },
+            "parameters": 295488,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 36936.0,
+            "parameter_storage_kib": 1154.25,
+            "training_seconds": 18.457,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 10,
+                "optimizer_updates": 4224,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.022102514281868935
+            },
+            "latency_ms": 1.287,
+            "type": "integrated_recurrent"
+        },
+        "NLinear": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.4939,
+                    "rmse_dbm": 2.1598
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.7737,
+                    "rmse_dbm": 2.5873
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8783,
+                        "rmse_dbm": 1.2367
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.9412,
+                        "rmse_dbm": 1.3467
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.1233,
+                        "rmse_dbm": 1.5938
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1505,
+                        "rmse_dbm": 1.6466
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.274,
+                        "rmse_dbm": 1.8008
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3382,
+                        "rmse_dbm": 1.911
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.3274,
+                        "rmse_dbm": 1.8751
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.3832,
+                        "rmse_dbm": 1.9551
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.4838,
+                        "rmse_dbm": 2.0968
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.4619,
+                        "rmse_dbm": 2.038
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.4951,
+                        "rmse_dbm": 2.0922
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.5501,
+                        "rmse_dbm": 2.2033
+                    },
+                    "t+13": {
+                        "mae_dbm": 1.6356,
+                        "rmse_dbm": 2.2472
+                    },
+                    "t+14": {
+                        "mae_dbm": 1.5657,
+                        "rmse_dbm": 2.2083
+                    },
+                    "t+15": {
+                        "mae_dbm": 1.6586,
+                        "rmse_dbm": 2.3382
+                    },
+                    "t+16": {
+                        "mae_dbm": 1.6811,
+                        "rmse_dbm": 2.3775
+                    },
+                    "t+17": {
+                        "mae_dbm": 1.7068,
+                        "rmse_dbm": 2.4095
+                    },
+                    "t+18": {
+                        "mae_dbm": 1.8009,
+                        "rmse_dbm": 2.5753
+                    },
+                    "t+19": {
+                        "mae_dbm": 1.6871,
+                        "rmse_dbm": 2.4418
+                    },
+                    "t+20": {
+                        "mae_dbm": 1.7478,
+                        "rmse_dbm": 2.5027
+                    },
+                    "t+21": {
+                        "mae_dbm": 1.7566,
+                        "rmse_dbm": 2.5352
+                    },
+                    "t+22": {
+                        "mae_dbm": 1.7001,
+                        "rmse_dbm": 2.481
+                    },
+                    "t+23": {
+                        "mae_dbm": 1.7327,
+                        "rmse_dbm": 2.5218
+                    },
+                    "t+24": {
+                        "mae_dbm": 1.7737,
+                        "rmse_dbm": 2.5873
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.9742,
+                        "rmse_dbm": 1.2062
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.2144,
+                        "rmse_dbm": 2.8997
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.4918,
+                        "rmse_dbm": 0.6153
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.1015,
+                        "rmse_dbm": 1.4364
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 2.4839,
+                        "rmse_dbm": 3.3412
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 2.1858,
+                        "rmse_dbm": 2.8117
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.7565,
+                        "rmse_dbm": 0.9792
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.7432,
+                        "rmse_dbm": 2.2327
+                    }
+                }
+            },
+            "parameters": 55488,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 6936.0,
+            "parameter_storage_kib": 216.75,
+            "training_seconds": 1.498,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 34,
+                "optimizer_updates": 4224,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.02205677330493927
+            },
+            "latency_ms": 0.053,
+            "type": "integrated_linear_decomposition"
+        },
+        "PhysicalAdaptive_STGNN": {
+            "metrics": {
+                "global": {
+                    "mae_dbm": 1.4998,
+                    "rmse_dbm": 2.1877
+                },
+                "terminal_horizon": {
+                    "mae_dbm": 1.5275,
+                    "rmse_dbm": 2.1845
+                },
+                "per_lead_time": {
+                    "t+1": {
+                        "mae_dbm": 0.8995,
+                        "rmse_dbm": 1.2192
+                    },
+                    "t+2": {
+                        "mae_dbm": 0.83,
+                        "rmse_dbm": 1.2424
+                    },
+                    "t+3": {
+                        "mae_dbm": 1.1598,
+                        "rmse_dbm": 1.6208
+                    },
+                    "t+4": {
+                        "mae_dbm": 1.1114,
+                        "rmse_dbm": 1.6651
+                    },
+                    "t+5": {
+                        "mae_dbm": 1.392,
+                        "rmse_dbm": 1.9586
+                    },
+                    "t+6": {
+                        "mae_dbm": 1.3276,
+                        "rmse_dbm": 1.9283
+                    },
+                    "t+7": {
+                        "mae_dbm": 1.4712,
+                        "rmse_dbm": 2.0814
+                    },
+                    "t+8": {
+                        "mae_dbm": 1.4603,
+                        "rmse_dbm": 2.1064
+                    },
+                    "t+9": {
+                        "mae_dbm": 1.5164,
+                        "rmse_dbm": 2.1441
+                    },
+                    "t+10": {
+                        "mae_dbm": 1.4967,
+                        "rmse_dbm": 2.1573
+                    },
+                    "t+11": {
+                        "mae_dbm": 1.7299,
+                        "rmse_dbm": 2.4879
+                    },
+                    "t+12": {
+                        "mae_dbm": 1.5563,
+                        "rmse_dbm": 2.2291
+                    },
+                    "t+13": {
+                        "mae_dbm": 1.596,
+                        "rmse_dbm": 2.2674
+                    },
+                    "t+14": {
+                        "mae_dbm": 1.6375,
+                        "rmse_dbm": 2.3462
+                    },
+                    "t+15": {
+                        "mae_dbm": 1.7965,
+                        "rmse_dbm": 2.5854
+                    },
+                    "t+16": {
+                        "mae_dbm": 1.7547,
+                        "rmse_dbm": 2.5173
+                    },
+                    "t+17": {
+                        "mae_dbm": 1.6696,
+                        "rmse_dbm": 2.3589
+                    },
+                    "t+18": {
+                        "mae_dbm": 1.7832,
+                        "rmse_dbm": 2.5822
+                    },
+                    "t+19": {
+                        "mae_dbm": 1.6517,
+                        "rmse_dbm": 2.3593
+                    },
+                    "t+20": {
+                        "mae_dbm": 1.5654,
+                        "rmse_dbm": 2.2235
+                    },
+                    "t+21": {
+                        "mae_dbm": 1.6117,
+                        "rmse_dbm": 2.3246
+                    },
+                    "t+22": {
+                        "mae_dbm": 1.7666,
+                        "rmse_dbm": 2.616
+                    },
+                    "t+23": {
+                        "mae_dbm": 1.6837,
+                        "rmse_dbm": 2.5035
+                    },
+                    "t+24": {
+                        "mae_dbm": 1.5275,
+                        "rmse_dbm": 2.1845
+                    }
+                },
+                "per_node": {
+                    "RSSI_01": {
+                        "mae_dbm": 0.7538,
+                        "rmse_dbm": 0.9764
+                    },
+                    "RSSI_02": {
+                        "mae_dbm": 2.4746,
+                        "rmse_dbm": 3.2368
+                    },
+                    "RSSI_03": {
+                        "mae_dbm": 0.6324,
+                        "rmse_dbm": 0.8085
+                    },
+                    "RSSI_04": {
+                        "mae_dbm": 1.2355,
+                        "rmse_dbm": 1.6096
+                    },
+                    "RSSI_05": {
+                        "mae_dbm": 2.1223,
+                        "rmse_dbm": 2.916
+                    },
+                    "RSSI_06": {
+                        "mae_dbm": 2.2341,
+                        "rmse_dbm": 2.9828
+                    },
+                    "RSSI_07": {
+                        "mae_dbm": 0.7856,
+                        "rmse_dbm": 1.0583
+                    },
+                    "RSSI_08": {
+                        "mae_dbm": 1.7599,
+                        "rmse_dbm": 2.2566
+                    }
+                }
+            },
+            "parameters": 17769,
+            "model_instances": 1,
+            "joint_multi_node_model": true,
+            "parameters_per_node": 2221.12,
+            "parameter_storage_kib": 69.41,
+            "training_seconds": 13.66,
+            "training": {
+                "epochs_requested": 64,
+                "best_epoch": 22,
+                "optimizer_updates": 4224,
+                "batch_size": 16,
+                "best_val_mse_scaled": 0.023021727800369263
+            },
+            "latency_ms": 0.96,
+            "type": "spatio_temporal_graph"
+        }
+    }
+}

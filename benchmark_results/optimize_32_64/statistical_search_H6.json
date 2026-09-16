@@ -1,0 +1,559 @@
+{
+  "protocol": {
+    "task": "rolling_origin_forecast",
+    "horizon": 6,
+    "history": 24,
+    "selection": "validation MAE",
+    "test_used": false,
+    "latency_definition": "median wall-clock milliseconds for 32 origins and all nodes on CPU; 5 warmups and 30 runs; excludes training and preprocessing",
+    "ar_lags": [
+      6,
+      8,
+      12,
+      16,
+      24
+    ],
+    "arima_orders": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        2,
+        0,
+        0
+      ],
+      [
+        2,
+        0,
+        1
+      ],
+      [
+        3,
+        0,
+        1
+      ],
+      [
+        4,
+        0,
+        1
+      ]
+    ],
+    "joint_lags": [
+      6,
+      12,
+      24
+    ],
+    "ridge_alphas": [
+      0.0,
+      0.001,
+      0.01,
+      0.1,
+      1.0
+    ]
+  },
+  "best": {
+    "model": "AR",
+    "config": {
+      "lags": 24
+    },
+    "val_mae_dbm": 1.1609,
+    "val_rmse_dbm": 1.7892,
+    "parameters": 200,
+    "latency_ms_batch32_median": 4.1921,
+    "fit_seconds": 0.194
+  },
+  "trials": [
+    {
+      "model": "AR",
+      "config": {
+        "lags": 24
+      },
+      "val_mae_dbm": 1.1609,
+      "val_rmse_dbm": 1.7892,
+      "parameters": 200,
+      "latency_ms_batch32_median": 4.1921,
+      "fit_seconds": 0.194
+    },
+    {
+      "model": "AR",
+      "config": {
+        "lags": 16
+      },
+      "val_mae_dbm": 1.1762,
+      "val_rmse_dbm": 1.8091,
+      "parameters": 136,
+      "latency_ms_batch32_median": 3.157,
+      "fit_seconds": 0.148
+    },
+    {
+      "model": "AR",
+      "config": {
+        "lags": 12
+      },
+      "val_mae_dbm": 1.1867,
+      "val_rmse_dbm": 1.832,
+      "parameters": 104,
+      "latency_ms_batch32_median": 2.6846,
+      "fit_seconds": 0.126
+    },
+    {
+      "model": "AR",
+      "config": {
+        "lags": 8
+      },
+      "val_mae_dbm": 1.1962,
+      "val_rmse_dbm": 1.8557,
+      "parameters": 72,
+      "latency_ms_batch32_median": 2.2474,
+      "fit_seconds": 0.104
+    },
+    {
+      "model": "AR",
+      "config": {
+        "lags": 6
+      },
+      "val_mae_dbm": 1.1997,
+      "val_rmse_dbm": 1.8624,
+      "parameters": 56,
+      "latency_ms_batch32_median": 1.9231,
+      "fit_seconds": 0.09
+    },
+    {
+      "model": "ARIMA",
+      "config": {
+        "order": [
+          4,
+          0,
+          1
+        ]
+      },
+      "val_mae_dbm": 1.2003,
+      "val_rmse_dbm": 1.8612,
+      "parameters": 48,
+      "latency_ms_batch32_median": 1.6716,
+      "fit_seconds": 2.459
+    },
+    {
+      "model": "ARIMA",
+      "config": {
+        "order": [
+          2,
+          0,
+          1
+        ]
+      },
+      "val_mae_dbm": 1.2102,
+      "val_rmse_dbm": 1.8627,
+      "parameters": 32,
+      "latency_ms_batch32_median": 1.2771,
+      "fit_seconds": 1.469
+    },
+    {
+      "model": "ARIMA",
+      "config": {
+        "order": [
+          3,
+          0,
+          1
+        ]
+      },
+      "val_mae_dbm": 1.2107,
+      "val_rmse_dbm": 1.8653,
+      "parameters": 40,
+      "latency_ms_batch32_median": 1.4672,
+      "fit_seconds": 2.188
+    },
+    {
+      "model": "ARIMA",
+      "config": {
+        "order": [
+          2,
+          0,
+          0
+        ]
+      },
+      "val_mae_dbm": 1.2213,
+      "val_rmse_dbm": 1.8855,
+      "parameters": 24,
+      "latency_ms_batch32_median": 1.035,
+      "fit_seconds": 0.475
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 6,
+        "alpha": 0.0
+      },
+      "val_mae_dbm": 1.2219,
+      "val_rmse_dbm": 1.8508,
+      "parameters": 392,
+      "latency_ms_batch32_median": 0.6397,
+      "fit_seconds": 0.035
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 6,
+        "alpha": 0.001
+      },
+      "val_mae_dbm": 1.2219,
+      "val_rmse_dbm": 1.8508,
+      "parameters": 392,
+      "latency_ms_batch32_median": 0.6374,
+      "fit_seconds": 0.034
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 6,
+        "alpha": 0.01
+      },
+      "val_mae_dbm": 1.2219,
+      "val_rmse_dbm": 1.8507,
+      "parameters": 392,
+      "latency_ms_batch32_median": 0.6353,
+      "fit_seconds": 0.033
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 6,
+        "alpha": 0.1
+      },
+      "val_mae_dbm": 1.2224,
+      "val_rmse_dbm": 1.8505,
+      "parameters": 392,
+      "latency_ms_batch32_median": 0.6337,
+      "fit_seconds": 0.033
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 24,
+        "alpha": 1.0
+      },
+      "val_mae_dbm": 1.2282,
+      "val_rmse_dbm": 1.8367,
+      "parameters": 1544,
+      "latency_ms_batch32_median": 1.4623,
+      "fit_seconds": 0.072
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 24,
+        "alpha": 0.1
+      },
+      "val_mae_dbm": 1.2344,
+      "val_rmse_dbm": 1.8458,
+      "parameters": 1544,
+      "latency_ms_batch32_median": 1.4634,
+      "fit_seconds": 0.072
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 12,
+        "alpha": 0.0
+      },
+      "val_mae_dbm": 1.2351,
+      "val_rmse_dbm": 1.8462,
+      "parameters": 776,
+      "latency_ms_batch32_median": 1.1123,
+      "fit_seconds": 0.058
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 12,
+        "alpha": 0.001
+      },
+      "val_mae_dbm": 1.2351,
+      "val_rmse_dbm": 1.8462,
+      "parameters": 776,
+      "latency_ms_batch32_median": 0.749,
+      "fit_seconds": 0.045
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 12,
+        "alpha": 0.01
+      },
+      "val_mae_dbm": 1.2351,
+      "val_rmse_dbm": 1.8462,
+      "parameters": 776,
+      "latency_ms_batch32_median": 0.7484,
+      "fit_seconds": 0.038
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 12,
+        "alpha": 0.1
+      },
+      "val_mae_dbm": 1.2355,
+      "val_rmse_dbm": 1.8459,
+      "parameters": 776,
+      "latency_ms_batch32_median": 0.748,
+      "fit_seconds": 0.038
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 6,
+        "alpha": 1.0
+      },
+      "val_mae_dbm": 1.2358,
+      "val_rmse_dbm": 1.861,
+      "parameters": 392,
+      "latency_ms_batch32_median": 0.6333,
+      "fit_seconds": 0.033
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 24,
+        "alpha": 0.01
+      },
+      "val_mae_dbm": 1.2401,
+      "val_rmse_dbm": 1.8528,
+      "parameters": 1544,
+      "latency_ms_batch32_median": 1.4625,
+      "fit_seconds": 0.072
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 24,
+        "alpha": 0.001
+      },
+      "val_mae_dbm": 1.2408,
+      "val_rmse_dbm": 1.8538,
+      "parameters": 1544,
+      "latency_ms_batch32_median": 1.4622,
+      "fit_seconds": 0.072
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 24,
+        "alpha": 0.0
+      },
+      "val_mae_dbm": 1.2409,
+      "val_rmse_dbm": 1.8539,
+      "parameters": 1544,
+      "latency_ms_batch32_median": 1.4669,
+      "fit_seconds": 0.079
+    },
+    {
+      "model": "Joint_VAR",
+      "config": {
+        "lags": 12,
+        "alpha": 1.0
+      },
+      "val_mae_dbm": 1.2494,
+      "val_rmse_dbm": 1.8581,
+      "parameters": 776,
+      "latency_ms_batch32_median": 0.7467,
+      "fit_seconds": 0.039
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 6,
+        "alpha": 0.01
+      },
+      "val_mae_dbm": 1.3022,
+      "val_rmse_dbm": 1.9126,
+      "parameters": 3504,
+      "latency_ms_batch32_median": 0.0114,
+      "fit_seconds": 0.007
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 6,
+        "alpha": 0.001
+      },
+      "val_mae_dbm": 1.3023,
+      "val_rmse_dbm": 1.9128,
+      "parameters": 3504,
+      "latency_ms_batch32_median": 0.0116,
+      "fit_seconds": 0.007
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 6,
+        "alpha": 0.0
+      },
+      "val_mae_dbm": 1.3025,
+      "val_rmse_dbm": 1.9129,
+      "parameters": 3504,
+      "latency_ms_batch32_median": 0.0114,
+      "fit_seconds": 0.01
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 6,
+        "alpha": 0.1
+      },
+      "val_mae_dbm": 1.3027,
+      "val_rmse_dbm": 1.9126,
+      "parameters": 3504,
+      "latency_ms_batch32_median": 0.0116,
+      "fit_seconds": 0.007
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 6,
+        "alpha": 1.0
+      },
+      "val_mae_dbm": 1.3106,
+      "val_rmse_dbm": 1.9169,
+      "parameters": 3504,
+      "latency_ms_batch32_median": 0.0114,
+      "fit_seconds": 0.007
+    },
+    {
+      "model": "ARIMA",
+      "config": {
+        "order": [
+          1,
+          0,
+          0
+        ]
+      },
+      "val_mae_dbm": 1.3188,
+      "val_rmse_dbm": 1.9236,
+      "parameters": 16,
+      "latency_ms_batch32_median": 0.8282,
+      "fit_seconds": 0.3
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 12,
+        "alpha": 0.01
+      },
+      "val_mae_dbm": 1.3358,
+      "val_rmse_dbm": 1.9316,
+      "parameters": 6960,
+      "latency_ms_batch32_median": 0.0159,
+      "fit_seconds": 0.007
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 12,
+        "alpha": 0.001
+      },
+      "val_mae_dbm": 1.3365,
+      "val_rmse_dbm": 1.9323,
+      "parameters": 6960,
+      "latency_ms_batch32_median": 0.0161,
+      "fit_seconds": 0.008
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 12,
+        "alpha": 0.0
+      },
+      "val_mae_dbm": 1.3368,
+      "val_rmse_dbm": 1.9328,
+      "parameters": 6960,
+      "latency_ms_batch32_median": 0.0161,
+      "fit_seconds": 0.026
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 12,
+        "alpha": 0.1
+      },
+      "val_mae_dbm": 1.3378,
+      "val_rmse_dbm": 1.9337,
+      "parameters": 6960,
+      "latency_ms_batch32_median": 0.0161,
+      "fit_seconds": 0.009
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 12,
+        "alpha": 1.0
+      },
+      "val_mae_dbm": 1.3517,
+      "val_rmse_dbm": 1.9476,
+      "parameters": 6960,
+      "latency_ms_batch32_median": 0.016,
+      "fit_seconds": 0.008
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 24,
+        "alpha": 1.0
+      },
+      "val_mae_dbm": 1.4229,
+      "val_rmse_dbm": 2.0328,
+      "parameters": 13872,
+      "latency_ms_batch32_median": 0.0251,
+      "fit_seconds": 0.01
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 24,
+        "alpha": 0.1
+      },
+      "val_mae_dbm": 1.4718,
+      "val_rmse_dbm": 2.1165,
+      "parameters": 13872,
+      "latency_ms_batch32_median": 0.0252,
+      "fit_seconds": 0.014
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 24,
+        "alpha": 0.01
+      },
+      "val_mae_dbm": 1.4947,
+      "val_rmse_dbm": 2.1502,
+      "parameters": 13872,
+      "latency_ms_batch32_median": 0.0251,
+      "fit_seconds": 0.015
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 24,
+        "alpha": 0.001
+      },
+      "val_mae_dbm": 1.5022,
+      "val_rmse_dbm": 2.1613,
+      "parameters": 13872,
+      "latency_ms_batch32_median": 0.025,
+      "fit_seconds": 0.01
+    },
+    {
+      "model": "Joint_VARX",
+      "config": {
+        "lags": 24,
+        "alpha": 0.0
+      },
+      "val_mae_dbm": 1.5041,
+      "val_rmse_dbm": 2.1643,
+      "parameters": 13872,
+      "latency_ms_batch32_median": 0.0253,
+      "fit_seconds": 0.038
+    }
+  ]
+}
