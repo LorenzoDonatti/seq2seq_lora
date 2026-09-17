@@ -26,6 +26,7 @@ def plot_predictions_comparison(
     fig, axes = plt.subplots(rows, 2, figsize=(16, 3.5 * rows), sharex=True)
     axes = axes.flatten()
 
+    n_samples = min(n_samples, len(y_true))
     time_idx = np.arange(n_samples)
 
     for i in range(n_nodes):
@@ -45,8 +46,8 @@ def plot_predictions_comparison(
     for j in range(n_nodes, len(axes)):
         fig.delaxes(axes[j])
 
-    axes[-1].set_xlabel("Test Time Step (Hours)", fontsize=11)
-    axes[-2].set_xlabel("Test Time Step (Hours)", fontsize=11)
+    axes[-1].set_xlabel("Forecast origin index (gaps omitted)", fontsize=11)
+    axes[-2].set_xlabel("Forecast origin index (gaps omitted)", fontsize=11)
     plt.tight_layout()
     plt.savefig(save_path, dpi=200)
     plt.close()
@@ -121,7 +122,7 @@ def plot_node_metrics(results: Dict[str, Any], target_names: List[str],
     rmse = np.array([[results[m]["metrics"]["per_node"][n]["rmse_dbm"]
                       for n in target_names] for m in models])
     fig, axes = plt.subplots(1, 2, figsize=(17, max(5, 0.65 * len(models))))
-    for ax, values, title in zip(axes, (mae, rmse), ("MAE by node (dBm)", "RMSE by node (dBm)")):
+    for ax, values, title in zip(axes, (mae, rmse), ("MAE by node (dB)", "RMSE by node (dB)")):
         im = ax.imshow(values, cmap="YlOrRd", aspect="auto")
         ax.set_xticks(range(len(target_names)), target_names, rotation=45, ha="right")
         ax.set_yticks(range(len(models)), models)
@@ -159,14 +160,14 @@ def plot_multi_horizon_degradation(
 
     ax1.set_title("Terminal-step MAE across Forecasting Horizons", fontsize=12, fontweight="bold")
     ax1.set_xlabel("Prediction Horizon H (Hours)", fontsize=11)
-    ax1.set_ylabel("MAE (dBm)", fontsize=11)
+    ax1.set_ylabel("MAE (dB)", fontsize=11)
     ax1.set_xticks(horizons)
     ax1.grid(True, linestyle=":", alpha=0.7)
     ax1.legend(fontsize=9)
 
     ax2.set_title("Terminal-step RMSE across Forecasting Horizons", fontsize=12, fontweight="bold")
     ax2.set_xlabel("Prediction Horizon H (Hours)", fontsize=11)
-    ax2.set_ylabel("RMSE (dBm)", fontsize=11)
+    ax2.set_ylabel("RMSE (dB)", fontsize=11)
     ax2.set_xticks(horizons)
     ax2.grid(True, linestyle=":", alpha=0.7)
     ax2.legend(fontsize=9)
@@ -187,7 +188,7 @@ def plot_learned_adjacency_heatmap(
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     plt.figure(figsize=(7, 6))
     im = plt.imshow(adj_matrix, cmap="Blues", interpolation="nearest")
-    plt.colorbar(im, label="Spatial Correlation Weight")
+    plt.colorbar(im, label="Adjacency weight (not physical correlation)")
     plt.title("STGNN Physical-Adaptive Graph Topology", fontsize=12, fontweight="bold")
     plt.xticks(range(len(node_names)), node_names, rotation=45)
     plt.yticks(range(len(node_names)), node_names)

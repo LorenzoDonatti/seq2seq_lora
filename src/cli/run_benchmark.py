@@ -6,6 +6,7 @@ import argparse
 from typing import Any, Dict
 
 from src.config_store import load_optimized_configs, save_optimized_configs
+from src.model_registry import STATISTICAL_MODELS
 from src.evaluation import run_full_benchmark, run_multi_horizon_benchmark
 from src.hyperparameter_search import search_integrated_models, save_search
 from src.statistical_search import search_statistical_models, save_statistical_search
@@ -17,7 +18,7 @@ def print_single_table(results: dict, horizon: int) -> None:
     print(f" BENCHMARK SUMMARY (Horizon H = {horizon} hour(s))")
     print(f"{'=' * 75}")
     header = (
-        f"{'Model':<24} | {'MAE (dBm)':<10} | {'RMSE (dBm)':<10} | "
+        f"{'Model':<24} | {'MAE (dB)':<10} | {'RMSE (dB)':<10} | "
         f"{'Params':<9} | {'Latency':<8}"
     )
     print(header)
@@ -38,7 +39,7 @@ def print_single_table(results: dict, horizon: int) -> None:
     print(f"{'=' * 75}\n")
 
     nodes = list(next(iter(results.values()))["metrics"]["per_node"])
-    print("MAE POR NÓ (dBm; menor é melhor)")
+    print("MAE POR NÓ (dB; menor é melhor)")
     node_header = f"{'Model':<24}" + "".join(f" | {node:<7}" for node in nodes) + " | média"
     print(node_header)
     print("-" * len(node_header))
@@ -67,7 +68,7 @@ def print_multi_horizon_table(multi_results: Dict[int, Dict[str, Any]]) -> None:
     horizons = sorted(multi_results)
     models = list(multi_results[horizons[0]])
     print(f"\n{'=' * 85}")
-    print(" CONSOLIDATED MULTI-HORIZON BENCHMARK (MAE in dBm)")
+    print(" CONSOLIDATED MULTI-HORIZON BENCHMARK (MAE in dB)")
     print(f"{'=' * 85}")
     header = (
         f"{'Model':<24}" + "".join(f" | H={h:<5}" for h in horizons)
@@ -92,22 +93,9 @@ def print_multi_horizon_table(multi_results: Dict[int, Dict[str, Any]]) -> None:
 def _selected_configs(statistical: Dict[str, Any], neural: Dict[str, Any]) -> Dict[str, Any]:
     """Extract validation-selected configurations from in-memory search reports."""
     selected = {
-        "AR": min(
-            (row for row in statistical["trials"] if row["model"] == "AR"),
-            key=lambda row: row["val_mae_dbm"],
-        )["config"],
-        "ARIMA": min(
-            (row for row in statistical["trials"] if row["model"] == "ARIMA"),
-            key=lambda row: row["val_mae_dbm"],
-        )["config"],
-        "Joint_VAR": min(
-            (row for row in statistical["trials"] if row["model"] == "Joint_VAR"),
-            key=lambda row: row["val_mae_dbm"],
-        )["config"],
-        "Joint_VARX": min(
-            (row for row in statistical["trials"] if row["model"] == "Joint_VARX"),
-            key=lambda row: row["val_mae_dbm"],
-        )["config"],
+        name: min((row for row in statistical["trials"] if row["model"] == name and row.get("status") == "ok"),
+                  key=lambda row: row["val_mae_dbm"])["config"]
+        for name in STATISTICAL_MODELS
     }
     selected.update({name: value["best"]["config"] for name, value in neural["models"].items()})
     return selected
@@ -116,25 +104,32 @@ def _selected_configs(statistical: Dict[str, Any], neural: Dict[str, Any]) -> Di
 def _optimize_horizon(args: argparse.Namespace, horizon: int) -> Dict[str, Any]:
     """Optimize and persist every model family for one forecast horizon."""
     print(f"\n{'=' * 72}\nOtimizando horizonte H={horizon}\n{'=' * 72}\n", flush=True)
-    statistical = search_statistical_models(args.data_file, args.history, horizon)
-    neural = search_integrated_models(
-        args.data_file, horizon, args.history, args.trials,
-        args.search_epochs, args.seed,
-    )
+    statistical = search_statistical_models(args.data_file, args.history, horizon,
+        checkpoint_path=f"{args.output_dir}/statistical_search_H{horizon}.json")
     save_statistical_search(
         statistical, f"{args.output_dir}/statistical_search_H{horizon}.json"
     )
+    neural = search_integrated_models(
+        args.data_file, horizon, args.history, args.trials,
+        args.search_epochs, args.seed, device=args.device, patience=args.patience,
+        checkpoint_path=f"{args.output_dir}/neural_search_H{horizon}.json",
+    )
     save_search(neural, f"{args.output_dir}/neural_search_H{horizon}.json")
-    return _selected_configs(statistical, neural)
+    selected = _selected_configs(statistical, neural)
+    save_optimized_configs(
+        {horizon: selected}, data_file=args.data_file, history=args.history,
+        seed=args.seed, trials=args.trials, search_epochs=args.search_epochs,
+    )
+    return selected
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="LoRaWAN multi-node RSSI benchmark")
     horizon_group = parser.add_mutually_exclusive_group()
-    horizon_group.add_argument("--horizon", "-H", type=int, choices=[1, 6, 12, 24])
-    horizon_group.add_argument("--horizons", nargs="+", type=int, choices=[1, 6, 12, 24])
+    horizon_group.add_argument("--horizon", "-H", type=int, choices=[1])
+    horizon_group.add_argument("--horizons", nargs="+", type=int, choices=[1])
     parser.add_argument("--history", "-L", type=int, default=24)
-    parser.add_argument("--epochs", "-e", type=int, default=128)
+    parser.add_argument("--epochs", "-e", type=int, default=64)
     config_group = parser.add_mutually_exclusive_group()
     config_group.add_argument("--optimize", "--search", action="store_true",
                               help="Select and persist all model configurations on validation")
@@ -142,12 +137,34 @@ def main() -> None:
                               help="Ignore saved optimized configurations and use built-in defaults")
     parser.add_argument("--trials", type=int, default=12,
                         help="Neural configurations per model when --optimize is enabled")
-    parser.add_argument("--search-epochs", type=int, default=10,
+    parser.add_argument("--search-epochs", type=int, default=None,
                         help="Training epochs per neural configuration during optimization")
     parser.add_argument("--data-file", "--data_file", "-d", default="data/combined_hourly_data.csv")
     parser.add_argument("--output-dir", "--output_dir", "-o", default="benchmark_results")
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
+    parser.add_argument("--patience", type=int, default=10)
+    parser.add_argument("--graph-ablations", action="store_true",
+                        help="Refit graph controls: no edges, physical only, adaptive only")
     args = parser.parse_args()
+    if args.search_epochs is None:
+        args.search_epochs = args.epochs
+    if min(args.history, args.epochs, args.search_epochs, args.trials, args.patience) < 1:
+        parser.error("history, epochs, search-epochs, trials and patience must be positive")
+    from src.runtime import resolve_device
+    args.device = resolve_device(args.device)
+    from pathlib import Path
+    requested = args.horizons or [args.horizon or 1]
+    if args.history < max(max(requested), 7):
+        parser.error("history must be at least the largest forecast horizon and 8 hours")
+    for h in requested:
+        if (Path(args.output_dir) / f"benchmark_summary_H{h}.json").exists():
+            parser.error("Results exist: choose a new --output-dir")
+    if (Path(args.output_dir) / "run.log").exists():
+        parser.error("Run log exists: choose a new --output-dir")
+    from src.runtime import start_run_log
+    start_run_log(args.output_dir, vars(args))
+
 
     if args.horizon is None and args.horizons is None:
         args.horizon = 1
@@ -192,6 +209,7 @@ def main() -> None:
             data_file=args.data_file, seq_length=args.history, pred_length=args.horizon,
             epochs=args.epochs, output_dir=args.output_dir, seed=args.seed,
             selected_configs=selected_configs, config_source=config_source,
+            device=args.device, patience=args.patience, graph_ablations=args.graph_ablations,
         )
         print_single_table(results, args.horizon)
     else:
@@ -199,7 +217,8 @@ def main() -> None:
             horizons=args.horizons, data_file=args.data_file, seq_length=args.history,
             epochs=args.epochs, output_dir=args.output_dir, seed=args.seed,
             selected_configs_by_horizon=selected_configs_by_horizon,
-            config_source=config_source,
+            config_source=config_source, device=args.device, patience=args.patience,
+            graph_ablations=args.graph_ablations,
         )
         print_multi_horizon_table(results)
 

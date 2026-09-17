@@ -13,6 +13,7 @@ from typing import Dict, List, Any
 import numpy as np
 import time
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error
+from src.runtime import synchronize
 
 
 def calculate_metrics(
@@ -74,7 +75,8 @@ def measure_inference_speed(
     predict_fn,
     sample_input,
     num_warmup: int = 5,
-    num_runs: int = 30
+    num_runs: int = 30,
+    device: str = "cpu"
 ) -> float:
     """
     Measures average inference latency in milliseconds per forward pass.
@@ -84,8 +86,10 @@ def measure_inference_speed(
 
     latencies = []
     for _ in range(num_runs):
+        synchronize(device)
         start = time.perf_counter()
         _ = predict_fn(sample_input)
+        synchronize(device)
         latencies.append((time.perf_counter() - start) * 1000.0)
 
     return float(np.median(latencies))

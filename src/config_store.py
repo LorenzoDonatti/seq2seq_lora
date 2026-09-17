@@ -9,6 +9,8 @@ from pathlib import Path
 from typing import Any, Dict, Iterable
 
 
+PROTOCOL_VERSION = 3
+
 DEFAULT_CONFIG_STORE = Path(".lora_benchmark/last_optimized_configs.json")
 
 
@@ -34,11 +36,11 @@ def save_optimized_configs(
     path: Path = DEFAULT_CONFIG_STORE,
 ) -> None:
     """Merge newly optimized horizons into the project-local configuration store."""
-    payload: Dict[str, Any] = {"version": 1, "horizons": {}}
+    payload: Dict[str, Any] = {"version": PROTOCOL_VERSION, "horizons": {}}
     if path.exists():
         with path.open(encoding="utf-8") as file:
             existing = json.load(file)
-        if existing.get("version") == 1:
+        if existing.get("version") == PROTOCOL_VERSION:
             payload = existing
 
     optimized_at = datetime.now(timezone.utc).isoformat()
@@ -77,6 +79,8 @@ def load_optimized_configs(
     with path.open(encoding="utf-8") as file:
         payload = json.load(file)
 
+    if payload.get("version") != PROTOCOL_VERSION:
+        raise ValueError("Protocolo/modelos alterados: execute novamente com --optimize.")
     stored = payload.get("horizons", {})
     missing = [horizon for horizon in requested if str(horizon) not in stored]
     if missing:

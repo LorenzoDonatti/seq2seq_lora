@@ -1,249 +1,157 @@
+"""Paired causal ARX/VARX and restricted ARIMAX/VARIMAX estimators.
+
+For horizon H, w_s = weather[s-H]. Hence w_{t+1:t+H} is entirely observed
+at origin t. The same delayed exogenous design is used by every statistical
+family. ARIMAX/VARIMAX have d in {0,1} and a diagonal MA(1) term. Fitting is
+regularized conditional sum of squares, not unrestricted VARMA maximum likelihood.
 """
-Statistical baseline forecasting models for LoRaWAN RSSI.
-
-1. Naive Persistence Baseline:
-   Repeats the last known observation of each node across the forecast horizon.
-
-2. AutoRegressive (AR / ARIMA) Baseline:
-   Fits an AR(p) autoregressive model per node with recursive multi-step forecasting.
-   Standard statistical benchmark in time series literature.
-
-3. Joint VAR / direct VARX:
-   Fits one multivariate model for all nodes, with optional historical weather.
-"""
-
-from typing import List
 import numpy as np
-from statsmodels.tsa.arima.model import ARIMA
-import warnings
-class PersistenceModel:
-    """Predicts future steps using the last observed RSSI for each node."""
-    def __init__(self, n_targets: int):
-        self.n_targets = n_targets
-
-    def predict(self, X: np.ndarray, pred_length: int) -> np.ndarray:
-        """
-        X: (batch_size, seq_length, n_features)
-        Returns: (batch_size, pred_length, n_targets)
-        """
-        last_step_targets = X[:, -1, :self.n_targets]
-        return np.repeat(last_step_targets[:, np.newaxis, :], pred_length, axis=1)
+from scipy.optimize import minimize_scalar
+from scipy.signal import lfilter
 
 
-class AutoRegressiveModel:
-    """
-    Fits an AR(p) model for each node on the training sequence,
-    and produces recursive multi-horizon forecasts for test windows.
-    """
-    def __init__(self, n_targets: int = 8, lags: int = 12):
-        self.n_targets = n_targets
-        self.lags = lags
-        self.ar_params: List[np.ndarray] = []
-
-    def fit(self, X_train: np.ndarray, y_train: np.ndarray):
-        """
-        Fits AR(lags) by least squares over valid forecast origins. This avoids
-        joining independent contiguous segments after missing-data filtering.
-        """
-        self.ar_params = []
-        for i in range(self.n_targets):
-            effective_lags = min(self.lags, X_train.shape[1])
-            histories = X_train[:, -effective_lags:, i][:, ::-1]
-            design = np.column_stack([np.ones(len(histories)), histories])
-            target = y_train[:, 0, i]
-            params, *_ = np.linalg.lstsq(design, target, rcond=None)
-            self.ar_params.append(params)
-        return self
-
-    def predict(self, X: np.ndarray, pred_length: int) -> np.ndarray:
-        """
-        Recursive multi-step forecast for each window in X.
-        X shape: (batch_size, seq_length, n_features)
-        Returns shape: (batch_size, pred_length, n_targets)
-        """
-        batch_size = len(X)
-        out = np.zeros((batch_size, pred_length, self.n_targets), dtype=np.float32)
-
-        for i in range(self.n_targets):
-            params = self.ar_params[i]
-            intercept = params[0]
-            coeffs = params[1:]
-            p_lags = len(coeffs)
-
-            for b in range(batch_size):
-                history = list(X[b, -p_lags:, i])
-                for h in range(pred_length):
-                    # val = c + sum(phi_k * y_{t-k})
-                    val = intercept + np.dot(coeffs, history[::-1])
-                    out[b, h, i] = val
-                    history.pop(0)
-                    history.append(val)
-
-        return out
-
-    def total_parameters(self) -> int:
-        return sum(len(p) for p in self.ar_params)
+class UnstableModelError(ValueError):
+    """A candidate violates the declared stationary dynamics constraint."""
 
 
-def _ridge_solution(design: np.ndarray, target: np.ndarray, alpha: float) -> np.ndarray:
-    """Solve multi-output ridge regression without penalizing the intercept."""
-    design = np.asarray(design, dtype=np.float64)
-    target = np.asarray(target, dtype=np.float64)
+def _ridge_solution(design, target, alpha):
+    penalty = np.eye(design.shape[1]) * alpha
+    penalty[0, 0] = 0
     if alpha == 0:
         return np.linalg.lstsq(design, target, rcond=None)[0]
-    penalty = np.eye(design.shape[1], dtype=np.float64) * alpha
-    penalty[0, 0] = 0.0
     return np.linalg.solve(design.T @ design + penalty, design.T @ target)
 
 
-class JointVARModel:
-    """One ridge-regularized VAR for all RSSI nodes.
+class HistoricalWeatherARIMAX:
+    """Vector model with diagonal MA or its independent per-node restriction."""
+    def __init__(self, n_targets=8, pred_length=1, lags=3, alpha=1.0,
+                 joint=False, difference=0, moving_average=False):
+        if lags < 1 or pred_length < 1 or difference not in (0, 1) or alpha < 0:
+            raise ValueError("Invalid statistical configuration")
+        self.n_targets, self.pred_length = n_targets, pred_length
+        self.lags, self.alpha = lags, alpha
+        self.joint, self.difference = joint, difference
+        self.moving_average = moving_average
+        self.coefficients, self.ma = [], []
+        self.training_summary = {}
 
-    Each node at t depends on every node over the previous ``lags`` steps.
-    Multi-step forecasts are recursive and never use future observations.
-    """
+    @property
+    def burn_in(self):
+        return max(self.pred_length, self.lags + self.difference)
 
-    def __init__(self, n_targets: int = 8, lags: int = 12, alpha: float = 0.0):
-        self.n_targets = n_targets
-        self.lags = lags
-        self.alpha = alpha
-        self.params: np.ndarray | None = None
+    def _equation_data(self, segment, node):
+        y = np.asarray(segment[:, :self.n_targets], dtype=np.float64)
+        weather = np.asarray(segment[:, self.n_targets:], dtype=np.float64)
+        z = y if self.difference == 0 else np.vstack([np.zeros((1, self.n_targets)), np.diff(y, axis=0)])
+        times = np.arange(self.burn_in, len(y))
+        channels = np.arange(self.n_targets) if self.joint else np.array([node])
+        ar = np.stack([z[times-lag][:, channels] for lag in range(1, self.lags+1)], axis=1)
+        design = np.column_stack([np.ones(len(times)), ar.reshape(len(times), -1),
+                                  weather[times-self.pred_length]])
+        return design, z[times, node]
 
-    def fit(self, X_train: np.ndarray, y_train: np.ndarray):
-        effective_lags = min(self.lags, X_train.shape[1])
-        lagged = X_train[:, -effective_lags:, :self.n_targets][:, ::-1, :]
-        design = np.column_stack([np.ones(len(lagged)), lagged.reshape(len(lagged), -1)])
-        self.params = _ridge_solution(design, y_train[:, 0, :self.n_targets], self.alpha)
-        self.lags = effective_lags
+    def fit(self, X_train, y_train, *, training_segments):
+        if X_train.shape[1] <= self.burn_in:
+            raise ValueError(f"History must exceed {self.burn_in} hours for horizon "
+                             f"{self.pred_length}; use a history at least as long as H.")
+        segments = [np.asarray(s, dtype=np.float64) for s in training_segments
+                    if len(s) > self.burn_in]
+        if not segments:
+            raise ValueError("No contiguous training segments support this model")
+        self.coefficients, self.ma = [], []
+        convergence = []
+        for node in range(self.n_targets):
+            equations = [self._equation_data(s, node) for s in segments]
+
+            def profile(theta, return_beta=False):
+                # e_s + theta*e_{s-1} = z_s - design_s @ beta.
+                # Each segment starts with zero conditional innovation state.
+                fd = np.concatenate([lfilter([1.0], [1.0, theta], design, axis=0)
+                                     for design, target in equations])
+                fy = np.concatenate([lfilter([1.0], [1.0, theta], target)
+                                     for design, target in equations])
+                beta = _ridge_solution(fd, fy, self.alpha)
+                residual = fy - fd @ beta
+                objective = residual @ residual + self.alpha * (beta[1:] @ beta[1:])
+                return beta if return_beta else float(objective)
+
+            if self.moving_average:
+                optimum = minimize_scalar(profile, bounds=(-0.95, 0.95), method="bounded",
+                                          options={"xatol": 1e-5, "maxiter": 100})
+                if not optimum.success or not np.isfinite(optimum.fun):
+                    raise RuntimeError("Conditional MA optimization did not converge")
+                theta = float(optimum.x)
+                convergence.append(bool(optimum.success))
+            else:
+                theta = 0.0
+                convergence.append(True)
+            self.coefficients.append(profile(theta, return_beta=True))
+            self.ma.append(theta)
+        radius = self.spectral_radius()
+        if radius >= 1.0:
+            raise UnstableModelError(f"AR dynamics not stationary: spectral radius={radius:.6f}")
+        self.training_summary = {
+            "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+            "joint": self.joint, "p": self.lags, "d": self.difference,
+            "q": int(self.moving_average), "ma_structure": "diagonal",
+            "weather_lag_hours": self.pred_length,
+            "training_segment_lengths": [len(s) for s in segments],
+            "conditional_observations": sum(len(s)-self.burn_in for s in segments),
+            "excluded_short_segment_rows": sum(len(s) for s in training_segments if len(s)<=self.burn_in),
+            "spectral_radius": radius, "converged_per_node": convergence,
+            "innovation_initialization": "zero independently at each segment/window",
+            "ma_coefficients": self.ma,
+        }
         return self
 
-    def predict(self, X: np.ndarray, pred_length: int) -> np.ndarray:
-        if self.params is None:
-            raise RuntimeError("JointVARModel must be fitted before prediction.")
-        output = np.empty((len(X), pred_length, self.n_targets), dtype=np.float32)
-        for batch_index in range(len(X)):
-            history = [row.copy() for row in X[batch_index, :, :self.n_targets]]
-            for lead in range(pred_length):
-                features = np.concatenate(history[-self.lags:][::-1])
-                forecast = np.concatenate([[1.0], features]) @ self.params
-                output[batch_index, lead] = forecast
-                history.append(forecast)
-        return output
+    def spectral_radius(self):
+        n, p = self.n_targets, self.lags
+        companion = np.zeros((n*p, n*p))
+        for node, beta in enumerate(self.coefficients):
+            if self.joint:
+                companion[node, :] = beta[1:1+n*p]
+            else:
+                for lag in range(p):
+                    companion[node, lag*n+node] = beta[1+lag]
+        if p > 1:
+            companion[n:, :-n] = np.eye(n*(p-1))
+        return float(np.max(np.abs(np.linalg.eigvals(companion))))
 
-    def total_parameters(self) -> int:
-        return 0 if self.params is None else int(self.params.size)
+    def predict(self, X, pred_length=None):
+        horizon = self.pred_length if pred_length is None else pred_length
+        if horizon != self.pred_length:
+            raise ValueError("Horizon must match fitted delayed-exogenous model")
+        if X.shape[1] < self.burn_in:
+            raise ValueError("Insufficient observed history")
+        batch, length, _ = X.shape
+        y = np.asarray(X[:, :, :self.n_targets], dtype=np.float64)
+        z = y.copy() if self.difference == 0 else np.concatenate(
+            [np.zeros((batch,1,self.n_targets)), np.diff(y,axis=1)], axis=1)
+        weather = np.asarray(X[:, :, self.n_targets:], dtype=np.float64)
+        error = np.zeros((batch,self.n_targets))
+        for step in range(self.burn_in, length):
+            for node, beta in enumerate(self.coefficients):
+                own = z[:, step-self.lags:step, :][:, ::-1]
+                ar = own.reshape(batch,-1) if self.joint else own[:,:,node]
+                design = np.column_stack([np.ones(batch), ar, weather[:,step-horizon]])
+                error[:,node] = z[:,step,node] - design @ beta - self.ma[node]*error[:,node]
+        history = [z[:,i].copy() for i in range(length)]
+        levels = y[:,-1].copy()
+        forecasts = []
+        for lead in range(horizon):
+            step = length + lead
+            ar_all = np.stack(history[-self.lags:][::-1],axis=1)
+            next_z = np.empty((batch,self.n_targets))
+            for node,beta in enumerate(self.coefficients):
+                ar = ar_all.reshape(batch,-1) if self.joint else ar_all[:,:,node]
+                # step-H never exceeds length-1: no future weather is accessed.
+                design = np.column_stack([np.ones(batch), ar, weather[:,step-horizon]])
+                next_z[:,node] = design @ beta + self.ma[node]*error[:,node]
+            history.append(next_z)
+            levels = levels + next_z if self.difference else next_z
+            forecasts.append(levels.copy())
+            error.fill(0.0)  # conditional expectation of future innovations
+        return np.stack(forecasts,axis=1).astype(np.float32)
 
-
-class JointDirectVARXModel:
-    """Direct joint multi-horizon VARX using only historically available inputs.
-
-    RSSI and weather lags are projected together to every node and lead time.
-    It is called VARX because weather is exogenous, but no future weather values
-    are required or exposed to the model.
-    """
-
-    def __init__(self, n_targets: int = 8, lags: int = 12, pred_length: int = 1,
-                 alpha: float = 0.0):
-        self.n_targets = n_targets
-        self.lags = lags
-        self.pred_length = pred_length
-        self.alpha = alpha
-        self.params: np.ndarray | None = None
-
-    def fit(self, X_train: np.ndarray, y_train: np.ndarray):
-        effective_lags = min(self.lags, X_train.shape[1])
-        lagged = X_train[:, -effective_lags:, :][:, ::-1, :]
-        design = np.column_stack([np.ones(len(lagged)), lagged.reshape(len(lagged), -1)])
-        target = y_train[:, :self.pred_length, :self.n_targets].reshape(len(y_train), -1)
-        self.params = _ridge_solution(design, target, self.alpha)
-        self.lags = effective_lags
-        return self
-
-    def predict(self, X: np.ndarray, pred_length: int | None = None) -> np.ndarray:
-        if self.params is None:
-            raise RuntimeError("JointDirectVARXModel must be fitted before prediction.")
-        requested = self.pred_length if pred_length is None else pred_length
-        if requested != self.pred_length:
-            raise ValueError("Prediction horizon must match the fitted direct VARX horizon.")
-        lagged = X[:, -self.lags:, :][:, ::-1, :]
-        design = np.column_stack([np.ones(len(lagged)), lagged.reshape(len(lagged), -1)])
-        return (design @ self.params).reshape(len(X), self.pred_length, self.n_targets).astype(np.float32)
-
-    def total_parameters(self) -> int:
-        return 0 if self.params is None else int(self.params.size)
-
-
-class ARIMAModel:
-    """Per-node ARIMA fitted by statsmodels with vectorized ARMA inference.
-
-    ``statsmodels`` uses a state-space parameterization whose constant cannot be
-    copied directly into an ARMA recursion.  During fit, the reported long-run
-    mean is converted to the equivalent intercept.  Inference then reconstructs
-    residual states for all windows in parallel, avoiding one expensive
-    ``statsmodels.apply`` call per node and origin.
-    """
-    def __init__(self, n_targets: int = 8, order=(2, 0, 1)):
-        self.n_targets = n_targets
-        self.order = tuple(order)
-        self.params = []
-
-    def fit(self, X_train: np.ndarray, y_train: np.ndarray):
-        self.params = []
-        for i in range(self.n_targets):
-            # Fit once on the one-step training target sequence. Parameters are
-            # never re-estimated during validation/test inference.
-            series = y_train[:, 0, i].astype(np.float64)
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                model = ARIMA(series, order=self.order, trend="c").fit()
-            names = dict(zip(model.param_names, model.params))
-            ar = np.array(
-                [names.get(f"ar.L{k}", 0.0) for k in range(1, self.order[0] + 1)],
-                dtype=np.float64,
-            )
-            ma = np.array(
-                [names.get(f"ma.L{k}", 0.0) for k in range(1, self.order[2] + 1)],
-                dtype=np.float64,
-            )
-            # For d=0, statsmodels' `const` is the unconditional process mean.
-            mean = float(names.get("const", 0.0))
-            intercept = mean * (1.0 - ar.sum())
-            self.params.append((intercept, ar, ma))
-        return self
-
-    def predict(self, X: np.ndarray, pred_length: int = 1) -> np.ndarray:
-        if self.order[1] != 0:
-            raise NotImplementedError("Vectorized ARIMA inference currently supports d=0 only.")
-        out = np.empty((len(X), pred_length, self.n_targets), dtype=np.float32)
-        for node, (intercept, ar, ma) in enumerate(self.params):
-            observed = X[:, :, node].astype(np.float64)
-            residuals = np.zeros_like(observed)
-
-            # Reconstruct conditional residuals for every origin simultaneously.
-            for t in range(observed.shape[1]):
-                fitted = np.full(len(X), intercept, dtype=np.float64)
-                for lag, coefficient in enumerate(ar, start=1):
-                    if t >= lag:
-                        fitted += coefficient * observed[:, t - lag]
-                for lag, coefficient in enumerate(ma, start=1):
-                    if t >= lag:
-                        fitted += coefficient * residuals[:, t - lag]
-                residuals[:, t] = observed[:, t] - fitted
-
-            value_history = [observed[:, t] for t in range(observed.shape[1])]
-            error_history = [residuals[:, t] for t in range(residuals.shape[1])]
-            for lead in range(pred_length):
-                forecast = np.full(len(X), intercept, dtype=np.float64)
-                for lag, coefficient in enumerate(ar, start=1):
-                    forecast += coefficient * value_history[-lag]
-                for lag, coefficient in enumerate(ma, start=1):
-                    forecast += coefficient * error_history[-lag]
-                out[:, lead, node] = forecast
-                value_history.append(forecast)
-                # Future innovations have conditional expectation zero.
-                error_history.append(np.zeros(len(X), dtype=np.float64))
-        return out
-
-    def total_parameters(self) -> int:
-        p, d, q = self.order
-        return self.n_targets * (1 + p + q)
+    def total_parameters(self):
+        return sum(len(beta) for beta in self.coefficients) + self.n_targets*int(self.moving_average)

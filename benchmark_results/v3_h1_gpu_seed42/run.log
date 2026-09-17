@@ -1,0 +1,217 @@
+
+========================================================================
+Otimizando horizonte H=1
+========================================================================
+
+ARX H=1 {'lags': 1, 'alpha': 0.01, 'difference': 0}: 0.8811
+ARX H=1 {'lags': 1, 'alpha': 1.0, 'difference': 0}: 0.8983
+ARX H=1 {'lags': 1, 'alpha': 10.0, 'difference': 0}: 1.1705
+ARX H=1 {'lags': 3, 'alpha': 0.01, 'difference': 0}: 0.7672
+ARX H=1 {'lags': 3, 'alpha': 1.0, 'difference': 0}: 0.7888
+ARX H=1 {'lags': 3, 'alpha': 10.0, 'difference': 0}: 0.9422
+ARX H=1 {'lags': 6, 'alpha': 0.01, 'difference': 0}: 0.756
+ARX H=1 {'lags': 6, 'alpha': 1.0, 'difference': 0}: 0.7776
+ARX H=1 {'lags': 6, 'alpha': 10.0, 'difference': 0}: 0.9219
+ARIMAX H=1 {'lags': 1, 'alpha': 0.01, 'difference': 0}: 0.8301
+ARIMAX H=1 {'lags': 1, 'alpha': 1.0, 'difference': 0}: 0.844
+ARIMAX H=1 {'lags': 1, 'alpha': 10.0, 'difference': 0}: 1.2278
+ARIMAX H=1 {'lags': 1, 'alpha': 0.01, 'difference': 1}: 0.7579
+ARIMAX H=1 {'lags': 1, 'alpha': 1.0, 'difference': 1}: 0.7948
+ARIMAX H=1 {'lags': 1, 'alpha': 10.0, 'difference': 1}: 0.8208
+ARIMAX H=1 {'lags': 3, 'alpha': 0.01, 'difference': 0}: 0.749
+ARIMAX H=1 {'lags': 3, 'alpha': 1.0, 'difference': 0}: 0.773
+ARIMAX H=1 {'lags': 3, 'alpha': 10.0, 'difference': 0}: 0.9377
+ARIMAX H=1 {'lags': 3, 'alpha': 0.01, 'difference': 1}: 0.7754
+ARIMAX H=1 {'lags': 3, 'alpha': 1.0, 'difference': 1}: 0.7842
+ARIMAX H=1 {'lags': 3, 'alpha': 10.0, 'difference': 1}: 0.7911
+ARIMAX H=1 {'lags': 6, 'alpha': 0.01, 'difference': 0}: 0.753
+ARIMAX H=1 {'lags': 6, 'alpha': 1.0, 'difference': 0}: 0.7678
+ARIMAX H=1 {'lags': 6, 'alpha': 10.0, 'difference': 0}: 0.8882
+ARIMAX H=1 {'lags': 6, 'alpha': 0.01, 'difference': 1}: 0.8008
+ARIMAX H=1 {'lags': 6, 'alpha': 1.0, 'difference': 1}: 0.7709
+ARIMAX H=1 {'lags': 6, 'alpha': 10.0, 'difference': 1}: 0.7813
+VARX H=1 {'lags': 1, 'alpha': 0.01, 'difference': 0}: 0.9202
+VARX H=1 {'lags': 1, 'alpha': 1.0, 'difference': 0}: 0.9475
+VARX H=1 {'lags': 1, 'alpha': 10.0, 'difference': 0}: 1.2133
+VARX H=1 {'lags': 3, 'alpha': 0.01, 'difference': 0}: 0.7644
+VARX H=1 {'lags': 3, 'alpha': 1.0, 'difference': 0}: 0.7856
+VARX H=1 {'lags': 3, 'alpha': 10.0, 'difference': 0}: 0.9625
+VARX H=1 {'lags': 6, 'alpha': 0.01, 'difference': 0}: 0.7652
+VARX H=1 {'lags': 6, 'alpha': 1.0, 'difference': 0}: 0.7845
+VARX H=1 {'lags': 6, 'alpha': 10.0, 'difference': 0}: 0.9383
+VARIMAX H=1 {'lags': 1, 'alpha': 0.01, 'difference': 0}: 0.8467
+VARIMAX H=1 {'lags': 1, 'alpha': 1.0, 'difference': 0}: 0.8787
+VARIMAX H=1 {'lags': 1, 'alpha': 10.0, 'difference': 0}: 1.2507
+VARIMAX H=1 {'lags': 1, 'alpha': 0.01, 'difference': 1}: 0.7493
+VARIMAX H=1 {'lags': 1, 'alpha': 1.0, 'difference': 1}: 0.7727
+VARIMAX H=1 {'lags': 1, 'alpha': 10.0, 'difference': 1}: 0.7905
+VARIMAX H=1 {'lags': 3, 'alpha': 0.01, 'difference': 0}: 0.7456
+VARIMAX H=1 {'lags': 3, 'alpha': 1.0, 'difference': 0}: 0.7748
+VARIMAX H=1 {'lags': 3, 'alpha': 10.0, 'difference': 0}: 0.9476
+VARIMAX H=1 {'lags': 3, 'alpha': 0.01, 'difference': 1}: 0.77
+VARIMAX H=1 {'lags': 3, 'alpha': 1.0, 'difference': 1}: 0.7562
+VARIMAX H=1 {'lags': 3, 'alpha': 10.0, 'difference': 1}: 0.7672
+VARIMAX H=1 {'lags': 6, 'alpha': 0.01, 'difference': 0}: 0.7612
+VARIMAX H=1 {'lags': 6, 'alpha': 1.0, 'difference': 0}: 0.7724
+VARIMAX H=1 {'lags': 6, 'alpha': 10.0, 'difference': 0}: 0.8978
+VARIMAX H=1 {'lags': 6, 'alpha': 0.01, 'difference': 1}: 0.8134
+VARIMAX H=1 {'lags': 6, 'alpha': 1.0, 'difference': 1}: 0.7561
+VARIMAX H=1 {'lags': 6, 'alpha': 10.0, 'difference': 1}: 0.7621
+SingleNode_Seq2Seq H=1 trial=1/12: val MAE=0.8442 dB (103.6s)
+SingleNode_Seq2Seq H=1 trial=2/12: val MAE=0.7381 dB (89.7s)
+SingleNode_Seq2Seq H=1 trial=3/12: val MAE=0.7912 dB (26.1s)
+SingleNode_Seq2Seq H=1 trial=4/12: val MAE=0.7436 dB (98.7s)
+SingleNode_Seq2Seq H=1 trial=5/12: val MAE=0.7620 dB (86.8s)
+SingleNode_Seq2Seq H=1 trial=6/12: val MAE=0.7442 dB (24.6s)
+SingleNode_Seq2Seq H=1 trial=7/12: val MAE=0.8158 dB (23.9s)
+SingleNode_Seq2Seq H=1 trial=8/12: val MAE=0.7347 dB (78.4s)
+SingleNode_Seq2Seq H=1 trial=9/12: val MAE=0.7592 dB (23.6s)
+SingleNode_Seq2Seq H=1 trial=10/12: val MAE=0.8538 dB (101.8s)
+SingleNode_Seq2Seq H=1 trial=11/12: val MAE=0.7294 dB (25.9s)
+SingleNode_Seq2Seq H=1 trial=12/12: val MAE=0.8084 dB (24.6s)
+MultiNode_Seq2Seq H=1 trial=1/12: val MAE=0.8631 dB (13.3s)
+MultiNode_Seq2Seq H=1 trial=2/12: val MAE=0.7959 dB (11.2s)
+MultiNode_Seq2Seq H=1 trial=3/12: val MAE=0.8114 dB (2.8s)
+MultiNode_Seq2Seq H=1 trial=4/12: val MAE=0.8325 dB (12.9s)
+MultiNode_Seq2Seq H=1 trial=5/12: val MAE=0.7976 dB (10.5s)
+MultiNode_Seq2Seq H=1 trial=6/12: val MAE=0.7902 dB (2.8s)
+MultiNode_Seq2Seq H=1 trial=7/12: val MAE=0.8181 dB (2.8s)
+MultiNode_Seq2Seq H=1 trial=8/12: val MAE=0.7955 dB (10.6s)
+MultiNode_Seq2Seq H=1 trial=9/12: val MAE=0.8069 dB (3.4s)
+MultiNode_Seq2Seq H=1 trial=10/12: val MAE=0.8770 dB (12.8s)
+MultiNode_Seq2Seq H=1 trial=11/12: val MAE=0.8120 dB (3.2s)
+MultiNode_Seq2Seq H=1 trial=12/12: val MAE=0.8213 dB (3.1s)
+SingleNode_NLinear H=1 trial=1/12: val MAE=0.7542 dB (8.6s)
+SingleNode_NLinear H=1 trial=2/12: val MAE=0.7541 dB (8.5s)
+SingleNode_NLinear H=1 trial=3/12: val MAE=0.8311 dB (28.7s)
+SingleNode_NLinear H=1 trial=4/12: val MAE=0.7350 dB (31.1s)
+SingleNode_NLinear H=1 trial=5/12: val MAE=0.7375 dB (6.6s)
+SingleNode_NLinear H=1 trial=6/12: val MAE=0.7455 dB (23.8s)
+SingleNode_NLinear H=1 trial=7/12: val MAE=0.7390 dB (6.9s)
+SingleNode_NLinear H=1 trial=8/12: val MAE=1.3340 dB (6.7s)
+SingleNode_NLinear H=1 trial=9/12: val MAE=0.7450 dB (30.5s)
+SingleNode_NLinear H=1 trial=10/12: val MAE=0.8311 dB (29.7s)
+SingleNode_NLinear H=1 trial=11/12: val MAE=1.3341 dB (8.9s)
+SingleNode_NLinear H=1 trial=12/12: val MAE=0.7365 dB (25.4s)
+MultiNode_NLinear H=1 trial=1/12: val MAE=0.7611 dB (0.7s)
+MultiNode_NLinear H=1 trial=2/12: val MAE=0.7612 dB (0.8s)
+MultiNode_NLinear H=1 trial=3/12: val MAE=0.8102 dB (2.8s)
+MultiNode_NLinear H=1 trial=4/12: val MAE=0.7541 dB (3.5s)
+MultiNode_NLinear H=1 trial=5/12: val MAE=0.7544 dB (0.9s)
+MultiNode_NLinear H=1 trial=6/12: val MAE=0.7561 dB (3.3s)
+MultiNode_NLinear H=1 trial=7/12: val MAE=0.7543 dB (0.9s)
+MultiNode_NLinear H=1 trial=8/12: val MAE=0.9147 dB (0.9s)
+MultiNode_NLinear H=1 trial=9/12: val MAE=0.7561 dB (3.8s)
+MultiNode_NLinear H=1 trial=10/12: val MAE=0.8102 dB (4.1s)
+MultiNode_NLinear H=1 trial=11/12: val MAE=0.9148 dB (1.0s)
+MultiNode_NLinear H=1 trial=12/12: val MAE=0.7540 dB (4.0s)
+SingleNode_DLinear H=1 trial=1/12: val MAE=0.7772 dB (9.6s)
+SingleNode_DLinear H=1 trial=2/12: val MAE=0.7760 dB (9.1s)
+SingleNode_DLinear H=1 trial=3/12: val MAE=1.0595 dB (32.8s)
+SingleNode_DLinear H=1 trial=4/12: val MAE=0.7358 dB (30.7s)
+SingleNode_DLinear H=1 trial=5/12: val MAE=0.7394 dB (7.8s)
+SingleNode_DLinear H=1 trial=6/12: val MAE=0.7440 dB (30.0s)
+SingleNode_DLinear H=1 trial=7/12: val MAE=0.7398 dB (8.4s)
+SingleNode_DLinear H=1 trial=8/12: val MAE=3.2748 dB (8.7s)
+SingleNode_DLinear H=1 trial=9/12: val MAE=0.7438 dB (25.9s)
+SingleNode_DLinear H=1 trial=10/12: val MAE=1.0594 dB (29.4s)
+SingleNode_DLinear H=1 trial=11/12: val MAE=3.2749 dB (8.8s)
+SingleNode_DLinear H=1 trial=12/12: val MAE=0.7376 dB (33.7s)
+MultiNode_DLinear H=1 trial=1/12: val MAE=0.7703 dB (1.1s)
+MultiNode_DLinear H=1 trial=2/12: val MAE=0.7689 dB (1.2s)
+MultiNode_DLinear H=1 trial=3/12: val MAE=0.9836 dB (4.5s)
+MultiNode_DLinear H=1 trial=4/12: val MAE=0.7576 dB (4.1s)
+MultiNode_DLinear H=1 trial=5/12: val MAE=0.7564 dB (1.1s)
+MultiNode_DLinear H=1 trial=6/12: val MAE=0.7570 dB (3.9s)
+MultiNode_DLinear H=1 trial=7/12: val MAE=0.7572 dB (1.1s)
+MultiNode_DLinear H=1 trial=8/12: val MAE=3.2258 dB (1.2s)
+MultiNode_DLinear H=1 trial=9/12: val MAE=0.7577 dB (3.7s)
+MultiNode_DLinear H=1 trial=10/12: val MAE=0.9838 dB (3.1s)
+MultiNode_DLinear H=1 trial=11/12: val MAE=3.2257 dB (0.9s)
+MultiNode_DLinear H=1 trial=12/12: val MAE=0.7577 dB (3.9s)
+PhysicalAdaptive_STGNN H=1 trial=1/12: val MAE=0.7585 dB (13.3s)
+PhysicalAdaptive_STGNN H=1 trial=2/12: val MAE=0.7277 dB (28.5s)
+PhysicalAdaptive_STGNN H=1 trial=3/12: val MAE=0.7667 dB (2.7s)
+PhysicalAdaptive_STGNN H=1 trial=4/12: val MAE=0.7307 dB (20.7s)
+PhysicalAdaptive_STGNN H=1 trial=5/12: val MAE=0.8964 dB (19.9s)
+PhysicalAdaptive_STGNN H=1 trial=6/12: val MAE=0.8880 dB (3.7s)
+PhysicalAdaptive_STGNN H=1 trial=7/12: val MAE=0.7321 dB (20.3s)
+PhysicalAdaptive_STGNN H=1 trial=8/12: val MAE=0.7422 dB (13.1s)
+PhysicalAdaptive_STGNN H=1 trial=9/12: val MAE=0.7528 dB (5.4s)
+PhysicalAdaptive_STGNN H=1 trial=10/12: val MAE=0.7382 dB (3.0s)
+PhysicalAdaptive_STGNN H=1 trial=11/12: val MAE=0.7389 dB (2.9s)
+PhysicalAdaptive_STGNN H=1 trial=12/12: val MAE=0.7364 dB (3.3s)
+
+Otimização concluída; executando benchmark final...
+
+H=1: device=cuda; windows={'train': 1203, 'validation': 291, 'test': 279}
+ARX: MAE=0.7797 dB; params=88; fit=0.0s
+ARIMAX: MAE=0.7964 dB; params=72; fit=0.0s
+VARX: MAE=0.8072 dB; params=232; fit=0.0s
+VARIMAX: MAE=0.7977 dB; params=240; fit=0.0s
+SingleNode_Seq2Seq: MAE=0.7350 dB; params=813064; fit=26.6s
+MultiNode_Seq2Seq: MAE=0.8325 dB; params=19816; fit=3.3s
+SingleNode_NLinear: MAE=0.7059 dB; params=112; fit=28.2s
+MultiNode_NLinear: MAE=0.7239 dB; params=14; fit=3.3s
+SingleNode_DLinear: MAE=0.7035 dB; params=224; fit=29.9s
+MultiNode_DLinear: MAE=0.7203 dB; params=28; fit=1.2s
+PhysicalAdaptive_STGNN: MAE=0.7029 dB; params=10148; fit=28.6s
+STGNN_NoGraph: MAE=0.7222 dB; params=9185; fit=16.8s
+STGNN_PhysicalOnly: MAE=0.7329 dB; params=9953; fit=21.2s
+STGNN_AdaptiveOnly: MAE=0.7332 dB; params=10145; fit=24.7s
+
+===========================================================================
+ BENCHMARK SUMMARY (Horizon H = 1 hour(s))
+===========================================================================
+Model                    | MAE (dB)   | RMSE (dB)  | Params    | Latency 
+-------------------------------------------------------------------------
+PhysicalAdaptive_STGNN   | 0.7029     | 1.0297     | 10,148    | 1.79ms  
+SingleNode_DLinear       | 0.7035     | 1.0378     | 224       | 3.39ms  
+SingleNode_NLinear       | 0.7059     | 1.0379     | 112       | 1.33ms  
+MultiNode_DLinear        | 0.7203     | 1.0539     | 28        | 0.27ms  
+STGNN_NoGraph            | 0.7222     | 1.0379     | 9,185     | 1.31ms  
+MultiNode_NLinear        | 0.7239     | 1.0535     | 14        | 0.17ms  
+STGNN_PhysicalOnly       | 0.7329     | 1.0496     | 9,953     | 1.30ms  
+STGNN_AdaptiveOnly       | 0.7332     | 1.0503     | 10,145    | 1.52ms  
+SingleNode_Seq2Seq       | 0.7350     | 1.0668     | 813,064   | 4.86ms  
+ARX                      | 0.7797     | 1.1046     | 88        | 0.31ms  
+ARIMAX                   | 0.7964     | 1.1368     | 72        | 0.42ms  
+VARIMAX                  | 0.7977     | 1.1330     | 240       | 0.48ms  
+VARX                     | 0.8072     | 1.1578     | 232       | 0.49ms  
+MultiNode_Seq2Seq        | 0.8325     | 1.1788     | 19,816    | 0.63ms  
+===========================================================================
+
+MAE POR NÓ (dB; menor é melhor)
+Model                    | RSSI_01 | RSSI_02 | RSSI_03 | RSSI_04 | RSSI_05 | RSSI_06 | RSSI_07 | RSSI_08 | média
+----------------------------------------------------------------------------------------------------------------
+PhysicalAdaptive_STGNN   | 0.4956  | 1.3971  | 0.4440  | 0.4920  | 0.8536  | 0.7010  | 0.3903  | 0.8496  | 0.7029
+SingleNode_DLinear       | 0.4890  | 1.4350  | 0.4189  | 0.5273  | 0.8185  | 0.7352  | 0.3940  | 0.8099  | 0.7035
+SingleNode_NLinear       | 0.4937  | 1.4121  | 0.4317  | 0.5346  | 0.8288  | 0.7431  | 0.3981  | 0.8051  | 0.7059
+MultiNode_DLinear        | 0.5211  | 1.4020  | 0.4653  | 0.5623  | 0.8596  | 0.7384  | 0.3930  | 0.8206  | 0.7203
+STGNN_NoGraph            | 0.5041  | 1.4087  | 0.4539  | 0.5723  | 0.8404  | 0.7721  | 0.3964  | 0.8298  | 0.7222
+MultiNode_NLinear        | 0.5282  | 1.4149  | 0.4838  | 0.5707  | 0.8423  | 0.7316  | 0.3967  | 0.8230  | 0.7239
+STGNN_PhysicalOnly       | 0.4918  | 1.4102  | 0.4664  | 0.5502  | 0.8456  | 0.7418  | 0.3957  | 0.9613  | 0.7329
+STGNN_AdaptiveOnly       | 0.4956  | 1.3786  | 0.4448  | 0.5280  | 0.9020  | 0.6955  | 0.3931  | 1.0283  | 0.7332
+SingleNode_Seq2Seq       | 0.4821  | 1.4877  | 0.4573  | 0.5583  | 0.8474  | 0.7460  | 0.4003  | 0.9005  | 0.7350
+ARX                      | 0.5971  | 1.5464  | 0.5146  | 0.7327  | 0.8115  | 0.8148  | 0.3888  | 0.8320  | 0.7797
+ARIMAX                   | 0.5479  | 1.6479  | 0.6061  | 0.7268  | 0.8209  | 0.8006  | 0.3824  | 0.8384  | 0.7964
+VARIMAX                  | 0.5494  | 1.6485  | 0.5951  | 0.6701  | 0.8654  | 0.7580  | 0.4258  | 0.8691  | 0.7977
+VARX                     | 0.5520  | 1.6570  | 0.6152  | 0.5885  | 0.8743  | 0.7960  | 0.4258  | 0.9491  | 0.8072
+MultiNode_Seq2Seq        | 0.5282  | 1.6462  | 0.4673  | 0.6701  | 0.8509  | 0.7656  | 0.4143  | 1.3176  | 0.8325
+
+CUSTO PARA ATENDER TODOS OS NÓS
+Model                    | preditores |   parâmetros |  KiB pesos | treino(s)
+PhysicalAdaptive_STGNN   |          1 |       10,148 |      39.64 |     28.56
+SingleNode_DLinear       |          8 |          224 |       0.88 |     29.94
+SingleNode_NLinear       |          8 |          112 |       0.44 |     28.18
+MultiNode_DLinear        |          1 |           28 |       0.11 |      1.25
+STGNN_NoGraph            |          1 |        9,185 |      35.88 |     16.79
+MultiNode_NLinear        |          1 |           14 |       0.05 |      3.25
+STGNN_PhysicalOnly       |          1 |        9,953 |      38.88 |     21.20
+STGNN_AdaptiveOnly       |          1 |       10,145 |      39.63 |     24.71
+SingleNode_Seq2Seq       |          8 |      813,064 |    3176.03 |     26.64
+ARX                      |          8 |           88 |       0.69 |      0.00
+ARIMAX                   |          8 |           72 |       0.56 |      0.01
+VARIMAX                  |          1 |          240 |       1.88 |      0.03
+VARX                     |          1 |          232 |       1.81 |      0.00
+MultiNode_Seq2Seq        |          1 |       19,816 |      77.41 |      3.32

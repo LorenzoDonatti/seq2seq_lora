@@ -1,25 +1,9 @@
-"""
-Models package for LoRaWAN RSSI forecasting benchmark.
-"""
-
-from src.models.baselines import (
-    PersistenceModel, AutoRegressiveModel, ARIMAModel,
-    JointVARModel, JointDirectVARXModel,
-)
-from src.models.single_node_models import EnsembleSingleNodeLSTM
+"""Active paired forecasting families."""
+from src.models.baselines import HistoricalWeatherARIMAX
+from src.models.dedicated import DedicatedNodeTrainer
 from src.models.multi_node_seq2seq import MultiNodeSeq2SeqTrainer
 from src.models.dlinear import NLinearTrainer, DLinearTrainer
 from src.models.stgnn import AdaptiveSTGNNTrainer
 
-__all__ = [
-    "PersistenceModel",
-    "AutoRegressiveModel",
-    "ARIMAModel",
-    "JointVARModel",
-    "JointDirectVARXModel",
-    "EnsembleSingleNodeLSTM",
-    "MultiNodeSeq2SeqTrainer",
-    "DLinearTrainer",
-    "NLinearTrainer",
-    "AdaptiveSTGNNTrainer"
-]
+__all__ = ["HistoricalWeatherARIMAX", "DedicatedNodeTrainer", "MultiNodeSeq2SeqTrainer",
+           "NLinearTrainer", "DLinearTrainer", "AdaptiveSTGNNTrainer"]

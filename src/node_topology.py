@@ -53,7 +53,7 @@ def compute_distance_matrix() -> np.ndarray:
     return D
 
 
-def compute_physical_adjacency(sigma: float = None) -> np.ndarray:
+def compute_physical_adjacency(sigma: float = None, node_indices=None) -> np.ndarray:
     """
     Computes a Gaussian-kernel adjacency matrix from physical GPS coordinates.
 
@@ -62,10 +62,15 @@ def compute_physical_adjacency(sigma: float = None) -> np.ndarray:
     If sigma is None, it defaults to the standard deviation of all pairwise distances.
     """
     D = compute_distance_matrix()
+    if node_indices is not None:
+        D = D[np.ix_(node_indices, node_indices)]
     if sigma is None:
         # Use std of upper-triangle distances as bandwidth
         upper_dists = D[np.triu_indices_from(D, k=1)]
-        sigma = float(np.std(upper_dists))
+        sigma = max(float(np.std(upper_dists)), 1.0) if len(upper_dists) else 1.0
+
+    if not np.isfinite(sigma) or sigma <= 0:
+        raise ValueError("Physical graph bandwidth must be positive and finite")
 
     A = np.exp(-(D / sigma) ** 2)
     np.fill_diagonal(A, 1.0)

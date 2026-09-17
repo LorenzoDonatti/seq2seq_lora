@@ -1,100 +1,51 @@
-"""Validation-only model selection for AR and ARIMA baselines."""
-
-from __future__ import annotations
-
-import json
-import os
+"""Validation-only paired statistical search, including explicit failed candidates."""
 import time
-from typing import Any, Dict
-
 from src.data_loader import get_prepared_datasets
-from src.metrics import calculate_metrics, measure_inference_speed
-from src.models import (
-    AutoRegressiveModel, ARIMAModel, JointVARModel, JointDirectVARXModel,
-)
+from src.metrics import calculate_metrics
+from src.model_registry import STATISTICAL_MODELS, make_statistical
+from src.models.baselines import UnstableModelError
+from src.hyperparameter_search import save_search as save_statistical_search
 
 
-def search_statistical_models(
-    data_file: str = "data/combined_hourly_data.csv",
-    history: int = 24,
-    horizon: int = 1,
-) -> Dict[str, Any]:
-    """Select univariate and joint statistical configurations on validation."""
+def search_statistical_models(data_file="data/combined_hourly_data.csv", history=24,
+                              horizon=1, checkpoint_path=None):
     data = get_prepared_datasets(data_file, history, horizon)
-    X_train, y_train = data["train"]
-    X_val, y_val = data["val"]
     pipeline = data["pipeline"]
-    y_true = pipeline.inverse_transform_targets(y_val)
-
-    specs = [("AR", {"lags": lag}) for lag in (6, 8, 12, 16, 24)]
-    specs += [
-        ("ARIMA", {"order": order})
-        for order in ((1, 0, 0), (2, 0, 0), (2, 0, 1), (3, 0, 1), (4, 0, 1))
-    ]
-    specs += [
-        (name, {"lags": lags, "alpha": alpha})
-        for name in ("Joint_VAR", "Joint_VARX")
-        for lags in (6, 12, 24)
-        for alpha in (0.0, 0.001, 0.01, 0.1, 1.0)
-    ]
-
+    truth = pipeline.inverse_transform_targets(data["val"][1])
     rows = []
-    for name, config in specs:
-        started = time.perf_counter()
-        if name == "AR":
-            model = AutoRegressiveModel(len(data["target_names"]), config["lags"])
-        elif name == "ARIMA":
-            model = ARIMAModel(len(data["target_names"]), config["order"])
-        elif name == "Joint_VAR":
-            model = JointVARModel(len(data["target_names"]), config["lags"], config["alpha"])
-        else:
-            model = JointDirectVARXModel(
-                len(data["target_names"]), config["lags"], horizon, config["alpha"]
-            )
-        model.fit(X_train, y_train)
-        prediction = pipeline.inverse_transform_targets(model.predict(X_val, horizon))
-        metrics = calculate_metrics(y_true, prediction, data["target_names"])
-        latency = measure_inference_speed(lambda x: model.predict(x, horizon), X_val[:32])
-        row = {
-            "model": name,
-            "config": config,
-            "val_mae_dbm": metrics["global"]["mae_dbm"],
-            "val_rmse_dbm": metrics["global"]["rmse_dbm"],
-            "parameters": model.total_parameters(),
-            "latency_ms_batch32_median": round(latency, 4),
-            "fit_seconds": round(time.perf_counter() - started, 3),
-        }
-        rows.append(row)
-        print(
-            f"{name} {config}: MAE={row['val_mae_dbm']:.4f} | "
-            f"latency={latency:.4f} ms",
-            flush=True,
-        )
-
-    rows.sort(key=lambda row: row["val_mae_dbm"])
-    return {
-        "protocol": {
-            "task": "rolling_origin_forecast",
-            "horizon": horizon,
-            "history": history,
-            "selection": "validation MAE",
-            "test_used": False,
-            "latency_definition": (
-                "median wall-clock milliseconds for 32 origins and all nodes on CPU; "
-                "5 warmups and 30 runs; excludes training and preprocessing"
-            ),
-            "ar_lags": [6, 8, 12, 16, 24],
-            "arima_orders": [list(config["order"]) for name, config in specs if name == "ARIMA"],
-            "joint_lags": [6, 12, 24],
-            "ridge_alphas": [0.0, 0.001, 0.01, 0.1, 1.0],
-        },
-        "best": rows[0],
-        "trials": rows,
-    }
-
-
-def save_statistical_search(result: Dict[str, Any], path: str) -> None:
-    """Persist a statistical search report as JSON."""
-    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-    with open(path, "w", encoding="utf-8") as file:
-        json.dump(result, file, indent=2)
+    for name in STATISTICAL_MODELS:
+        differences = (0,1) if name in ("ARIMAX","VARIMAX") else (0,)
+        for lag in (1,3,6):
+            if history <= max(horizon,lag+max(differences)):
+                continue
+            for difference in differences:
+                for alpha in (0.01,1.0,10.0):
+                    cfg = dict(lags=lag, alpha=alpha, difference=difference)
+                    start = time.perf_counter()
+                    model = make_statistical(name,cfg,data,horizon)
+                    try:
+                        model.fit(*data["train"], training_segments=data["training_segments"])
+                        prediction = pipeline.inverse_transform_targets(model.predict(data["val"][0]))
+                        metrics = calculate_metrics(truth,prediction,data["target_names"])
+                        row = dict(model=name,config=cfg,status="ok",
+                                   val_mae_dbm=metrics["global"]["mae_dbm"],
+                                   val_rmse_dbm=metrics["global"]["rmse_dbm"],
+                                   per_node=metrics["per_node"], parameters=model.total_parameters(),
+                                   training=model.training_summary)
+                    except UnstableModelError as exc:
+                        row = dict(model=name,config=cfg,status="rejected_unstable",reason=str(exc))
+                    row["elapsed_seconds"] = time.perf_counter()-start
+                    rows.append(row)
+                    print(f"{name} H={horizon} {cfg}: {row.get('val_mae_dbm',row['status'])}",flush=True)
+        if checkpoint_path is not None:
+            save_statistical_search({"trials":rows,"complete":False},checkpoint_path)
+        if not any(r["model"]==name and r["status"]=="ok" for r in rows):
+            raise ValueError(f"No stable {name} candidate; inspect validation search report.")
+    valid = sorted((r for r in rows if r["status"]=="ok"),key=lambda r:r["val_mae_dbm"])
+    return {"protocol":{"selection":"validation macro MAE in dB","test_used":False,
+                        "history":history,"horizon":horizon,
+                        "weather_lag_hours":horizon,
+                        "ma_structure":"diagonal MA(1), invertible bound +/-0.95",
+                        "fit":"regularized conditional sum of squares",
+                        "stability":"reject AR spectral radius >=1; no fallback"},
+            "complete":True,"best":valid[0],"trials":rows}

@@ -1,0 +1,16 @@
+{
+  "horizon": 1,
+  "horizons": null,
+  "history": 13,
+  "epochs": 64,
+  "optimize": true,
+  "use_defaults": false,
+  "trials": 12,
+  "search_epochs": 64,
+  "data_file": "data/combined_hourly_data.csv",
+  "output_dir": "benchmark_results/v3_h1_gpu_seed42",
+  "seed": 42,
+  "device": "cuda",
+  "patience": 64,
+  "graph_ablations": true
+}

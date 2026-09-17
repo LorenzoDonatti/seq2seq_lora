@@ -2,9 +2,11 @@
 Adaptive Spatio-Temporal Graph Neural Network (Adaptive STGNN) for LoRaWAN.
 
 Formulation:
-- Graph Topology: physical GPS graph blended with an adaptive learned graph.
+- Graph Topology: geographic distance prior blended with a static learned graph.
+- Ablations: no cross-node edges, geographic-only, learned-only, and hybrid.
+- Adjacencies represent predictive weights, not physical radio connectivity.
 - Spatial Modeling: Diffusion Graph Convolution aggregating cross-node radio/channel correlation.
-- Temporal Modeling: 1D Causal Convolutions with residual gated activations.
+- Temporal Modeling: gated, dilated causal convolutions; residual connections.
 - Residual Link: Directly anchored to the last observed RSSI (X_{t-1}).
 """
 
@@ -14,13 +16,14 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
+from src.models.training import fit_network
 
 from src.node_topology import compute_physical_adjacency, GW_DISTANCES_M
 
 
 class AdaptiveGraphConvolution(nn.Module):
     """
-    Spatial Graph Convolution layer operating with a dynamically learned adjacency matrix.
+    Graph convolution with a static adjacency learned during training.
     Computes diffusion: Z = A * X * W_spatial + X * W_self
     """
     def __init__(
@@ -29,31 +32,44 @@ class AdaptiveGraphConvolution(nn.Module):
         out_features: int,
         num_nodes: int,
         physical_adjacency: np.ndarray,
-        node_emb_dim: int = 8,
+        node_emb_dim: int = 4,
+        graph_mode: str = "hybrid",
     ):
         super().__init__()
         self.num_nodes = num_nodes
-        # Two learnable node embeddings for source and target node interaction
-        self.source_embedding = nn.Parameter(torch.randn(num_nodes, node_emb_dim))
-        self.target_embedding = nn.Parameter(torch.randn(num_nodes, node_emb_dim))
-        self.register_buffer(
-            "physical_adjacency",
-            torch.as_tensor(physical_adjacency, dtype=torch.float32),
-        )
-        # sigmoid(0) starts from an equal physical/adaptive mixture.
-        self.adaptive_mix_logit = nn.Parameter(torch.tensor(0.0))
-
-        self.w_spatial = nn.Linear(in_features, out_features, bias=False)
+        if graph_mode not in ("none", "physical", "adaptive", "hybrid"):
+            raise ValueError("Unknown graph mode")
+        if physical_adjacency.shape != (num_nodes, num_nodes):
+            raise ValueError("Graph dimensions must match target node ordering")
+        self.graph_mode = graph_mode
+        self.register_buffer("off_diagonal", ~torch.eye(num_nodes, dtype=torch.bool))
+        physical = torch.as_tensor(physical_adjacency, dtype=torch.float32).clone()
+        physical.fill_diagonal_(0)
+        physical = physical / physical.sum(-1, keepdim=True).clamp_min(1e-12)
+        self.register_buffer("physical_adjacency", physical)
+        if graph_mode in ("adaptive", "hybrid"):
+            self.source_embedding = nn.Parameter(torch.randn(num_nodes, node_emb_dim)*0.1)
+            self.target_embedding = nn.Parameter(torch.randn(num_nodes, node_emb_dim)*0.1)
+        if graph_mode == "hybrid":
+            self.adaptive_mix_logit = nn.Parameter(torch.tensor(0.0))
+        self.w_spatial = (nn.Linear(in_features, out_features, bias=False)
+                          if graph_mode != "none" else None)
         self.w_self = nn.Linear(in_features, out_features, bias=True)
         self.layer_norm = nn.LayerNorm(out_features)
 
     def get_adjacency(self) -> torch.Tensor:
         """Returns the normalized learned adjacency matrix A in [0, 1]^(N x N)."""
+        if self.graph_mode == "none" or self.num_nodes == 1:
+            return torch.zeros_like(self.physical_adjacency)
+        if self.graph_mode == "physical":
+            return self.physical_adjacency
         score = torch.mm(self.source_embedding, self.target_embedding.t())
-        adaptive = F.softmax(F.relu(score), dim=-1)
-        physical = self.physical_adjacency / self.physical_adjacency.sum(dim=-1, keepdim=True)
-        adaptive_weight = torch.sigmoid(self.adaptive_mix_logit)
-        return adaptive_weight * adaptive + (1.0 - adaptive_weight) * physical
+        score = score.masked_fill(~self.off_diagonal, -torch.inf)
+        adaptive = F.softmax(score, dim=-1)
+        if self.graph_mode == "adaptive":
+            return adaptive
+        weight = torch.sigmoid(self.adaptive_mix_logit)
+        return weight * adaptive + (1-weight) * self.physical_adjacency
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
@@ -63,7 +79,9 @@ class AdaptiveGraphConvolution(nn.Module):
         A = self.get_adjacency()  # (num_nodes, num_nodes)
         # Spatial diffusion: support = A @ x
         support = torch.einsum("nm, bmc -> bnc", A, x)
-        out = self.w_spatial(support) + self.w_self(x)
+        out = self.w_self(x)
+        if self.w_spatial is not None:
+            out = out + self.w_spatial(support)
         return self.layer_norm(F.relu(out))
 
 
@@ -81,21 +99,24 @@ class SpatioTemporalBlock(nn.Module):
         physical_adjacency: np.ndarray,
         kernel_size: int = 3,
         dropout: float = 0.1,
+        dilation: int = 1,
+        graph_mode: str = "hybrid",
     ):
         super().__init__()
         self.num_nodes = num_nodes
         self.hidden_dim = hidden_dim
 
         # Temporal convolution across time (kernel_size, causal padding)
-        self.padding = kernel_size - 1
+        self.padding = (kernel_size - 1) * dilation
         self.temporal_conv = nn.Conv1d(
             in_channels=hidden_dim,
-            out_channels=hidden_dim,
+            out_channels=2 * hidden_dim,
             kernel_size=kernel_size,
+            dilation=dilation,
             padding=self.padding
         )
         self.spatial_gcn = AdaptiveGraphConvolution(
-            hidden_dim, hidden_dim, num_nodes, physical_adjacency
+            hidden_dim, hidden_dim, num_nodes, physical_adjacency, graph_mode=graph_mode
         )
         self.dropout = nn.Dropout(dropout)
         self.norm = nn.LayerNorm(hidden_dim)
@@ -112,7 +133,8 @@ class SpatioTemporalBlock(nn.Module):
         t_out = self.temporal_conv(x_t)
         if self.padding > 0:
             t_out = t_out[:, :, :-self.padding]
-        t_out = F.relu(t_out)
+        value, gate = t_out.chunk(2, dim=1)
+        t_out = torch.tanh(value) * torch.sigmoid(gate)
         t_out = t_out.view(batch_size, num_nodes, feat_dim, seq_len).permute(0, 3, 1, 2)
         # t_out shape: (batch_size, seq_len, num_nodes, hidden_dim)
 
@@ -139,7 +161,8 @@ class AdaptiveSTGNN(nn.Module):
         pred_length: int = 6,
         hidden_dim: int = 32,
         num_blocks: int = 2,
-        dropout: float = 0.1
+        dropout: float = 0.1,
+        graph_mode: str = "hybrid"
     ):
         super().__init__()
         self.n_targets = n_targets
@@ -151,16 +174,18 @@ class AdaptiveSTGNN(nn.Module):
         in_feat_per_node = 2 + n_exogenous
         self.input_proj = nn.Linear(in_feat_per_node, hidden_dim)
 
-        physical_adjacency = compute_physical_adjacency()
+        if not 1 <= n_targets <= len(GW_DISTANCES_M) or num_blocks < 1:
+            raise ValueError("Invalid node count or number of graph blocks")
+        physical_adjacency = compute_physical_adjacency(node_indices=list(range(n_targets)))
 
         self.blocks = nn.ModuleList([
             SpatioTemporalBlock(
                 num_nodes=n_targets,
                 hidden_dim=hidden_dim,
                 physical_adjacency=physical_adjacency,
-                dropout=dropout,
+                dropout=dropout, dilation=2**block_index, graph_mode=graph_mode,
             )
-            for _ in range(num_blocks)
+            for block_index in range(num_blocks)
         ])
 
         gateway_distance = GW_DISTANCES_M[:n_targets] / GW_DISTANCES_M[:n_targets].max()
@@ -179,7 +204,7 @@ class AdaptiveSTGNN(nn.Module):
 
     def _prepare_spatio_temporal_tensor(self, x: torch.Tensor) -> torch.Tensor:
         """
-        Converts flat (B, T, 8 + 4) tensor into spatio-temporal tensor (B, T, N=8, F=5).
+        Converts flat (B, T, 8 + 4) tensor into spatio-temporal tensor (B, T, N, F=2+n_exogenous).
         """
         batch_size, seq_len, _ = x.shape
         rssi = x[:, :, :self.n_targets]         # (B, T, 8)
@@ -237,7 +262,8 @@ class AdaptiveSTGNNTrainer:
         lr: float = 1e-3,
         dropout: float = 0.1,
         weight_decay: float = 1e-4,
-        device: str = "cpu"
+        device: str = "cpu",
+        graph_mode: str = "hybrid"
     ):
         self.device = torch.device(device)
         self.model = AdaptiveSTGNN(
@@ -246,64 +272,19 @@ class AdaptiveSTGNNTrainer:
             seq_length=seq_length,
             pred_length=pred_length,
             hidden_dim=hidden_dim,
-            num_blocks=num_blocks, dropout=dropout
+            num_blocks=num_blocks, dropout=dropout, graph_mode=graph_mode
         ).to(self.device)
         self.lr = lr
         self.weight_decay = weight_decay
         self.training_summary = {}
 
-    def fit(
-        self,
-        X_train: np.ndarray,
-        y_train: np.ndarray,
-        X_val: np.ndarray,
-        y_val: np.ndarray,
-        epochs: int = 35,
-        batch_size: int = 32,
-        verbose: bool = False
-    ):
-        optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.lr, weight_decay=self.weight_decay)
-        criterion = nn.MSELoss()
-
-        train_ds = TensorDataset(
-            torch.tensor(X_train, dtype=torch.float32),
-            torch.tensor(y_train, dtype=torch.float32)
-        )
-        train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
-
-        best_val_loss = float("inf")
-        best_weights = None
-        best_epoch = 0
-        updates = 0
-
-        for epoch in range(epochs):
-            self.model.train()
-            for bx, by in train_loader:
-                bx, by = bx.to(self.device), by.to(self.device)
-                optimizer.zero_grad()
-                pred = self.model(bx)
-                loss = criterion(pred, by)
-                loss.backward()
-                torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)
-                optimizer.step()
-                updates += 1
-
-            self.model.eval()
-            with torch.no_grad():
-                vx = torch.tensor(X_val, dtype=torch.float32).to(self.device)
-                vy = torch.tensor(y_val, dtype=torch.float32).to(self.device)
-                v_loss = criterion(self.model(vx), vy).item()
-                if v_loss < best_val_loss:
-                    best_val_loss = v_loss
-                    best_epoch = epoch + 1
-                    best_weights = {k: v.cpu().clone() for k, v in self.model.state_dict().items()}
-
-        if best_weights is not None:
-            self.model.load_state_dict(best_weights)
-        self.model.eval()
-        self.training_summary = {"epochs_requested": epochs, "best_epoch": best_epoch,
-                                 "optimizer_updates": updates, "batch_size": batch_size,
-                                 "best_val_mse_scaled": best_val_loss}
+    def fit(self, X_train, y_train, X_val, y_val, epochs=64,
+            batch_size=32, verbose=False, target_scale=None, patience=10):
+        self.training_summary = fit_network(
+            self.model, self.device, X_train, y_train, X_val, y_val,
+            lr=self.lr, weight_decay=self.weight_decay, epochs=epochs,
+            batch_size=batch_size, target_scale=target_scale, patience=patience)
+        return self
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         self.model.eval()
@@ -316,3 +297,19 @@ class AdaptiveSTGNNTrainer:
 
     def get_learned_adjacency(self) -> np.ndarray:
         return self.model.get_learned_adjacency_matrix()
+
+    def graph_diagnostics(self):
+        """All layers, rather than only the first adjacency plot."""
+        return {
+            "edge_orientation": "A[receiver, sender]",
+            "learned_graph": "static after fitting; not time-varying or causal connectivity",
+            "temporal_receptive_field": 1 + 2 * (2**len(self.model.blocks)-1),
+            "readout": "uses all observed temporal features",
+            "layers": [
+                {"mode": block.spatial_gcn.graph_mode,
+                 "adjacency": block.spatial_gcn.get_adjacency().detach().cpu().tolist(),
+                 "adaptive_weight": float(torch.sigmoid(block.spatial_gcn.adaptive_mix_logit).item())
+                    if hasattr(block.spatial_gcn, "adaptive_mix_logit") else None}
+                for block in self.model.blocks
+            ],
+        }

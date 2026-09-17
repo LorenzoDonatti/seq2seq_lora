@@ -1,0 +1,222 @@
+{
+  "protocol_version": 3,
+  "seed": 42,
+  "history_hours": 13,
+  "forecast_horizon_hours": 1,
+  "epochs": 64,
+  "patience": 64,
+  "graph_ablations": true,
+  "hyperparameter_source": "fresh_optimization",
+  "selected_hyperparameters": {
+    "ARX": {
+      "lags": 6,
+      "alpha": 0.01,
+      "difference": 0
+    },
+    "ARIMAX": {
+      "lags": 3,
+      "alpha": 0.01,
+      "difference": 0
+    },
+    "VARX": {
+      "lags": 3,
+      "alpha": 0.01,
+      "difference": 0
+    },
+    "VARIMAX": {
+      "lags": 3,
+      "alpha": 0.01,
+      "difference": 0
+    },
+    "SingleNode_Seq2Seq": {
+      "lr": 0.003,
+      "dropout": 0.0,
+      "weight_decay": 0.0,
+      "batch_size": 128,
+      "hidden_dim": 64,
+      "num_layers": 2
+    },
+    "MultiNode_Seq2Seq": {
+      "lr": 0.003,
+      "dropout": 0.1,
+      "weight_decay": 0.001,
+      "batch_size": 128,
+      "hidden_dim": 32,
+      "num_layers": 1
+    },
+    "SingleNode_NLinear": {
+      "lr": 0.01,
+      "weight_decay": 0.0,
+      "batch_size": 32
+    },
+    "MultiNode_NLinear": {
+      "lr": 0.01,
+      "weight_decay": 0.001,
+      "batch_size": 32
+    },
+    "SingleNode_DLinear": {
+      "lr": 0.01,
+      "weight_decay": 0.0,
+      "batch_size": 32
+    },
+    "MultiNode_DLinear": {
+      "lr": 0.01,
+      "weight_decay": 0.0,
+      "batch_size": 128
+    },
+    "PhysicalAdaptive_STGNN": {
+      "lr": 0.003,
+      "dropout": 0.0,
+      "weight_decay": 0.0,
+      "batch_size": 32,
+      "hidden_dim": 16,
+      "blocks": 3
+    }
+  },
+  "data_quality": {
+    "policy": "complete strictly-hourly windows; no imputation",
+    "valid_windows": {
+      "train": 1203,
+      "validation": 291,
+      "test": 279
+    },
+    "discarded_windows": {
+      "train": 204,
+      "validation": 0,
+      "test": 13
+    }
+  },
+  "task": "rolling_origin_multi_horizon",
+  "forecast_strategies": {
+    "ARX": "recursive",
+    "ARIMAX": "recursive",
+    "VARX": "recursive",
+    "VARIMAX": "recursive",
+    "SingleNode_Seq2Seq": "recursive",
+    "MultiNode_Seq2Seq": "recursive",
+    "SingleNode_NLinear": "direct",
+    "MultiNode_NLinear": "direct",
+    "SingleNode_DLinear": "direct",
+    "MultiNode_DLinear": "direct",
+    "PhysicalAdaptive_STGNN": "direct",
+    "STGNN_NoGraph": "direct",
+    "STGNN_PhysicalOnly": "direct",
+    "STGNN_AdaptiveOnly": "direct"
+  },
+  "statistical_exogenous_policy": "weather delayed by H=1; no future values or forecasts",
+  "statistical_estimator": "ridge conditional sum of squares, diagonal MA(1), d=0/1 selected on validation",
+  "training_support": "statistical: complete contiguous train segments; neural: complete train forecast windows",
+  "graph_ablation_policy": "fixed hybrid validation-selected hyperparameters, retrained per ablation",
+  "scalers": {
+    "RSSI_01": {
+      "scale": 0.16216216216216392,
+      "min": 9.418918918919015
+    },
+    "RSSI_02": {
+      "scale": 0.05231866825208075,
+      "min": 4.727705112960754
+    },
+    "RSSI_03": {
+      "scale": 0.15384615384615385,
+      "min": 10.794871794871801
+    },
+    "RSSI_04": {
+      "scale": 0.07453416149068305,
+      "min": 6.291925465838497
+    },
+    "RSSI_05": {
+      "scale": 0.052401746724890924,
+      "min": 4.248908296943237
+    },
+    "RSSI_06": {
+      "scale": 0.036758563074352484,
+      "min": 2.968253968253963
+    },
+    "RSSI_07": {
+      "scale": 0.10999999999999989,
+      "min": 7.409999999999997
+    },
+    "RSSI_08": {
+      "scale": 0.04715127701375253,
+      "min": 4.28290766208252
+    },
+    "temp": {
+      "scale": 0.052863436123348005,
+      "min": 0.18854625550660806
+    },
+    "hum": {
+      "scale": 0.02013422818791949,
+      "min": -0.7483221476510084
+    },
+    "bar": {
+      "scale": 0.020202020202020155,
+      "min": -19.912121212121164
+    },
+    "rain": {
+      "scale": 0.06451612903225806,
+      "min": 0.0
+    }
+  },
+  "training_objective": "macro MAE in dB, best validation checkpoint, early stopping",
+  "metric_semantics": {
+    "global": "mean across origins, leads and nodes",
+    "terminal_horizon": "error at t+1",
+    "legacy_json_keys": "mae_dbm/rmse_dbm retained; errors are dB"
+  },
+  "latency": "median of 30 calls after 5 warmups; all nodes; batches 1 and 32; synchronized; includes NumPy/device transfers; statistical models use CPU",
+  "resource_metrics": "weight/coefficients bytes only, excluding buffers/framework/activations; fit time excludes hyperparameter search",
+  "data_sha256": "c58da8397d9db7d28135c8d6de27ab00c3b6d3c848ad6fb6af20d4db1c6028f0",
+  "source_sha256": {
+    "src/__init__.py": "367ac93aecc5aeb933e49c7029afcb067af1b8bb6312efce0126fcd40c923f80",
+    "src/cli/__init__.py": "1fb08a9ea0ecfd3a6a0dd9bef5c323af063db7a54631c414e02c1f48abc159dd",
+    "src/cli/run_benchmark.py": "da4e376cf5eddbcf4e9c740ffe4d21b3aaee429a2ecc5cd29d94a2fa502303c7",
+    "src/config_store.py": "f3846a2fd74519946a483a7b33167fcd1fa49031aa9e58cec304987f5a6c33c6",
+    "src/data_loader.py": "21c998d81d07e5b3e40de9cfe91ef126703087acbdbd1ee84a8f44eb230d8a55",
+    "src/evaluation.py": "373b3d16e1e1e64021e03260c6fb7a2eeee6e021791eac1f25bbb23023e8cc41",
+    "src/hyperparameter_search.py": "77fcb0fabd8c55230a12c9d437a6483aec6fbc929423dd8b682c2e5e060fc804",
+    "src/metrics.py": "dcbc5f78e972aaf60d894196870410c1ef1f25e785ff15072b3e775e27bfaa8d",
+    "src/model_registry.py": "d368e18178c5103a3b57cd2e9208c382bbf360629455ca13992d10ebd7086853",
+    "src/models/__init__.py": "3e7b6eadffca49dedc76d6a58b06536310287c0dfeb2c0e816892c8638dbe710",
+    "src/models/baselines.py": "cd296214b49eabee82b6459acfd3405104ae0cadf99f06f0128a0f6f0f1f6cec",
+    "src/models/dedicated.py": "32f17d2737c7338f22c617e64ab45c8cc5121b16da04a938624600b9cea37255",
+    "src/models/dlinear.py": "a9ff6f3c52b33f431260ed8da68923665cc0306dba3a03c47011ae842de3c2d2",
+    "src/models/multi_node_seq2seq.py": "46f4bcd133a12fdffc08cd276bd73a5287b0be6f5c739a52f55936594869a053",
+    "src/models/stgnn.py": "8bf2bc01b0a45206b40d513647bf9dc5bd09c2dd7d331df4b0c4341a21135d45",
+    "src/models/training.py": "68d88887437ba9a32b5d79a1b32fe5b7d47d88d078ee07e527559e15dacb468e",
+    "src/node_topology.py": "91beb1261a57f777aaf44c0b32eef0e3e694c8f546f36859eaaaf297a4303a08",
+    "src/plotting.py": "f6ba872cbbfca7fbaca60631554699578498fa330e07d7aea74da1b6a8d4b032",
+    "src/runtime.py": "a5eb3f6bc55542756ee2eb3e781e5bf818183f2de19740b17eab8a67fa1e87d2",
+    "src/statistical_search.py": "8777d4c333a800fb232d35d107865e4bde64eca85ad175b7fd675ed59a9db2c1"
+  },
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.14.0+cu130",
+    "numpy": "2.5.3",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+    "cuda_runtime": "13.0",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 5060 Ti",
+    "torch_threads": 12,
+    "git_revision": "cead8a81c21d13b7a10a503a6cd33ef06e2ec5f9",
+    "git_dirty": true
+  },
+  "split_origin_ranges": {
+    "train": [
+      "2020-11-23T04:00:00.000000000",
+      "2021-01-14T17:00:00.000000000"
+    ],
+    "val": [
+      "2021-01-15T07:00:00.000000000",
+      "2021-01-27T09:00:00.000000000"
+    ],
+    "test": [
+      "2021-01-27T23:00:00.000000000",
+      "2021-02-09T13:00:00.000000000"
+    ]
+  },
+  "limitations": [
+    "single deployment and seed; exploratory",
+    "complete common windows; no operational missing-node evaluation",
+    "no claim of network energy or ADR improvement"
+  ]
+}

@@ -123,32 +123,37 @@ def create_sliding_windows(
     pred_length: int,
     n_targets: int,
     timestamps: Optional[np.ndarray] = None,
-    expected_frequency: np.timedelta64 = np.timedelta64(1, "h")
+    expected_frequency: np.timedelta64 = np.timedelta64(1, "h"),
+    return_origins: bool = False
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
     Creates strictly causal sliding windows:
     X: [t - seq_length, ..., t - 1] (all features)
     y: [t, ..., t + pred_length - 1] (target RSSIs only)
     """
-    X, y = [], []
+    X, y, origins = [], [], []
     total_steps = len(data) - seq_length - pred_length + 1
     for i in range(max(0, total_steps)):
         window = data[i : i + seq_length + pred_length]
-        if not np.isfinite(window).all():
+        if not (np.isfinite(window[:seq_length]).all()
+                and np.isfinite(window[seq_length:, :n_targets]).all()):
             continue
         if timestamps is not None:
             time_window = timestamps[i : i + seq_length + pred_length]
             if not np.all(np.diff(time_window) == expected_frequency):
                 continue
+        origins.append(i + seq_length)
         X.append(window[:seq_length])
         y.append(window[seq_length:, :n_targets])
 
     if not X:
-        return (
+        result = (
             np.empty((0, seq_length, data.shape[1]), dtype=np.float32),
             np.empty((0, pred_length, n_targets), dtype=np.float32),
         )
-    return np.array(X, dtype=np.float32), np.array(y, dtype=np.float32)
+    else:
+        result = (np.array(X, dtype=np.float32), np.array(y, dtype=np.float32))
+    return (*result, np.asarray(origins, dtype=int)) if return_origins else result
 
 
 def _timestamps(df: pd.DataFrame) -> np.ndarray:
@@ -184,14 +189,14 @@ def get_prepared_datasets(
     test_scaled = pipeline.transform(test_df)
 
     n_targets = len(TARGET_COLS)
-    X_train, y_train = create_sliding_windows(
-        train_scaled.values, seq_length, pred_length, n_targets, _timestamps(train_df)
+    X_train, y_train, train_idx = create_sliding_windows(
+        train_scaled.values, seq_length, pred_length, n_targets, _timestamps(train_df), return_origins=True
     )
-    X_val, y_val = create_sliding_windows(
-        val_scaled.values, seq_length, pred_length, n_targets, _timestamps(val_df)
+    X_val, y_val, val_idx = create_sliding_windows(
+        val_scaled.values, seq_length, pred_length, n_targets, _timestamps(val_df), return_origins=True
     )
-    X_test, y_test = create_sliding_windows(
-        test_scaled.values, seq_length, pred_length, n_targets, _timestamps(test_df)
+    X_test, y_test, test_idx = create_sliding_windows(
+        test_scaled.values, seq_length, pred_length, n_targets, _timestamps(test_df), return_origins=True
     )
 
     for split_name, X in (("train", X_train), ("validation", X_val), ("test", X_test)):
@@ -200,8 +205,31 @@ def get_prepared_datasets(
                 f"No valid {split_name} windows remain after removing missing/non-hourly intervals."
             )
 
+    # Statistical estimators reset conditional innovation states at every gap.
+    train_times = _timestamps(train_df)
+    train_segments = []
+    current = []
+    previous_time = None
+    for row, timestamp in zip(train_scaled.to_numpy(), train_times):
+        valid = np.isfinite(row).all()
+        consecutive = previous_time is None or timestamp-previous_time == np.timedelta64(1, "h")
+        if not valid or not consecutive:
+            if current:
+                train_segments.append(np.asarray(current))
+            current = []
+        if valid:
+            current.append(row)
+        previous_time = timestamp if valid else None
+    if current:
+        train_segments.append(np.asarray(current))
+
     return {
+        "training_segments": train_segments,
         "pipeline": pipeline,
+        "target_scale": np.array([1.0 / pipeline.scalers[c].scale_[0] for c in TARGET_COLS]),
+        "origin_timestamps": {"train": _timestamps(train_df)[train_idx],
+                              "val": _timestamps(val_df)[val_idx],
+                              "test": _timestamps(test_df)[test_idx]},
         "train": (X_train, y_train),
         "val": (X_val, y_val),
         "test": (X_test, y_test),
