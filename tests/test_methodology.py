@@ -53,4 +53,26 @@ def test_last_optimized_configs_are_reused_by_horizon(tmp_path):
         [1, 6], data_file=data_file, history=24, path=store,
     ) == configs
     payload = json.loads(store.read_text())
-    assert payload["horizons"]["1"]["seed"] == 42
+    experiment = next(iter(payload["experiments"].values()))
+    assert experiment["histories"]["24"]["horizons"]["1"]["seed"] == 42
+
+
+def test_optimized_configs_are_isolated_by_dataset(tmp_path):
+    store = tmp_path / "last.json"
+    first, second = tmp_path / "first.csv", tmp_path / "second.csv"
+    first.write_text("first")
+    second.write_text("second")
+    save_optimized_configs(
+        {1: {"model": {"value": 1}}}, data_file=str(first), history=24,
+        seed=42, trials=1, search_epochs=1, path=store,
+    )
+    save_optimized_configs(
+        {1: {"model": {"value": 2}}}, data_file=str(second), history=24,
+        seed=42, trials=1, search_epochs=1, path=store,
+    )
+    assert load_optimized_configs(
+        [1], data_file=str(first), history=24, path=store,
+    )[1]["model"]["value"] == 1
+    assert load_optimized_configs(
+        [1], data_file=str(second), history=24, path=store,
+    )[1]["model"]["value"] == 2

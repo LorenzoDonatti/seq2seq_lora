@@ -1,0 +1,74 @@
+
+Usando configurações padrão por solicitação explícita.
+
+H=1: device=cpu; windows={'train': 7145, 'validation': 1369, 'test': 1015}
+ARX: MAE=2.1728 dB; params=72; fit=0.0s
+ARIMAX: MAE=2.1836 dB; params=81; fit=0.0s
+VARX: MAE=2.0570 dB; params=288; fit=0.0s
+VARIMAX: MAE=2.0542 dB; params=297; fit=0.1s
+SingleNode_Seq2Seq: MAE=2.0618 dB; params=92457; fit=50.4s
+MultiNode_Seq2Seq: MAE=2.0094 dB; params=12009; fit=5.8s
+SingleNode_NLinear: MAE=2.1014 dB; params=225; fit=8.3s
+MultiNode_NLinear: MAE=2.1116 dB; params=25; fit=1.1s
+SingleNode_DLinear: MAE=2.0886 dB; params=450; fit=11.8s
+MultiNode_DLinear: MAE=2.1007 dB; params=50; fit=1.5s
+PhysicalAdaptive_STGNN: MAE=1.9143 dB; params=23739; fit=37.0s
+STGNN_NoGraph: MAE=1.9934 dB; params=22441; fit=29.5s
+STGNN_PhysicalOnly: MAE=2.0375 dB; params=23593; fit=34.8s
+STGNN_AdaptiveOnly: MAE=1.9268 dB; params=23737; fit=36.4s
+
+===========================================================================
+ BENCHMARK SUMMARY (Horizon H = 1 hour(s))
+===========================================================================
+Model                    | MAE (dB)   | RMSE (dB)  | Params    | Latency 
+-------------------------------------------------------------------------
+PhysicalAdaptive_STGNN   | 1.9143     | 2.7084     | 23,739    | 2.15ms  
+STGNN_AdaptiveOnly       | 1.9268     | 2.7139     | 23,737    | 2.10ms  
+STGNN_NoGraph            | 1.9934     | 2.8068     | 22,441    | 1.82ms  
+MultiNode_Seq2Seq        | 2.0094     | 2.8199     | 12,009    | 0.42ms  
+STGNN_PhysicalOnly       | 2.0375     | 2.8700     | 23,593    | 2.07ms  
+VARIMAX                  | 2.0542     | 2.8531     | 297       | 1.18ms  
+VARX                     | 2.0570     | 2.8505     | 288       | 1.16ms  
+SingleNode_Seq2Seq       | 2.0618     | 2.8916     | 92,457    | 3.77ms  
+SingleNode_DLinear       | 2.0886     | 2.9491     | 450       | 0.44ms  
+MultiNode_DLinear        | 2.1007     | 2.9667     | 50        | 0.08ms  
+SingleNode_NLinear       | 2.1014     | 2.9642     | 225       | 0.18ms  
+MultiNode_NLinear        | 2.1116     | 2.9864     | 25        | 0.03ms  
+ARX                      | 2.1728     | 3.0431     | 72        | 0.98ms  
+ARIMAX                   | 2.1836     | 3.0537     | 81        | 1.01ms  
+===========================================================================
+
+MAE POR NÓ (dB; menor é melhor)
+Model                    | RSSI_01 | RSSI_02 | RSSI_03 | RSSI_04 | RSSI_05 | RSSI_06 | RSSI_07 | RSSI_08 | RSSI_09 | média
+--------------------------------------------------------------------------------------------------------------------------
+PhysicalAdaptive_STGNN   | 2.4269  | 1.6258  | 1.6008  | 2.2738  | 1.4498  | 1.2667  | 2.3098  | 2.0327  | 2.2423  | 1.9143
+STGNN_AdaptiveOnly       | 2.4241  | 1.5982  | 1.6455  | 2.2574  | 1.4950  | 1.3284  | 2.3158  | 2.0277  | 2.2496  | 1.9268
+STGNN_NoGraph            | 2.5037  | 1.6636  | 1.6679  | 2.3862  | 1.5680  | 1.2962  | 2.3827  | 2.1196  | 2.3528  | 1.9934
+MultiNode_Seq2Seq        | 2.5039  | 1.6934  | 1.6716  | 2.4233  | 1.5929  | 1.3272  | 2.3962  | 2.1262  | 2.3501  | 2.0094
+STGNN_PhysicalOnly       | 2.5081  | 1.7238  | 1.7022  | 2.4452  | 1.5890  | 1.3600  | 2.4264  | 2.1759  | 2.4067  | 2.0375
+VARIMAX                  | 2.4581  | 1.7379  | 1.7303  | 2.3768  | 1.6348  | 1.5143  | 2.5462  | 2.2667  | 2.2229  | 2.0542
+VARX                     | 2.4634  | 1.7433  | 1.7304  | 2.3577  | 1.6398  | 1.5394  | 2.5472  | 2.2654  | 2.2262  | 2.0570
+SingleNode_Seq2Seq       | 2.5266  | 1.7205  | 1.7628  | 2.4817  | 1.6777  | 1.3517  | 2.4409  | 2.2233  | 2.3710  | 2.0618
+SingleNode_DLinear       | 2.5691  | 1.7735  | 1.7755  | 2.4994  | 1.7130  | 1.3968  | 2.4710  | 2.1980  | 2.4009  | 2.0886
+MultiNode_DLinear        | 2.5825  | 1.7665  | 1.7724  | 2.4954  | 1.6965  | 1.4220  | 2.4767  | 2.2311  | 2.4630  | 2.1007
+SingleNode_NLinear       | 2.5802  | 1.7846  | 1.7882  | 2.5008  | 1.7633  | 1.4056  | 2.4805  | 2.2003  | 2.4092  | 2.1014
+MultiNode_NLinear        | 2.5936  | 1.7720  | 1.7719  | 2.5137  | 1.7068  | 1.4203  | 2.4995  | 2.2457  | 2.4805  | 2.1116
+ARX                      | 2.5964  | 1.8255  | 1.8566  | 2.5616  | 1.7462  | 1.5120  | 2.6446  | 2.3284  | 2.4835  | 2.1728
+ARIMAX                   | 2.5965  | 1.8310  | 1.8678  | 2.5960  | 1.7672  | 1.5132  | 2.6492  | 2.3444  | 2.4871  | 2.1836
+
+CUSTO PARA ATENDER TODOS OS NÓS
+Model                    | preditores |   parâmetros |  KiB pesos | treino(s)
+PhysicalAdaptive_STGNN   |          1 |       23,739 |      92.73 |     36.98
+STGNN_AdaptiveOnly       |          1 |       23,737 |      92.72 |     36.35
+STGNN_NoGraph            |          1 |       22,441 |      87.66 |     29.46
+MultiNode_Seq2Seq        |          1 |       12,009 |      46.91 |      5.82
+STGNN_PhysicalOnly       |          1 |       23,593 |      92.16 |     34.76
+VARIMAX                  |          1 |          297 |       2.32 |      0.12
+VARX                     |          1 |          288 |       2.25 |      0.02
+SingleNode_Seq2Seq       |          9 |       92,457 |     361.16 |     50.36
+SingleNode_DLinear       |          9 |          450 |       1.76 |     11.82
+MultiNode_DLinear        |          1 |           50 |       0.20 |      1.52
+SingleNode_NLinear       |          9 |          225 |       0.88 |      8.31
+MultiNode_NLinear        |          1 |           25 |       0.10 |      1.08
+ARX                      |          9 |           72 |       0.56 |      0.01
+ARIMAX                   |          9 |           81 |       0.63 |      0.04

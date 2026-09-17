@@ -1,12 +1,13 @@
 # Project context and handoff
 
-Updated: 2026-09-16. Protocol version: 3.
+Updated: 2026-09-17. Protocol version: 4.
 
 ## Scientific objective and invariants
 
 Compare dedicated per-node, parameter-shared, and integrated cross-node RSSI
-forecasting for eight vineyard-2021 LoRaWAN nodes. Per-node accuracy is primary;
-global means supplement it. Resource costs cover serving all eight nodes.
+forecasting in two deployments: eight vineyard-2021 nodes and nine UVA urban sensors
+received by gateway A. Per-node accuracy is primary; global means supplement it.
+Resource costs cover serving every node in each experiment.
 
 Preserve chronological 70/15/15 splitting, train-only scalers, no imputation,
 strictly hourly complete observed input/target windows, validation-only
@@ -22,12 +23,9 @@ The user explicitly requested retaining the Seq2Seq name and replacing the direc
 projection architecture with a literature-consistent recurrent encoder-decoder.
 
 Active models:
-- ARIMA: eight univariate models, joint likelihood of independent hourly training
-  segments per node; no concatenation across gaps; exact statsmodels filtering
-  per inference window. Short excluded segments and convergence are reported.
-- Joint_VARX: direct Ridge on all RSSI/weather lags; no future weather.
-- SingleNode_LSTM: eight dedicated predictors.
-- SharedNode_LSTM: same per-node network with shared weights, no cross-node inputs.
+- ARX/ARIMAX: one historical-weather predictor per node.
+- VARX/VARIMAX: joint predictors using all RSSI and historical-weather lags.
+- SingleNode_Seq2Seq: one recurrent encoder-decoder per node.
 - MultiNode_Seq2Seq: LSTM encoder, LSTMCell autoregressive decoder, additive attention
   at every lead, last-observation residual. No teacher forcing in training or inference.
 - NLinear/DLinear: original channel-independent shared-weight formulations.
@@ -48,8 +46,8 @@ Best validation weights are restored; summaries record executed and best epochs.
 Statistical models stay on CPU. No runtime failure triggers a CPU fallback.
 CUDA RNG, cuBLAS workspace and deterministic torch algorithms are configured.
 
-The v3 config cache rejects v1/v2 winners. New optimization is required after the
-architecture/protocol revision. Without --optimize, saved winners are reused;
+The v4 config cache separates winners by dataset hash, topology hash, history and
+horizon. Without --optimize, compatible saved winners are reused;
 --use-defaults explicitly requests internal defaults.
 Result directories with completed results are protected from overwriting.
 
@@ -64,11 +62,9 @@ buffers and activations; fit time excludes hyperparameter search.
 
 ## Historical evidence and limitations
 
-benchmark_results/optimize_32_64 contains the prior v1 reference experiment:
-12 neural trials, 32 search epochs, 64 final epochs, seed 42. It remains untouched.
-Its NLinear was channel-mixing and its Seq2Seq used a direct head. AR was strongest
-in global MAE. These results cannot be represented as results of v2 models.
-ARIMA v1 compressed discontinuous origins; v2 fixes this.
+Older v1 results used a channel-mixing NLinear, a direct-head Seq2Seq, and statistical
+handling that compressed discontinuous origins. They cannot be represented as results
+of the current models and are not retained as current evidence.
 
 Existing test data has been inspected repeatedly: current experiments remain
 exploratory. Confirmatory evidence still needs multiple temporal blocks, repeated
@@ -78,34 +74,37 @@ Removing simple baselines was the user's scope decision, not evidence against th
 
 ## Environment and validation
 
-Local .venv created with Python 3.13.15; dependencies installed from requirements.
-GPU detected and verified: NVIDIA GeForce RTX 5060 Ti, 16 GB; PyTorch 2.14.0+cu130.
-Sandbox blocks GPU access; GPU runs need the approved external execution permission.
+The current sandbox `.venv` uses Python 3.12.3 and CPU PyTorch 2.14.0. A prior external
+environment detected an NVIDIA GeForce RTX 5060 Ti and CUDA-enabled PyTorch; GPU runs
+must record their actual environment in the generated protocol.
 Use .venv/bin/python (the shell's generic python may not be configured). The default
 history is 24 hours. The confirmatory benchmark is one-step-ahead (H=1); longer
 horizons remain available only for exploratory analysis.
 Run pytest and compileall after Python changes; never claim unexecuted tests passed.
 
-Validation executed in this revision: 16 pytest tests passed; compileall and
-git diff --check passed. Full CUDA smoke benchmarks completed for H=1 (2 epochs)
-and H=24 (1 epoch) in revised_gpu_smoke and revised_gpu_smoke_h24. These are
-execution checks, not scientific reference results.
+Validation executed in this revision: 34 pytest tests passed and 2 CUDA tests were
+skipped because CUDA is unavailable in the sandbox. Compileall and git diff checks
+passed. The UVA one-epoch CPU smoke is an execution check, not scientific evidence.
 
-The full v2 optimization was launched in benchmark_results/revised_gpu_seed42:
-four horizons, 12 neural trials per family, 64 maximum search/final epochs,
-patience 10, seed 42, explicit CUDA. At handoff it is still running. Consult
-run.log for progress, run_arguments.json for the exact invocation, and
-environment_requirements.txt for installed dependency versions. Do not call
-this run complete until multi_horizon_summary.json exists and the process exits
-successfully. Historical results are preserved.
+The completed v3 vineyard run is preserved at
+`benchmark_results/experiment_1_vineyard/v3_h1_gpu_seed42`. It used history 13 and
+patience 64 and therefore remains exploratory rather than the frozen confirmatory run.
+
+The external UVA dataset is stored under `dataset/` and standardized to
+`data/experiment_2_uva_gatewayA_hourly.csv`. Experiment 2 uses gateway A and sensors
+01-09; sensor10 and gateways B/C were excluded by coverage criteria fixed before
+modeling. See `dataset/FORECASTING_VALIDATION.md`. With history 24 and H=1 there are
+7,145/1,369/1,015 valid train/validation/test windows. A one-epoch CPU smoke completed
+for all paired models and graph ablations at
+`benchmark_results/experiment_2_uva_gatewayA/smoke_cpu`; it is not scientific evidence.
 
 ## Run commands
 
 ```bash
 .venv/bin/python -m src.cli.run_benchmark --horizon 1 \
   --optimize --trials 12 --epochs 64 --search-epochs 64 --patience 10 \
-  --history 24 --device cuda --graph-ablations \
-  --output-dir benchmark_results/v3_gpu_seed42
+  --history 24 --device auto --graph-ablations \
+  --output-dir benchmark_results/experiment_1_vineyard/confirmatory_seed42
 ```
 
 Always choose a fresh output directory. Do not tune based on observed test results.

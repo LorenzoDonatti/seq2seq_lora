@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable
 
 
-PROTOCOL_VERSION = 3
+PROTOCOL_VERSION = 4
 
 DEFAULT_CONFIG_STORE = Path(".lora_benchmark/last_optimized_configs.json")
 
@@ -21,6 +21,10 @@ def _data_identity(path: str) -> str:
         with data_path.open("rb") as file:
             for chunk in iter(lambda: file.read(1024 * 1024), b""):
                 digest.update(chunk)
+        topology = data_path.with_suffix(".topology.json")
+        if topology.exists():
+            digest.update(b"\0topology\0")
+            digest.update(topology.read_bytes())
         return f"sha256:{digest.hexdigest()}"
     return f"missing:{data_path.name}"
 
@@ -36,7 +40,7 @@ def save_optimized_configs(
     path: Path = DEFAULT_CONFIG_STORE,
 ) -> None:
     """Merge newly optimized horizons into the project-local configuration store."""
-    payload: Dict[str, Any] = {"version": PROTOCOL_VERSION, "horizons": {}}
+    payload: Dict[str, Any] = {"version": PROTOCOL_VERSION, "experiments": {}}
     if path.exists():
         with path.open(encoding="utf-8") as file:
             existing = json.load(file)
@@ -44,10 +48,14 @@ def save_optimized_configs(
             payload = existing
 
     optimized_at = datetime.now(timezone.utc).isoformat()
+    identity = _data_identity(data_file)
+    experiment = payload["experiments"].setdefault(identity, {
+        "data_file": Path(data_file).name, "histories": {}
+    })
+    stored = experiment["histories"].setdefault(str(history), {"horizons": {}})
     for horizon, configs in configs_by_horizon.items():
-        payload["horizons"][str(horizon)] = {
+        stored["horizons"][str(horizon)] = {
             "configs": configs,
-            "data_file": _data_identity(data_file),
             "history": history,
             "seed": seed,
             "trials": trials,
@@ -81,7 +89,10 @@ def load_optimized_configs(
 
     if payload.get("version") != PROTOCOL_VERSION:
         raise ValueError("Protocolo/modelos alterados: execute novamente com --optimize.")
-    stored = payload.get("horizons", {})
+    identity = _data_identity(data_file)
+    experiment = payload.get("experiments", {}).get(identity)
+    stored = ((experiment or {}).get("histories", {}).get(str(history), {})
+              .get("horizons", {}))
     missing = [horizon for horizon in requested if str(horizon) not in stored]
     if missing:
         raise ValueError(
@@ -89,15 +100,4 @@ def load_optimized_configs(
             "Execute esses horizontes com --optimize."
         )
 
-    expected_data = _data_identity(data_file)
-    incompatible = []
-    for horizon in requested:
-        entry = stored[str(horizon)]
-        if entry.get("history") != history or entry.get("data_file") != expected_data:
-            incompatible.append(horizon)
-    if incompatible:
-        raise ValueError(
-            f"As configurações de H={incompatible} foram otimizadas para outro dataset "
-            "ou tamanho de histórico. Execute novamente com --optimize."
-        )
     return {horizon: stored[str(horizon)]["configs"] for horizon in requested}

@@ -57,9 +57,14 @@ def make_neural(name, cfg, data, horizon, device):
     common.update(hidden_dim=cfg["hidden_dim"], dropout=cfg["dropout"],
                   n_targets=nodes, pred_length=horizon)
     if name == "PhysicalAdaptive_STGNN" or name in GRAPH_ABLATIONS:
+        topology = data.get("topology", {})
         return AdaptiveSTGNNTrainer(n_exogenous=features-nodes, seq_length=history,
                                     num_blocks=cfg["blocks"],
-                                    graph_mode=GRAPH_ABLATIONS.get(name, "hybrid"), **common)
+                                    graph_mode=GRAPH_ABLATIONS.get(name, "hybrid"),
+                                    node_coordinates=topology.get("node_coordinates"),
+                                    gateway_coordinates=topology.get("gateway_coordinates"),
+                                    gateway_distances_m=topology.get("gateway_distances_m"),
+                                    **common)
     common.update(num_layers=cfg["num_layers"],
                   in_features=1+features-nodes if local else features)
     if local:

@@ -1,0 +1,69 @@
+{
+  "dataset": "UVA urban LoRaWAN deployment",
+  "dataset_doi": "10.18130/V3/RFTICK",
+  "gateway": "gatewayA",
+  "target_names": [
+    "RSSI_01",
+    "RSSI_02",
+    "RSSI_03",
+    "RSSI_04",
+    "RSSI_05",
+    "RSSI_06",
+    "RSSI_07",
+    "RSSI_08",
+    "RSSI_09"
+  ],
+  "source_nodes": [
+    "sensor01",
+    "sensor02",
+    "sensor03",
+    "sensor04",
+    "sensor05",
+    "sensor06",
+    "sensor07",
+    "sensor08",
+    "sensor09"
+  ],
+  "node_coordinates": [
+    [
+      38.032811,
+      -78.5095524
+    ],
+    [
+      38.0321764,
+      -78.5107493
+    ],
+    [
+      38.0321568,
+      -78.5108207
+    ],
+    [
+      38.032708,
+      -78.509723
+    ],
+    [
+      38.0333228,
+      -78.5111476
+    ],
+    [
+      38.033285,
+      -78.5111832
+    ],
+    [
+      38.032811,
+      -78.5095524
+    ],
+    [
+      38.0347279,
+      -78.5135257
+    ],
+    [
+      38.0346453,
+      -78.5134932
+    ]
+  ],
+  "gateway_coordinates": [
+    38.0317195,
+    -78.510864
+  ]
+}

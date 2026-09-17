@@ -12,6 +12,7 @@ dynamic = ["dependencies"]
 
 [project.scripts]
 lora-benchmark = "src.cli.run_benchmark:main"
+lora-prepare-uva = "src.cli.prepare_uva:main"
 
 [tool.setuptools]
 packages = ["src", "src.cli", "src.models"]

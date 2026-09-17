@@ -152,7 +152,10 @@ def main() -> None:
     if min(args.history, args.epochs, args.search_epochs, args.trials, args.patience) < 1:
         parser.error("history, epochs, search-epochs, trials and patience must be positive")
     from src.runtime import resolve_device
-    args.device = resolve_device(args.device)
+    try:
+        args.device = resolve_device(args.device)
+    except RuntimeError as error:
+        parser.error(str(error))
     from pathlib import Path
     requested = args.horizons or [args.horizon or 1]
     if args.history < max(max(requested), 7):
@@ -162,17 +165,15 @@ def main() -> None:
             parser.error("Results exist: choose a new --output-dir")
     if (Path(args.output_dir) / "run.log").exists():
         parser.error("Run log exists: choose a new --output-dir")
-    from src.runtime import start_run_log
-    start_run_log(args.output_dir, vars(args))
-
-
     if args.horizon is None and args.horizons is None:
         args.horizon = 1
 
     requested_horizons = [args.horizon] if args.horizon is not None else args.horizons
     selected_configs_by_horizon = None
     config_source = "built_in_defaults"
+    from src.runtime import start_run_log
     if args.optimize:
+        start_run_log(args.output_dir, vars(args))
         selected_configs_by_horizon = {
             horizon: _optimize_horizon(args, horizon)
             for horizon in requested_horizons
@@ -190,6 +191,7 @@ def main() -> None:
             )
         except (FileNotFoundError, ValueError) as error:
             parser.error(str(error))
+        start_run_log(args.output_dir, vars(args))
         config_source = "last_saved_optimization"
         print(
             "\nReutilizando configurações da última otimização salva em "
@@ -197,6 +199,7 @@ def main() -> None:
             flush=True,
         )
     else:
+        start_run_log(args.output_dir, vars(args))
         print("\nUsando configurações padrão por solicitação explícita.\n", flush=True)
 
     selected_configs = (

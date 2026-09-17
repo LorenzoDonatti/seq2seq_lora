@@ -1,0 +1,53 @@
+{
+  "experiment": "experiment_2_uva_gatewayA",
+  "source": "dataset/lorawan_metadata/lorawan_combined_dataset.parquet",
+  "weather_source": "dataset/weather/deployment_weather.parquet",
+  "selection": {
+    "gateway": "gatewayA",
+    "included_sensors": [
+      "sensor01",
+      "sensor02",
+      "sensor03",
+      "sensor04",
+      "sensor05",
+      "sensor06",
+      "sensor07",
+      "sensor08",
+      "sensor09"
+    ],
+    "excluded_sensor": "sensor10",
+    "reason": "sensor10 has only 384 observed hours versus about 11,300 for sensors01-09",
+    "excluded_gateways": [
+      "gatewayB",
+      "gatewayC"
+    ],
+    "gateway_reason": "their sensor-link coverage is too sparse for common complete-window forecasting"
+  },
+  "aggregation": {
+    "frequency": "1 hour UTC",
+    "rssi": "arithmetic mean of packet RSSI values within each sensor-hour",
+    "weather": "hourly mean for temperature/humidity/pressure; causal increment of accumulated rain",
+    "missing_data": "preserved as NaN; no interpolation or imputation"
+  },
+  "rows": 11736,
+  "range": [
+    "2024-02-09 00:00:00+00:00",
+    "2025-06-11 23:00:00+00:00"
+  ],
+  "observed_hour_fraction": {
+    "RSSI_01": 0.9628493524199045,
+    "RSSI_02": 0.9628493524199045,
+    "RSSI_03": 0.929959100204499,
+    "RSSI_04": 0.9627641445126107,
+    "RSSI_05": 0.962678936605317,
+    "RSSI_06": 0.9628493524199045,
+    "RSSI_07": 0.9625937286980232,
+    "RSSI_08": 0.962678936605317,
+    "RSSI_09": 0.9627641445126107,
+    "temp": 0.8857361963190185,
+    "hum": 0.8857361963190185,
+    "bar": 0.8857361963190185,
+    "rain": 0.8857361963190185
+  },
+  "output_sha256": "2fb5e44ea6b4d1641a488a4e4e693e057a1037279f79916dc4ed27c237f85b06"
+}

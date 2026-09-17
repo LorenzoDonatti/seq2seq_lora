@@ -1,0 +1,303 @@
+{
+  "protocol_version": 4,
+  "seed": 42,
+  "history_hours": 24,
+  "forecast_horizon_hours": 1,
+  "epochs": 1,
+  "patience": 1,
+  "graph_ablations": true,
+  "hyperparameter_source": "built_in_defaults",
+  "selected_hyperparameters": {
+    "ARX": {
+      "lags": 3,
+      "alpha": 1.0,
+      "difference": 0
+    },
+    "ARIMAX": {
+      "lags": 3,
+      "alpha": 1.0,
+      "difference": 0
+    },
+    "VARX": {
+      "lags": 3,
+      "alpha": 1.0,
+      "difference": 0
+    },
+    "VARIMAX": {
+      "lags": 3,
+      "alpha": 1.0,
+      "difference": 0
+    },
+    "SingleNode_Seq2Seq": {
+      "hidden_dim": 24,
+      "num_layers": 1,
+      "blocks": 2,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "dropout": 0.1,
+      "batch_size": 32
+    },
+    "MultiNode_Seq2Seq": {
+      "hidden_dim": 24,
+      "num_layers": 1,
+      "blocks": 2,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "dropout": 0.1,
+      "batch_size": 32
+    },
+    "SingleNode_NLinear": {
+      "hidden_dim": 24,
+      "num_layers": 1,
+      "blocks": 2,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "dropout": 0.1,
+      "batch_size": 32
+    },
+    "MultiNode_NLinear": {
+      "hidden_dim": 24,
+      "num_layers": 1,
+      "blocks": 2,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "dropout": 0.1,
+      "batch_size": 32
+    },
+    "SingleNode_DLinear": {
+      "hidden_dim": 24,
+      "num_layers": 1,
+      "blocks": 2,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "dropout": 0.1,
+      "batch_size": 32
+    },
+    "MultiNode_DLinear": {
+      "hidden_dim": 24,
+      "num_layers": 1,
+      "blocks": 2,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "dropout": 0.1,
+      "batch_size": 32
+    },
+    "PhysicalAdaptive_STGNN": {
+      "hidden_dim": 24,
+      "num_layers": 1,
+      "blocks": 2,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "dropout": 0.1,
+      "batch_size": 32
+    }
+  },
+  "data_quality": {
+    "policy": "complete strictly-hourly windows; no imputation",
+    "valid_windows": {
+      "train": 7145,
+      "validation": 1369,
+      "test": 1015
+    },
+    "discarded_windows": {
+      "train": 1046,
+      "validation": 367,
+      "test": 722
+    }
+  },
+  "task": "rolling_origin_multi_horizon",
+  "forecast_strategies": {
+    "ARX": "recursive",
+    "ARIMAX": "recursive",
+    "VARX": "recursive",
+    "VARIMAX": "recursive",
+    "SingleNode_Seq2Seq": "recursive",
+    "MultiNode_Seq2Seq": "recursive",
+    "SingleNode_NLinear": "direct",
+    "MultiNode_NLinear": "direct",
+    "SingleNode_DLinear": "direct",
+    "MultiNode_DLinear": "direct",
+    "PhysicalAdaptive_STGNN": "direct",
+    "STGNN_NoGraph": "direct",
+    "STGNN_PhysicalOnly": "direct",
+    "STGNN_AdaptiveOnly": "direct"
+  },
+  "statistical_exogenous_policy": "weather delayed by H=1; no future values or forecasts",
+  "statistical_estimator": "ridge conditional sum of squares, diagonal MA(1), d=0/1 selected on validation",
+  "training_support": "statistical: complete contiguous train segments; neural: complete train forecast windows",
+  "graph_ablation_policy": "fixed hybrid validation-selected hyperparameters, retrained per ablation",
+  "scalers": {
+    "RSSI_01": {
+      "scale": 0.018083182640144666,
+      "min": 1.9801084990958409
+    },
+    "RSSI_02": {
+      "scale": 0.019305019305019305,
+      "min": 2.2548262548262548
+    },
+    "RSSI_03": {
+      "scale": 0.016965127238454288,
+      "min": 1.8058435438265785
+    },
+    "RSSI_04": {
+      "scale": 0.01819184123484014,
+      "min": 2.0253583241455355
+    },
+    "RSSI_05": {
+      "scale": 0.01700592630765266,
+      "min": 1.703426951816542
+    },
+    "RSSI_06": {
+      "scale": 0.016146393972012917,
+      "min": 1.6646932185145316
+    },
+    "RSSI_07": {
+      "scale": 0.01782458983188171,
+      "min": 1.9139153331982988
+    },
+    "RSSI_08": {
+      "scale": 0.018966334755808438,
+      "min": 2.0791844476055
+    },
+    "RSSI_09": {
+      "scale": 0.01884253028263796,
+      "min": 2.0834454912516827
+    },
+    "temp": {
+      "scale": 0.011651616661811826,
+      "min": -0.1941936110301971
+    },
+    "hum": {
+      "scale": 0.011964107676969093,
+      "min": -0.18444666001994017
+    },
+    "bar": {
+      "scale": 0.6201550387596882,
+      "min": -18.186563307493486
+    },
+    "rain": {
+      "scale": 0.5681818181818181,
+      "min": 0.0
+    }
+  },
+  "training_objective": "macro MAE in dB, best validation checkpoint, early stopping",
+  "metric_semantics": {
+    "global": "mean across origins, leads and nodes",
+    "terminal_horizon": "error at t+1",
+    "legacy_json_keys": "mae_dbm/rmse_dbm retained; errors are dB"
+  },
+  "latency": "median of 30 calls after 5 warmups; all nodes; batches 1 and 32; synchronized; includes NumPy/device transfers; statistical models use CPU",
+  "resource_metrics": "weight/coefficients bytes only, excluding buffers/framework/activations; fit time excludes hyperparameter search",
+  "data_sha256": "2fb5e44ea6b4d1641a488a4e4e693e057a1037279f79916dc4ed27c237f85b06",
+  "topology": {
+    "source": "data/experiment_2_uva_gatewayA_hourly.topology.json",
+    "node_coordinates": [
+      [
+        38.032811,
+        -78.5095524
+      ],
+      [
+        38.0321764,
+        -78.5107493
+      ],
+      [
+        38.0321568,
+        -78.5108207
+      ],
+      [
+        38.032708,
+        -78.509723
+      ],
+      [
+        38.0333228,
+        -78.5111476
+      ],
+      [
+        38.033285,
+        -78.5111832
+      ],
+      [
+        38.032811,
+        -78.5095524
+      ],
+      [
+        38.0347279,
+        -78.5135257
+      ],
+      [
+        38.0346453,
+        -78.5134932
+      ]
+    ],
+    "gateway_coordinates": [
+      38.0317195,
+      -78.510864
+    ],
+    "gateway_distances_m": [
+      167.11335579206656,
+      51.78866067183854,
+      48.773206621273616,
+      148.5540577673298,
+      180.00084951597282,
+      176.3063160188515,
+      167.11335579206656,
+      407.7348743406726,
+      398.5827511741646
+    ]
+  },
+  "source_sha256": {
+    "src/__init__.py": "367ac93aecc5aeb933e49c7029afcb067af1b8bb6312efce0126fcd40c923f80",
+    "src/cli/__init__.py": "1fb08a9ea0ecfd3a6a0dd9bef5c323af063db7a54631c414e02c1f48abc159dd",
+    "src/cli/prepare_uva.py": "792502ebe970b1b07603997a47e2f6112cb1ffa6c70c857ecd9fb0298f05a2d9",
+    "src/cli/run_benchmark.py": "da4e376cf5eddbcf4e9c740ffe4d21b3aaee429a2ecc5cd29d94a2fa502303c7",
+    "src/config_store.py": "ae0e9f7da7c223deed434bbc73d1621fc1e06bc80565083c459e3f139d6352bf",
+    "src/data_loader.py": "45fbdad2846ee33f0b255965ae7ade48a4aae7698f250f4f44e67b25e7f3862b",
+    "src/dataset_standardization.py": "2f183ef3032e17c6980ee2146afe8909196cf9d19bc8a02d91977ff7d913f5d7",
+    "src/evaluation.py": "a4744df219faf73d14d7868b80630f0fd86f204253262b23e4b59688611f8a72",
+    "src/hyperparameter_search.py": "77fcb0fabd8c55230a12c9d437a6483aec6fbc929423dd8b682c2e5e060fc804",
+    "src/metrics.py": "dcbc5f78e972aaf60d894196870410c1ef1f25e785ff15072b3e775e27bfaa8d",
+    "src/model_registry.py": "1e3f1ac795acd4b4819083cffa0e060803e656f8e5e8bf8412b3bf746f381603",
+    "src/models/__init__.py": "3e7b6eadffca49dedc76d6a58b06536310287c0dfeb2c0e816892c8638dbe710",
+    "src/models/baselines.py": "cd296214b49eabee82b6459acfd3405104ae0cadf99f06f0128a0f6f0f1f6cec",
+    "src/models/dedicated.py": "32f17d2737c7338f22c617e64ab45c8cc5121b16da04a938624600b9cea37255",
+    "src/models/dlinear.py": "a9ff6f3c52b33f431260ed8da68923665cc0306dba3a03c47011ae842de3c2d2",
+    "src/models/multi_node_seq2seq.py": "46f4bcd133a12fdffc08cd276bd73a5287b0be6f5c739a52f55936594869a053",
+    "src/models/stgnn.py": "2f96d9f3cb78de44582d1fd563662bf4acae95a12a8467937ca9be26967c041f",
+    "src/models/training.py": "68d88887437ba9a32b5d79a1b32fe5b7d47d88d078ee07e527559e15dacb468e",
+    "src/node_topology.py": "4d18c769cbbc52f3e65bec37c32d3ea550fdaa93a5626b0b74d79476b5f18060",
+    "src/plotting.py": "f6ba872cbbfca7fbaca60631554699578498fa330e07d7aea74da1b6a8d4b032",
+    "src/runtime.py": "a5eb3f6bc55542756ee2eb3e781e5bf818183f2de19740b17eab8a67fa1e87d2",
+    "src/statistical_search.py": "8777d4c333a800fb232d35d107865e4bde64eca85ad175b7fd675ed59a9db2c1"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "torch": "2.14.0+cpu",
+    "numpy": "2.5.3",
+    "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.39",
+    "cuda_runtime": null,
+    "device": "cpu",
+    "gpu": null,
+    "torch_threads": 6,
+    "git_revision": "ccd5214574693c34f33f76492b5814403c736012",
+    "git_dirty": true
+  },
+  "split_origin_ranges": {
+    "train": [
+      "2024-02-10T00:00:00.000000000",
+      "2025-01-16T06:00:00.000000000"
+    ],
+    "val": [
+      "2025-01-17T07:00:00.000000000",
+      "2025-03-30T14:00:00.000000000"
+    ],
+    "test": [
+      "2025-03-31T15:00:00.000000000",
+      "2025-05-14T13:00:00.000000000"
+    ]
+  },
+  "limitations": [
+    "single deployment and seed; exploratory",
+    "complete common windows; no operational missing-node evaluation",
+    "no claim of network energy or ADR improvement"
+  ]
+}

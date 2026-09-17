@@ -1,23 +1,23 @@
 # LoRaWAN: previsão por nó, compartilhada e conjunta
 
-Estudo do compromisso entre precisão por nó e recursos para prever o RSSI de oito
-nós LoRaWAN. Dataset: `vineyard-2021`, médias horárias; horizontes 1, 6, 12 e 24 h.
+Estudo do compromisso entre precisão por nó e recursos para prever RSSI multinó.
+O experimento 1 usa os oito nós do `vineyard-2021`; o experimento 2 é uma validação
+externa com nove sensores do deployment urbano UVA recebidos pelo gateway A.
 
 ## Modelos e informação disponível
 
 | Modelo | Estrutura | Entradas |
 |---|---|---|
-| ARIMA | Oito preditores; parâmetros por nó | RSSI próprio |
-| Joint_VARX | Regressão Ridge direta para todos os nós e passos | RSSIs e clima históricos |
-| SingleNode_LSTM | Oito LSTMs independentes | RSSI próprio + clima |
-| SharedNode_LSTM | Uma LSTM, pesos compartilhados, aplicada a todos os nós | RSSI próprio + clima |
+| ARX/ARIMAX | Um preditor por nó | RSSI próprio + clima histórico |
+| VARX/VARIMAX | Uma regressão conjunta para todos os nós | RSSIs e clima históricos |
+| SingleNode_Seq2Seq | Um encoder–decoder independente por nó | RSSI próprio + clima |
 | MultiNode_Seq2Seq | Encoder LSTM, decoder LSTM recorrente e atenção aditiva | Todos os RSSIs + clima histórico |
 | NLinear | Projeção temporal compartilhada, normalização pela última observação | RSSI próprio |
 | DLinear | Decomposição por média móvel de 25 passos, duas projeções compartilhadas | RSSI próprio |
 | PhysicalAdaptive_STGNN | Convoluções temporais e grafo físico/adaptativo | RSSIs + clima + geometria |
 
-AR, persistência e VAR foram removidos por decisão do pesquisador. TCN continua
-removido. ARIMA e VARX usam CPU; os modelos neurais podem usar CUDA.
+AR, persistência e VAR sem exógenas foram removidos por decisão do pesquisador. TCN
+continua removido. Os modelos estatísticos usam CPU; os neurais podem usar CUDA.
 
 NLinear e DLinear seguem as formulações originais com `individual=False`.
 Eles compartilham parâmetros, mas **não misturam canais** e não usam clima.
@@ -35,27 +35,62 @@ de [encoder–decoder com atenção aditiva](https://arxiv.org/abs/1409.0473).
 
 ## Execução
 
+Preparar uma única vez o dataset UVA em formato horário causal:
+
+```bash
+lora-prepare-uva \
+  --source-dir dataset \
+  --output-file data/experiment_2_uva_gatewayA_hourly.csv
+```
+
+O comando preserva ausências, gera o sidecar de topologia e registra todas as decisões
+em `data/experiment_2_uva_gatewayA_hourly.standardization.json`. A metodologia e a
+auditoria estão em `dataset/FORECASTING_VALIDATION.md`.
+
+Mantenha obrigatoriamente as saídas separadas:
+
+```text
+benchmark_results/experiment_1_vineyard/
+benchmark_results/experiment_2_uva_gatewayA/
+```
+
+Experimento 1 (vinhedo):
+
 ```bash
 source .venv/bin/activate
 pip install -e . --no-deps --no-build-isolation
-lora-benchmark --horizons 1 6 12 24 --optimize \
-  --trials 12 --epochs 64 --patience 10 --device cuda \
-  --output-dir benchmark_results/revised_gpu_seed42
+lora-benchmark --horizon 1 --optimize \
+  --trials 12 --epochs 64 --search-epochs 64 --patience 10 \
+  --history 24 --device auto --graph-ablations \
+  --data-file data/combined_hourly_data.csv \
+  --output-dir benchmark_results/experiment_1_vineyard/confirmatory_seed42
 ```
 
-`--device auto` (padrão) seleciona CUDA quando disponível; `--device cuda`
-falha explicitamente se CUDA não estiver disponível. Não há fallback silencioso
-após erros de treinamento. `--search-epochs` assume o mesmo limite de `--epochs`
+Experimento 2 (UVA, mesma política):
+
+```bash
+lora-benchmark --horizon 1 --optimize \
+  --trials 12 --epochs 64 --search-epochs 64 --patience 10 \
+  --history 24 --device auto --graph-ablations \
+  --data-file data/experiment_2_uva_gatewayA_hourly.csv \
+  --output-dir benchmark_results/experiment_2_uva_gatewayA/confirmatory_seed42
+```
+
+`--device auto` (padrão) seleciona CUDA quando disponível e CPU caso contrário; a opção
+pode ser omitida. `--device cuda` força GPU e falha explicitamente se ela não estiver
+disponível. Não há fallback silencioso após erros de treinamento. `--search-epochs`
+assume o mesmo limite de `--epochs`
 quando omitido; ambos usam early stopping na validação com `--patience 10`.
 
 Sem `--optimize`, reutiliza-se o cache da última seleção por horizonte.
 `--use-defaults` é a única forma explícita de usar configurações internas.
-O protocolo v2 rejeita caches antigos, pois arquitetura, treinamento e baselines
-mudaram. Use um diretório novo por experimento; resultados existentes são protegidos.
+O protocolo v4 rejeita caches antigos e mantém vencedores separados por dataset e
+histórico. Use um diretório novo por experimento; resultados existentes são protegidos.
 
 ```bash
-lora-benchmark --horizons 1 6 12 24 --epochs 64 --device cuda \
-  --output-dir benchmark_results/revised_gpu_repeat
+lora-benchmark --horizon 1 --epochs 64 --device auto \
+  --data-file data/combined_hourly_data.csv \
+  --output-dir benchmark_results/experiment_1_vineyard/repeat_seed42
 ```
 
 O comando equivalente sem instalar o pacote é `python -m src.cli.run_benchmark`.
@@ -86,8 +121,9 @@ O comando equivalente sem instalar o pacote é `python -m src.cli.run_benchmark`
 
 ## Interpretação e limites
 
-Os resultados antigos em `benchmark_results/optimize_32_64` são históricos:
-não representam as arquiteturas e o protocolo atuais.
+Resultados anteriores a este protocolo são históricos e não representam as
+arquiteturas atuais. O run v3 do vinhedo foi preservado em
+`benchmark_results/experiment_1_vineyard/v3_h1_gpu_seed42`.
 
 O controle compartilhado ajuda a estudar compartilhamento sem informação cruzada.
 A comparação com Seq2Seq/STGNN ainda muda a arquitetura: não atribuir causalmente
@@ -108,7 +144,7 @@ python -m compileall -q src tests
 O CLI contém parsing/apresentação. Preparação, busca, treinamento e avaliação estão
 em módulos separados em `src`. Consulte `PROJECT_CONTEXT.md` para o handoff.
 
-## Protocolo v3 e famílias pareadas
+## Protocolo v4 e famílias pareadas
 
 O benchmark atual compara ARX, ARIMAX, VARX e VARIMAX; Seq2Seq dedicado e integrado;
 NLinear e DLinear dedicados e integrados; e o PhysicalAdaptive_STGNN multinó. AR,
@@ -134,5 +170,6 @@ Execução completa recomendada:
 ```bash
 lora-benchmark --horizon 1 --optimize --trials 12 \
   --epochs 64 --search-epochs 64 --patience 10 --history 24 \
-  --device cuda --graph-ablations --output-dir benchmark_results/v3_gpu_seed42
+  --device auto --graph-ablations \
+  --output-dir benchmark_results/experiment_1_vineyard/confirmatory_seed42
 ```

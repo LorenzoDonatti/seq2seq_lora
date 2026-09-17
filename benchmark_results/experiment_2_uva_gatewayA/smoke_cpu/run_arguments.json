@@ -1,0 +1,16 @@
+{
+  "horizon": 1,
+  "horizons": null,
+  "history": 24,
+  "epochs": 1,
+  "optimize": false,
+  "use_defaults": true,
+  "trials": 12,
+  "search_epochs": 1,
+  "data_file": "data/experiment_2_uva_gatewayA_hourly.csv",
+  "output_dir": "benchmark_results/experiment_2_uva_gatewayA/smoke_cpu",
+  "seed": 42,
+  "device": "cpu",
+  "patience": 1,
+  "graph_ablations": true
+}

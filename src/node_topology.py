@@ -38,22 +38,27 @@ def haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> fl
     return R * 2.0 * np.arctan2(np.sqrt(a), np.sqrt(1.0 - a))
 
 
-def compute_distance_matrix() -> np.ndarray:
+def compute_distance_matrix(node_coords: np.ndarray = NODE_COORDS) -> np.ndarray:
     """Returns pairwise Haversine distance matrix (N x N) in meters."""
-    n = len(NODE_COORDS)
+    node_coords = np.asarray(node_coords, dtype=np.float64)
+    n = len(node_coords)
     D = np.zeros((n, n), dtype=np.float64)
     for i in range(n):
         for j in range(i + 1, n):
             d = haversine_distance(
-                NODE_COORDS[i, 0], NODE_COORDS[i, 1],
-                NODE_COORDS[j, 0], NODE_COORDS[j, 1]
+                node_coords[i, 0], node_coords[i, 1],
+                node_coords[j, 0], node_coords[j, 1]
             )
             D[i, j] = d
             D[j, i] = d
     return D
 
 
-def compute_physical_adjacency(sigma: float = None, node_indices=None) -> np.ndarray:
+def compute_physical_adjacency(
+    sigma: float = None,
+    node_indices=None,
+    node_coords: np.ndarray = NODE_COORDS,
+) -> np.ndarray:
     """
     Computes a Gaussian-kernel adjacency matrix from physical GPS coordinates.
 
@@ -61,7 +66,7 @@ def compute_physical_adjacency(sigma: float = None, node_indices=None) -> np.nda
 
     If sigma is None, it defaults to the standard deviation of all pairwise distances.
     """
-    D = compute_distance_matrix()
+    D = compute_distance_matrix(node_coords)
     if node_indices is not None:
         D = D[np.ix_(node_indices, node_indices)]
     if sigma is None:

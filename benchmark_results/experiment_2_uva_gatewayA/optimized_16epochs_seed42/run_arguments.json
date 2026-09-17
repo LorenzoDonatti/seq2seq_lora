@@ -1,0 +1,16 @@
+{
+  "horizon": 1,
+  "horizons": null,
+  "history": 24,
+  "epochs": 64,
+  "optimize": true,
+  "use_defaults": false,
+  "trials": 12,
+  "search_epochs": 16,
+  "data_file": "data/experiment_2_uva_gatewayA_hourly.csv",
+  "output_dir": "benchmark_results/experiment_2_uva_gatewayA/optimized_16epochs_seed42",
+  "seed": 42,
+  "device": "cpu",
+  "patience": 10,
+  "graph_ablations": true
+}

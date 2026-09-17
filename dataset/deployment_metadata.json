@@ -1,0 +1,22 @@
+{
+  "source": "dataset/README.md#sensor-and-gateway-metadata",
+  "dataset_doi": "10.18130/V3/RFTICK",
+  "los_status": "unknown",
+  "sensors": [
+    {"id": "sensor01", "environment": "indoor", "latitude": 38.0328110, "longitude": -78.5095524, "model": "Linovision S500CO2", "installation": "Office, third floor of three-story building"},
+    {"id": "sensor02", "environment": "outdoor", "latitude": 38.0321764, "longitude": -78.5107493, "model": "Linovision S500TH", "installation": "Near entrance door of office building"},
+    {"id": "sensor03", "environment": "indoor", "latitude": 38.0321568, "longitude": -78.5108207, "model": "Linovision S500TH", "installation": "Lab, second floor of two-story building"},
+    {"id": "sensor04", "environment": "outdoor", "latitude": 38.0327080, "longitude": -78.5097230, "model": "Linovision S500TH", "installation": "Near entrance door of office building"},
+    {"id": "sensor05", "environment": "outdoor", "latitude": 38.0333228, "longitude": -78.5111476, "model": "Linovision S500TH", "installation": "Corridor between two office buildings"},
+    {"id": "sensor06", "environment": "indoor", "latitude": 38.0332850, "longitude": -78.5111832, "model": "Linovision S500TH", "installation": "Office, third floor of three-story building"},
+    {"id": "sensor07", "environment": "indoor", "latitude": 38.0328110, "longitude": -78.5095524, "model": "Linovision S500TH", "installation": "Office, third floor of three-story building"},
+    {"id": "sensor08", "environment": "outdoor", "latitude": 38.0347279, "longitude": -78.5135257, "model": "Linovision S500TH", "installation": "Near entrance door of office building"},
+    {"id": "sensor09", "environment": "indoor", "latitude": 38.0346453, "longitude": -78.5134932, "model": "Linovision S500TH", "installation": "Classroom, single-story office building"},
+    {"id": "sensor10", "environment": "indoor", "latitude": 38.0318946, "longitude": -78.5102145, "model": "Linovision S500TH", "installation": "Office, second floor of two-story building"}
+  ],
+  "gateways": [
+    {"id": "gatewayA", "environment": "outdoor", "latitude": 38.0317195, "longitude": -78.5108640, "model": "Cisco IXM-LPWA-900-16-K9", "installation": "Roof of five-story building"},
+    {"id": "gatewayB", "environment": "outdoor", "latitude": 38.0365606, "longitude": -78.5225695, "model": "Cisco IXM-LPWA-900-16-K9", "installation": "Roof of single-story building"},
+    {"id": "gatewayC", "environment": "indoor", "latitude": 38.0322023, "longitude": -78.5106216, "model": "Cisco IXM-LPWA-900-16-K9", "installation": "Second floor of two-story building"}
+  ]
+}

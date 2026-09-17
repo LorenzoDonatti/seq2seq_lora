@@ -18,7 +18,10 @@ from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
 from src.models.training import fit_network
 
-from src.node_topology import compute_physical_adjacency, GW_DISTANCES_M
+from src.node_topology import (
+    compute_physical_adjacency, haversine_distance, NODE_COORDS, GATEWAY_COORDS,
+    GW_DISTANCES_M,
+)
 
 
 class AdaptiveGraphConvolution(nn.Module):
@@ -162,7 +165,10 @@ class AdaptiveSTGNN(nn.Module):
         hidden_dim: int = 32,
         num_blocks: int = 2,
         dropout: float = 0.1,
-        graph_mode: str = "hybrid"
+        graph_mode: str = "hybrid",
+        node_coordinates: Optional[np.ndarray] = None,
+        gateway_coordinates: Optional[np.ndarray] = None,
+        gateway_distances_m: Optional[np.ndarray] = None,
     ):
         super().__init__()
         self.n_targets = n_targets
@@ -174,9 +180,17 @@ class AdaptiveSTGNN(nn.Module):
         in_feat_per_node = 2 + n_exogenous
         self.input_proj = nn.Linear(in_feat_per_node, hidden_dim)
 
-        if not 1 <= n_targets <= len(GW_DISTANCES_M) or num_blocks < 1:
+        using_default_topology = node_coordinates is None
+        node_coordinates = np.asarray(
+            NODE_COORDS[:n_targets] if using_default_topology else node_coordinates,
+            dtype=np.float64,
+        )
+        gateway_coordinates = np.asarray(
+            GATEWAY_COORDS if gateway_coordinates is None else gateway_coordinates, dtype=np.float64
+        )
+        if node_coordinates.shape != (n_targets, 2) or gateway_coordinates.shape != (2,) or num_blocks < 1:
             raise ValueError("Invalid node count or number of graph blocks")
-        physical_adjacency = compute_physical_adjacency(node_indices=list(range(n_targets)))
+        physical_adjacency = compute_physical_adjacency(node_coords=node_coordinates)
 
         self.blocks = nn.ModuleList([
             SpatioTemporalBlock(
@@ -188,7 +202,17 @@ class AdaptiveSTGNN(nn.Module):
             for block_index in range(num_blocks)
         ])
 
-        gateway_distance = GW_DISTANCES_M[:n_targets] / GW_DISTANCES_M[:n_targets].max()
+        if gateway_distances_m is None and using_default_topology:
+            gateway_distances_m = GW_DISTANCES_M[:n_targets]
+        gateway_distance = np.asarray(
+            ([haversine_distance(lat, lon, gateway_coordinates[0], gateway_coordinates[1])
+              for lat, lon in node_coordinates]
+             if gateway_distances_m is None else gateway_distances_m),
+            dtype=np.float64,
+        )
+        if gateway_distance.shape != (n_targets,) or not np.all(gateway_distance > 0):
+            raise ValueError("Invalid gateway distances")
+        gateway_distance = gateway_distance / gateway_distance.max()
         self.register_buffer(
             "gateway_distance",
             torch.as_tensor(gateway_distance, dtype=torch.float32).view(1, 1, n_targets, 1),
@@ -263,7 +287,10 @@ class AdaptiveSTGNNTrainer:
         dropout: float = 0.1,
         weight_decay: float = 1e-4,
         device: str = "cpu",
-        graph_mode: str = "hybrid"
+        graph_mode: str = "hybrid",
+        node_coordinates: Optional[np.ndarray] = None,
+        gateway_coordinates: Optional[np.ndarray] = None,
+        gateway_distances_m: Optional[np.ndarray] = None,
     ):
         self.device = torch.device(device)
         self.model = AdaptiveSTGNN(
@@ -272,7 +299,9 @@ class AdaptiveSTGNNTrainer:
             seq_length=seq_length,
             pred_length=pred_length,
             hidden_dim=hidden_dim,
-            num_blocks=num_blocks, dropout=dropout, graph_mode=graph_mode
+            num_blocks=num_blocks, dropout=dropout, graph_mode=graph_mode,
+            node_coordinates=node_coordinates, gateway_coordinates=gateway_coordinates,
+            gateway_distances_m=gateway_distances_m,
         ).to(self.device)
         self.lr = lr
         self.weight_decay = weight_decay

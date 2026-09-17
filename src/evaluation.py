@@ -130,6 +130,12 @@ def run_full_benchmark(data_file="data/combined_hourly_data.csv", seq_length=24,
         "resource_metrics": "weight/coefficients bytes only, excluding buffers/framework/activations; "
                             "fit time excludes hyperparameter search",
         "data_sha256": hashlib.sha256(Path(data_file).read_bytes()).hexdigest(),
+        "topology": {
+            "source": data["topology"]["source"],
+            "node_coordinates": data["topology"]["node_coordinates"].tolist(),
+            "gateway_coordinates": data["topology"]["gateway_coordinates"].tolist(),
+            "gateway_distances_m": data["topology"]["gateway_distances_m"].tolist(),
+        },
         "source_sha256": {str(p): hashlib.sha256(p.read_bytes()).hexdigest()
                           for p in sorted(Path("src").rglob("*.py"))},
         "environment": {"python": platform.python_version(), "torch": torch.__version__,

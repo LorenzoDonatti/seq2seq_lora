@@ -1,0 +1,5130 @@
+{
+  "protocol": {
+    "selection": "validation macro MAE in dB",
+    "test_used": false,
+    "history": 24,
+    "horizon": 1,
+    "weather_lag_hours": 1,
+    "ma_structure": "diagonal MA(1), invertible bound +/-0.95",
+    "fit": "regularized conditional sum of squares",
+    "stability": "reject AR spectral radius >=1; no fallback"
+  },
+  "complete": true,
+  "best": {
+    "model": "VARIMAX",
+    "config": {
+      "lags": 3,
+      "alpha": 0.01,
+      "difference": 0
+    },
+    "status": "ok",
+    "val_mae_dbm": 1.9393,
+    "val_rmse_dbm": 2.5727,
+    "per_node": {
+      "RSSI_01": {
+        "mae_dbm": 2.2209,
+        "rmse_dbm": 2.9048
+      },
+      "RSSI_02": {
+        "mae_dbm": 1.755,
+        "rmse_dbm": 2.3165
+      },
+      "RSSI_03": {
+        "mae_dbm": 1.8509,
+        "rmse_dbm": 2.4396
+      },
+      "RSSI_04": {
+        "mae_dbm": 2.3288,
+        "rmse_dbm": 3.0342
+      },
+      "RSSI_05": {
+        "mae_dbm": 1.426,
+        "rmse_dbm": 1.9467
+      },
+      "RSSI_06": {
+        "mae_dbm": 1.496,
+        "rmse_dbm": 2.0297
+      },
+      "RSSI_07": {
+        "mae_dbm": 1.8147,
+        "rmse_dbm": 2.3895
+      },
+      "RSSI_08": {
+        "mae_dbm": 2.0196,
+        "rmse_dbm": 2.5652
+      },
+      "RSSI_09": {
+        "mae_dbm": 2.5415,
+        "rmse_dbm": 3.2261
+      }
+    },
+    "parameters": 297,
+    "training": {
+      "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+      "joint": true,
+      "p": 3,
+      "d": 0,
+      "q": 1,
+      "ma_structure": "diagonal",
+      "weather_lag_hours": 1,
+      "training_segment_lengths": [
+        2032,
+        1638,
+        327,
+        1489,
+        1776
+      ],
+      "conditional_observations": 7247,
+      "excluded_short_segment_rows": 1,
+      "spectral_radius": 0.9927205353373535,
+      "converged_per_node": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "innovation_initialization": "zero independently at each segment/window",
+      "ma_coefficients": [
+        -0.7594672338647375,
+        -0.7463168700908992,
+        -0.7617149217282656,
+        -0.8817688994744093,
+        -0.7551096430583166,
+        -0.7473313589227661,
+        -0.757635173259946,
+        -0.7572944393609871,
+        -0.8502685636431984
+      ]
+    },
+    "elapsed_seconds": 0.18396825499985425
+  },
+  "trials": [
+    {
+      "model": "ARX",
+      "config": {
+        "lags": 1,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1793,
+      "val_rmse_dbm": 2.9144,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4886,
+          "rmse_dbm": 3.2691
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0004,
+          "rmse_dbm": 2.6364
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0434,
+          "rmse_dbm": 2.718
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5632,
+          "rmse_dbm": 3.3284
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.6419,
+          "rmse_dbm": 2.2661
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.6533,
+          "rmse_dbm": 2.31
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0422,
+          "rmse_dbm": 2.7165
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.22,
+          "rmse_dbm": 2.8905
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.9608,
+          "rmse_dbm": 3.7599
+        }
+      },
+      "parameters": 54,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 1,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9477915233760154,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.014408595000077185
+    },
+    {
+      "model": "ARX",
+      "config": {
+        "lags": 1,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1883,
+      "val_rmse_dbm": 2.9211,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4973,
+          "rmse_dbm": 3.2747
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0089,
+          "rmse_dbm": 2.6424
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.053,
+          "rmse_dbm": 2.7271
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5687,
+          "rmse_dbm": 3.3302
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.6559,
+          "rmse_dbm": 2.2775
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.6658,
+          "rmse_dbm": 2.3174
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0517,
+          "rmse_dbm": 2.7248
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2293,
+          "rmse_dbm": 2.9017
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.9637,
+          "rmse_dbm": 3.763
+        }
+      },
+      "parameters": 54,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 1,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9414105645668299,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.01442331499993088
+    },
+    {
+      "model": "ARX",
+      "config": {
+        "lags": 1,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.3031,
+      "val_rmse_dbm": 3.0289,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.5942,
+          "rmse_dbm": 3.3623
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.1036,
+          "rmse_dbm": 2.7397
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.1958,
+          "rmse_dbm": 2.8857
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.641,
+          "rmse_dbm": 3.3847
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.8264,
+          "rmse_dbm": 2.4538
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.8219,
+          "rmse_dbm": 2.4452
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.1943,
+          "rmse_dbm": 2.8519
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.3417,
+          "rmse_dbm": 3.0373
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.0089,
+          "rmse_dbm": 3.8231
+        }
+      },
+      "parameters": 54,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 1,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8873584481716761,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.014693278000322607
+    },
+    {
+      "model": "ARX",
+      "config": {
+        "lags": 3,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1494,
+      "val_rmse_dbm": 2.8628,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4834,
+          "rmse_dbm": 3.2843
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9699,
+          "rmse_dbm": 2.5528
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.053,
+          "rmse_dbm": 2.6552
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5433,
+          "rmse_dbm": 3.2972
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5262,
+          "rmse_dbm": 2.092
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4753,
+          "rmse_dbm": 2.0247
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0476,
+          "rmse_dbm": 2.6875
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2525,
+          "rmse_dbm": 2.8966
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.9937,
+          "rmse_dbm": 3.8012
+        }
+      },
+      "parameters": 72,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 3,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8598165443000024,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.018343156999890198
+    },
+    {
+      "model": "ARX",
+      "config": {
+        "lags": 3,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1558,
+      "val_rmse_dbm": 2.8699,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4926,
+          "rmse_dbm": 3.2882
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9715,
+          "rmse_dbm": 2.5569
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0511,
+          "rmse_dbm": 2.6554
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5391,
+          "rmse_dbm": 3.2878
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5538,
+          "rmse_dbm": 2.1301
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5057,
+          "rmse_dbm": 2.0697
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0431,
+          "rmse_dbm": 2.689
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2551,
+          "rmse_dbm": 2.9043
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.9899,
+          "rmse_dbm": 3.7983
+        }
+      },
+      "parameters": 72,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 3,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8609181097851517,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.017759580000074493
+    },
+    {
+      "model": "ARX",
+      "config": {
+        "lags": 3,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.2972,
+      "val_rmse_dbm": 3.0337,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.6031,
+          "rmse_dbm": 3.3874
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0705,
+          "rmse_dbm": 2.708
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.1886,
+          "rmse_dbm": 2.8807
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.626,
+          "rmse_dbm": 3.3837
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.8283,
+          "rmse_dbm": 2.4674
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.83,
+          "rmse_dbm": 2.4699
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.171,
+          "rmse_dbm": 2.8426
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.3345,
+          "rmse_dbm": 3.0331
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.0233,
+          "rmse_dbm": 3.8481
+        }
+      },
+      "parameters": 72,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 3,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8879686157950666,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.01799727299976439
+    },
+    {
+      "model": "ARX",
+      "config": {
+        "lags": 6,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1539,
+      "val_rmse_dbm": 2.8695,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4834,
+          "rmse_dbm": 3.2878
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9755,
+          "rmse_dbm": 2.5687
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0557,
+          "rmse_dbm": 2.6595
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5438,
+          "rmse_dbm": 3.2978
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5286,
+          "rmse_dbm": 2.0972
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4795,
+          "rmse_dbm": 2.0262
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0587,
+          "rmse_dbm": 2.699
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2708,
+          "rmse_dbm": 2.924
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.989,
+          "rmse_dbm": 3.7964
+        }
+      },
+      "parameters": 99,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 6,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8645529480241331,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.0216113020001103
+    },
+    {
+      "model": "ARX",
+      "config": {
+        "lags": 6,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.16,
+      "val_rmse_dbm": 2.8775,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4929,
+          "rmse_dbm": 3.2927
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9772,
+          "rmse_dbm": 2.5751
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0536,
+          "rmse_dbm": 2.6591
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5376,
+          "rmse_dbm": 3.2865
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5557,
+          "rmse_dbm": 2.1372
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5063,
+          "rmse_dbm": 2.0707
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0566,
+          "rmse_dbm": 2.7025
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2757,
+          "rmse_dbm": 2.9337
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.9848,
+          "rmse_dbm": 3.7957
+        }
+      },
+      "parameters": 99,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 6,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8596593324629492,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.021153376999791362
+    },
+    {
+      "model": "ARX",
+      "config": {
+        "lags": 6,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.2976,
+      "val_rmse_dbm": 3.0471,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.6036,
+          "rmse_dbm": 3.4029
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0671,
+          "rmse_dbm": 2.7331
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.186,
+          "rmse_dbm": 2.882
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.6128,
+          "rmse_dbm": 3.3781
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.8146,
+          "rmse_dbm": 2.4796
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.8168,
+          "rmse_dbm": 2.4662
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.1924,
+          "rmse_dbm": 2.8637
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.362,
+          "rmse_dbm": 3.0739
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.0233,
+          "rmse_dbm": 3.8619
+        }
+      },
+      "parameters": 99,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 6,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8523152318806431,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.022670802999982698
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1677,
+      "val_rmse_dbm": 2.8797,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4753,
+          "rmse_dbm": 3.2552
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0142,
+          "rmse_dbm": 2.61
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0625,
+          "rmse_dbm": 2.701
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5737,
+          "rmse_dbm": 3.3227
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5685,
+          "rmse_dbm": 2.1352
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5213,
+          "rmse_dbm": 2.0892
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0739,
+          "rmse_dbm": 2.7169
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2454,
+          "rmse_dbm": 2.8977
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.9745,
+          "rmse_dbm": 3.7664
+        }
+      },
+      "parameters": 63,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 1,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9184102630065739,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.13289459111285576,
+          0.21423538129046418,
+          0.2409393608720184,
+          0.20738507557424038,
+          0.24636311977545716,
+          0.3420661988479099,
+          0.18873259295515446,
+          0.15658628165370717,
+          0.12289676974422482
+        ]
+      },
+      "elapsed_seconds": 0.04199361000019053
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1801,
+      "val_rmse_dbm": 2.89,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4846,
+          "rmse_dbm": 3.2625
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0268,
+          "rmse_dbm": 2.6201
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0771,
+          "rmse_dbm": 2.7163
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5821,
+          "rmse_dbm": 3.3271
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5864,
+          "rmse_dbm": 2.1524
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5369,
+          "rmse_dbm": 2.1011
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0877,
+          "rmse_dbm": 2.7298
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2591,
+          "rmse_dbm": 2.9135
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.98,
+          "rmse_dbm": 3.7717
+        }
+      },
+      "parameters": 63,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 1,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9068469838869808,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.14047603617079102,
+          0.2207337722249843,
+          0.24788499260483007,
+          0.21376771152653054,
+          0.2528463364021613,
+          0.34853909468838185,
+          0.19574917841720343,
+          0.16407931954913899,
+          0.12992338676833673
+        ]
+      },
+      "elapsed_seconds": 0.042313823999847955
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.3502,
+      "val_rmse_dbm": 3.0652,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.6125,
+          "rmse_dbm": 3.3891
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.1691,
+          "rmse_dbm": 2.7829
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.3104,
+          "rmse_dbm": 2.9872
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.694,
+          "rmse_dbm": 3.4343
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.8176,
+          "rmse_dbm": 2.4322
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.7614,
+          "rmse_dbm": 2.3251
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.2995,
+          "rmse_dbm": 2.933
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.4267,
+          "rmse_dbm": 3.1146
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.0604,
+          "rmse_dbm": 3.8714
+        }
+      },
+      "parameters": 63,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 1,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8014681373656606,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.2226693837973798,
+          0.29254009156873284,
+          0.3351756459350648,
+          0.2861340903186031,
+          0.33344917898534915,
+          0.4299057883205355,
+          0.2781702348543496,
+          0.24304519035642141,
+          0.20555285636178147
+        ]
+      },
+      "elapsed_seconds": 0.0426557280002271
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 0.01,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1442,
+      "val_rmse_dbm": 2.904,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4655,
+          "rmse_dbm": 3.3287
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9708,
+          "rmse_dbm": 2.623
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0388,
+          "rmse_dbm": 2.687
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5777,
+          "rmse_dbm": 3.3929
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4994,
+          "rmse_dbm": 2.0932
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4604,
+          "rmse_dbm": 2.0524
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0323,
+          "rmse_dbm": 2.713
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.214,
+          "rmse_dbm": 2.8809
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.039,
+          "rmse_dbm": 3.8669
+        }
+      },
+      "parameters": 63,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 1,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7252,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.3871823606085187,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.13497757017620512,
+          -0.19574772531091483,
+          -0.10981693949471624,
+          -0.09630999104905714,
+          -0.10640040134060791,
+          0.07991477411205605,
+          -0.18643019827282428,
+          0.051159912301976286,
+          -0.016480502526375913
+        ]
+      },
+      "elapsed_seconds": 0.04354260799982512
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 1.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1483,
+      "val_rmse_dbm": 2.9083,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4647,
+          "rmse_dbm": 3.3253
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9782,
+          "rmse_dbm": 2.6323
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0445,
+          "rmse_dbm": 2.6986
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5807,
+          "rmse_dbm": 3.3955
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5074,
+          "rmse_dbm": 2.1037
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4679,
+          "rmse_dbm": 2.0642
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0399,
+          "rmse_dbm": 2.7205
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2141,
+          "rmse_dbm": 2.8812
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.0376,
+          "rmse_dbm": 3.8649
+        }
+      },
+      "parameters": 63,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 1,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7252,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.22509192421987506,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.020441679263857686,
+          -0.03546865961367454,
+          0.03766654348045257,
+          0.031797541338976415,
+          0.029930330771472037,
+          0.16372707491120772,
+          -0.004318699669643256,
+          0.08081447108687105,
+          0.048541191821327406
+        ]
+      },
+      "elapsed_seconds": 0.05007060800016916
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 10.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1538,
+      "val_rmse_dbm": 2.9148,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4645,
+          "rmse_dbm": 3.3242
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9869,
+          "rmse_dbm": 2.6451
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0497,
+          "rmse_dbm": 2.7105
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5838,
+          "rmse_dbm": 3.3972
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5199,
+          "rmse_dbm": 2.1226
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4839,
+          "rmse_dbm": 2.0873
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0444,
+          "rmse_dbm": 2.7263
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.214,
+          "rmse_dbm": 2.8813
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.0373,
+          "rmse_dbm": 3.8644
+        }
+      },
+      "parameters": 63,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 1,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7252,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.041379396267601086,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.06981270230655269,
+          0.1396094832211814,
+          0.18423586601882608,
+          0.14612670908089762,
+          0.1852758585061978,
+          0.28552407125769247,
+          0.12968653610005668,
+          0.09098996367348883,
+          0.06085704777997014
+        ]
+      },
+      "elapsed_seconds": 0.04339332600011403
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1476,
+      "val_rmse_dbm": 2.8633,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4772,
+          "rmse_dbm": 3.2809
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9783,
+          "rmse_dbm": 2.5735
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0531,
+          "rmse_dbm": 2.6544
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5395,
+          "rmse_dbm": 3.2927
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5259,
+          "rmse_dbm": 2.0931
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4459,
+          "rmse_dbm": 1.9883
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0532,
+          "rmse_dbm": 2.6944
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2646,
+          "rmse_dbm": 2.9115
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.9908,
+          "rmse_dbm": 3.8001
+        }
+      },
+      "parameters": 81,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 3,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9207811887739668,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.532029993470852,
+          -0.5836064807831843,
+          -0.132643357237497,
+          -0.4082826935821688,
+          -0.12811925967297738,
+          0.9114170082454531,
+          -0.40468114605069483,
+          -0.6088238190880497,
+          -0.6189125118656397
+        ]
+      },
+      "elapsed_seconds": 0.05838875700010249
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1619,
+      "val_rmse_dbm": 2.8734,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4894,
+          "rmse_dbm": 3.2821
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9884,
+          "rmse_dbm": 2.5711
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0627,
+          "rmse_dbm": 2.6792
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5615,
+          "rmse_dbm": 3.3106
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5524,
+          "rmse_dbm": 2.1167
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4967,
+          "rmse_dbm": 2.0489
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0611,
+          "rmse_dbm": 2.7005
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2581,
+          "rmse_dbm": 2.9075
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.9868,
+          "rmse_dbm": 3.7898
+        }
+      },
+      "parameters": 81,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 3,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8738752336040561,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.46565119097568675,
+          0.4958882114922703,
+          0.5691284486296541,
+          0.5416762226144524,
+          0.5627453095732404,
+          0.6316968386686314,
+          0.5146543720929994,
+          0.5124636249843392,
+          0.5151357227945428
+        ]
+      },
+      "elapsed_seconds": 0.0478289840002617
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.2661,
+      "val_rmse_dbm": 2.9774,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.5456,
+          "rmse_dbm": 3.3141
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0927,
+          "rmse_dbm": 2.6984
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.1798,
+          "rmse_dbm": 2.849
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.6341,
+          "rmse_dbm": 3.3645
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.737,
+          "rmse_dbm": 2.335
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.6987,
+          "rmse_dbm": 2.2834
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.1841,
+          "rmse_dbm": 2.8223
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.324,
+          "rmse_dbm": 3.0019
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.999,
+          "rmse_dbm": 3.7999
+        }
+      },
+      "parameters": 81,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 3,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8780466896403021,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.555565197467091,
+          0.5937136512790095,
+          0.6209320621720086,
+          0.5960792190859868,
+          0.6155820466738315,
+          0.6647241849942283,
+          0.5896037620655143,
+          0.5715797337909805,
+          0.5527267076491994
+        ]
+      },
+      "elapsed_seconds": 0.05230371199968431
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 0.01,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.2485,
+      "val_rmse_dbm": 2.9813,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.577,
+          "rmse_dbm": 3.4371
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0592,
+          "rmse_dbm": 2.6616
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.1149,
+          "rmse_dbm": 2.7501
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.6715,
+          "rmse_dbm": 3.4553
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.6078,
+          "rmse_dbm": 2.1635
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.575,
+          "rmse_dbm": 2.1009
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.144,
+          "rmse_dbm": 2.7664
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.3469,
+          "rmse_dbm": 2.9886
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.1404,
+          "rmse_dbm": 3.9891
+        }
+      },
+      "parameters": 81,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 3,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7242,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.7270859745043387,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921
+        ]
+      },
+      "elapsed_seconds": 0.10749896499964962
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 1.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1452,
+      "val_rmse_dbm": 2.9046,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4755,
+          "rmse_dbm": 3.3404
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9634,
+          "rmse_dbm": 2.6139
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0353,
+          "rmse_dbm": 2.6836
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5806,
+          "rmse_dbm": 3.3947
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4994,
+          "rmse_dbm": 2.0929
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4651,
+          "rmse_dbm": 2.0542
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0293,
+          "rmse_dbm": 2.7062
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2151,
+          "rmse_dbm": 2.8816
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.0432,
+          "rmse_dbm": 3.8711
+        }
+      },
+      "parameters": 81,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 3,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7242,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.4248522128561275,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.04491813360868439,
+          0.159178465264553,
+          0.20416351689779172,
+          0.14954657849897757,
+          0.2043909267172832,
+          0.31028877404709926,
+          0.15218514380454343,
+          0.07418029681411659,
+          0.06161753858155104
+        ]
+      },
+      "elapsed_seconds": 0.048751723999885144
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 10.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.147,
+      "val_rmse_dbm": 2.9072,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4722,
+          "rmse_dbm": 3.3356
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.968,
+          "rmse_dbm": 2.6205
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0384,
+          "rmse_dbm": 2.6907
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5796,
+          "rmse_dbm": 3.3938
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5056,
+          "rmse_dbm": 2.102
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.471,
+          "rmse_dbm": 2.0674
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.032,
+          "rmse_dbm": 2.7105
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2146,
+          "rmse_dbm": 2.8813
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.0417,
+          "rmse_dbm": 3.8694
+        }
+      },
+      "parameters": 81,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 3,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7242,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.3565281261177176,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.07512950655747407,
+          0.171462223678113,
+          0.2129869081436542,
+          0.16766018877269623,
+          0.21797135735402062,
+          0.3187173114403447,
+          0.1525650025001725,
+          0.09078191176963003,
+          0.06274042401240451
+        ]
+      },
+      "elapsed_seconds": 0.05242215299995223
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1541,
+      "val_rmse_dbm": 2.8706,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4835,
+          "rmse_dbm": 3.2872
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9758,
+          "rmse_dbm": 2.5679
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0573,
+          "rmse_dbm": 2.6624
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5435,
+          "rmse_dbm": 3.299
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5299,
+          "rmse_dbm": 2.1001
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.477,
+          "rmse_dbm": 2.0307
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0601,
+          "rmse_dbm": 2.7004
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2708,
+          "rmse_dbm": 2.924
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.989,
+          "rmse_dbm": 3.7964
+        }
+      },
+      "parameters": 108,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 6,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8654694071591225,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.17271773522206438,
+          0.5496148966527165,
+          0.7093059058178022,
+          0.7522040796100409,
+          0.37080873872368414,
+          0.8548757757314871,
+          0.3590725017630521,
+          -0.007205947325868732,
+          0.00029875131464450255
+        ]
+      },
+      "elapsed_seconds": 0.07794578700031707
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1619,
+      "val_rmse_dbm": 2.8769,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4868,
+          "rmse_dbm": 3.2851
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9853,
+          "rmse_dbm": 2.5789
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0643,
+          "rmse_dbm": 2.6754
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5489,
+          "rmse_dbm": 3.2982
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5498,
+          "rmse_dbm": 2.1248
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4957,
+          "rmse_dbm": 2.052
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0685,
+          "rmse_dbm": 2.71
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2727,
+          "rmse_dbm": 2.9297
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.985,
+          "rmse_dbm": 3.789
+        }
+      },
+      "parameters": 108,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 6,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8417629555202905,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.5057511333562837,
+          0.5482074355074076,
+          0.5817419546730659,
+          0.5762427458493359,
+          0.5719389769721275,
+          0.6387133228699912,
+          0.5387475358548355,
+          0.5124989462709063,
+          0.5266173620950066
+        ]
+      },
+      "elapsed_seconds": 0.06249950099982016
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.2652,
+      "val_rmse_dbm": 2.9818,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.5462,
+          "rmse_dbm": 3.3219
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0806,
+          "rmse_dbm": 2.6993
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.1826,
+          "rmse_dbm": 2.8505
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.6277,
+          "rmse_dbm": 3.361
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.7319,
+          "rmse_dbm": 2.34
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.6936,
+          "rmse_dbm": 2.284
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.1875,
+          "rmse_dbm": 2.8281
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.3379,
+          "rmse_dbm": 3.0225
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.9986,
+          "rmse_dbm": 3.8018
+        }
+      },
+      "parameters": 108,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 6,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8637937697179014,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.5478140828160434,
+          0.5825771940007123,
+          0.6253050985484,
+          0.5988285038706154,
+          0.6206319558497924,
+          0.6820629396719026,
+          0.5848446349602352,
+          0.5620162260184386,
+          0.5506505157578149
+        ]
+      },
+      "elapsed_seconds": 0.0651806799996848
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 0.01,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.2421,
+      "val_rmse_dbm": 2.9682,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.6577,
+          "rmse_dbm": 3.5091
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0367,
+          "rmse_dbm": 2.6428
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.073,
+          "rmse_dbm": 2.7024
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.7013,
+          "rmse_dbm": 3.4523
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5865,
+          "rmse_dbm": 2.1151
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5748,
+          "rmse_dbm": 2.0769
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.1094,
+          "rmse_dbm": 2.7368
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.3354,
+          "rmse_dbm": 3.0052
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.1039,
+          "rmse_dbm": 3.9322
+        }
+      },
+      "parameters": 108,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 6,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7227,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8858167488475204,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.949376936406671,
+          -0.9358348623177729,
+          -0.9242765904660365,
+          -0.9340355685288155,
+          -0.919847147879567,
+          -0.9304974396112003,
+          -0.9345481553763909,
+          -0.9443954630744511,
+          -0.9398818076320382
+        ]
+      },
+      "elapsed_seconds": 0.102928845000406
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 1.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1819,
+      "val_rmse_dbm": 2.9365,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.6374,
+          "rmse_dbm": 3.4828
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9611,
+          "rmse_dbm": 2.6032
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0382,
+          "rmse_dbm": 2.6774
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5753,
+          "rmse_dbm": 3.3791
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.501,
+          "rmse_dbm": 2.0851
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4793,
+          "rmse_dbm": 2.0498
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0345,
+          "rmse_dbm": 2.7032
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.325,
+          "rmse_dbm": 2.9929
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.0855,
+          "rmse_dbm": 3.9113
+        }
+      },
+      "parameters": 108,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 6,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7227,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8661740695936856,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.9457484275008604,
+          0.019726500630271305,
+          0.08356229813183588,
+          -0.018950281539526225,
+          0.0782951522684443,
+          0.2490549855408683,
+          -0.08300363481360092,
+          -0.9416113817972226,
+          -0.9371100899742437
+        ]
+      },
+      "elapsed_seconds": 0.07943234300000768
+    },
+    {
+      "model": "ARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 10.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.145,
+      "val_rmse_dbm": 2.8985,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4716,
+          "rmse_dbm": 3.3257
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9651,
+          "rmse_dbm": 2.6117
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0389,
+          "rmse_dbm": 2.6855
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5745,
+          "rmse_dbm": 3.382
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5023,
+          "rmse_dbm": 2.0942
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4759,
+          "rmse_dbm": 2.0601
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0349,
+          "rmse_dbm": 2.708
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2115,
+          "rmse_dbm": 2.8753
+        },
+        "RSSI_09": {
+          "mae_dbm": 3.0307,
+          "rmse_dbm": 3.8536
+        }
+      },
+      "parameters": 108,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": false,
+        "p": 6,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7227,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.6694054208866996,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.05410666333585201,
+          0.15605681301828508,
+          0.19925862398802358,
+          0.15219758481314954,
+          0.20256569250042128,
+          0.3088091764444641,
+          0.13118583547782556,
+          0.062104130680514874,
+          0.037293978295451426
+        ]
+      },
+      "elapsed_seconds": 0.06494387799966717
+    },
+    {
+      "model": "VARX",
+      "config": {
+        "lags": 1,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1247,
+      "val_rmse_dbm": 2.8368,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.3878,
+          "rmse_dbm": 3.1144
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9277,
+          "rmse_dbm": 2.5646
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0428,
+          "rmse_dbm": 2.7209
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5073,
+          "rmse_dbm": 3.2497
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.6184,
+          "rmse_dbm": 2.2364
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.6397,
+          "rmse_dbm": 2.2972
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0531,
+          "rmse_dbm": 2.738
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2059,
+          "rmse_dbm": 2.8524
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.7393,
+          "rmse_dbm": 3.5039
+        }
+      },
+      "parameters": 126,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 1,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9680680040671288,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.0220159360001162
+    },
+    {
+      "model": "VARX",
+      "config": {
+        "lags": 1,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1359,
+      "val_rmse_dbm": 2.8451,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.3937,
+          "rmse_dbm": 3.115
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9348,
+          "rmse_dbm": 2.5717
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0534,
+          "rmse_dbm": 2.734
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5061,
+          "rmse_dbm": 3.2415
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.6456,
+          "rmse_dbm": 2.2558
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.6468,
+          "rmse_dbm": 2.3028
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0879,
+          "rmse_dbm": 2.7763
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2176,
+          "rmse_dbm": 2.8636
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.7369,
+          "rmse_dbm": 3.5007
+        }
+      },
+      "parameters": 126,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 1,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9472347640783065,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.0196519010000884
+    },
+    {
+      "model": "VARX",
+      "config": {
+        "lags": 1,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.2915,
+      "val_rmse_dbm": 2.9902,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.4699,
+          "rmse_dbm": 3.1815
+        },
+        "RSSI_02": {
+          "mae_dbm": 2.0347,
+          "rmse_dbm": 2.6764
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.2797,
+          "rmse_dbm": 2.9771
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5581,
+          "rmse_dbm": 3.2765
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.9877,
+          "rmse_dbm": 2.5826
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.7377,
+          "rmse_dbm": 2.3854
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.516,
+          "rmse_dbm": 3.2109
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.2809,
+          "rmse_dbm": 2.9286
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.7587,
+          "rmse_dbm": 3.5132
+        }
+      },
+      "parameters": 126,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 1,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9271270150012791,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.027713547000075778
+    },
+    {
+      "model": "VARX",
+      "config": {
+        "lags": 3,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.943,
+      "val_rmse_dbm": 2.5783,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2187,
+          "rmse_dbm": 2.9133
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7393,
+          "rmse_dbm": 2.2905
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8415,
+          "rmse_dbm": 2.4217
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.3413,
+          "rmse_dbm": 3.0616
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4175,
+          "rmse_dbm": 1.9242
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4671,
+          "rmse_dbm": 1.9949
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8231,
+          "rmse_dbm": 2.3929
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.0763,
+          "rmse_dbm": 2.6213
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5622,
+          "rmse_dbm": 3.2523
+        }
+      },
+      "parameters": 288,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 3,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9813108525022728,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.03623279899966292
+    },
+    {
+      "model": "VARX",
+      "config": {
+        "lags": 3,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9535,
+      "val_rmse_dbm": 2.588,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2281,
+          "rmse_dbm": 2.917
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7437,
+          "rmse_dbm": 2.2961
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8504,
+          "rmse_dbm": 2.432
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.342,
+          "rmse_dbm": 3.0624
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4306,
+          "rmse_dbm": 1.9365
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4913,
+          "rmse_dbm": 2.0286
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8396,
+          "rmse_dbm": 2.4072
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.0902,
+          "rmse_dbm": 2.6352
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5652,
+          "rmse_dbm": 3.2559
+        }
+      },
+      "parameters": 288,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 3,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9780581100354945,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.03658468300000095
+    },
+    {
+      "model": "VARX",
+      "config": {
+        "lags": 3,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.0552,
+      "val_rmse_dbm": 2.6925,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.3257,
+          "rmse_dbm": 2.9848
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.8007,
+          "rmse_dbm": 2.3759
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.9749,
+          "rmse_dbm": 2.5863
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.406,
+          "rmse_dbm": 3.1191
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5573,
+          "rmse_dbm": 2.0892
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.6011,
+          "rmse_dbm": 2.1655
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0228,
+          "rmse_dbm": 2.5923
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.1968,
+          "rmse_dbm": 2.7483
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.6117,
+          "rmse_dbm": 3.3087
+        }
+      },
+      "parameters": 288,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 3,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.947488644458818,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.03625832900024761
+    },
+    {
+      "model": "VARX",
+      "config": {
+        "lags": 6,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9534,
+      "val_rmse_dbm": 2.5905,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2361,
+          "rmse_dbm": 2.9272
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7655,
+          "rmse_dbm": 2.3164
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8515,
+          "rmse_dbm": 2.4368
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.3309,
+          "rmse_dbm": 3.0583
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4309,
+          "rmse_dbm": 1.9422
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4879,
+          "rmse_dbm": 2.0191
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8377,
+          "rmse_dbm": 2.4123
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.062,
+          "rmse_dbm": 2.6122
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5779,
+          "rmse_dbm": 3.2677
+        }
+      },
+      "parameters": 531,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 6,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9890426182009716,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.06732543299995086
+    },
+    {
+      "model": "VARX",
+      "config": {
+        "lags": 6,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9603,
+      "val_rmse_dbm": 2.5972,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2403,
+          "rmse_dbm": 2.9253
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7686,
+          "rmse_dbm": 2.32
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8557,
+          "rmse_dbm": 2.4472
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.3333,
+          "rmse_dbm": 3.058
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.439,
+          "rmse_dbm": 1.9521
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5089,
+          "rmse_dbm": 2.0511
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8458,
+          "rmse_dbm": 2.4195
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.0721,
+          "rmse_dbm": 2.6224
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5792,
+          "rmse_dbm": 3.2682
+        }
+      },
+      "parameters": 531,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 6,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9876475017930603,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.06840351400023792
+    },
+    {
+      "model": "VARX",
+      "config": {
+        "lags": 6,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.0462,
+      "val_rmse_dbm": 2.6914,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.3233,
+          "rmse_dbm": 2.9793
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.8158,
+          "rmse_dbm": 2.3946
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.9641,
+          "rmse_dbm": 2.5909
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4061,
+          "rmse_dbm": 3.1303
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5192,
+          "rmse_dbm": 2.0584
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.6228,
+          "rmse_dbm": 2.2077
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.9621,
+          "rmse_dbm": 2.5421
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.1807,
+          "rmse_dbm": 2.7396
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.6215,
+          "rmse_dbm": 3.3156
+        }
+      },
+      "parameters": 531,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 6,
+        "d": 0,
+        "q": 0,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9778449607165255,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "elapsed_seconds": 0.06445897200001127
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.0903,
+      "val_rmse_dbm": 2.7593,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.3407,
+          "rmse_dbm": 3.0393
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9116,
+          "rmse_dbm": 2.4897
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.057,
+          "rmse_dbm": 2.6998
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4798,
+          "rmse_dbm": 3.1902
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5602,
+          "rmse_dbm": 2.1176
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5076,
+          "rmse_dbm": 2.0759
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.1123,
+          "rmse_dbm": 2.7661
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.1906,
+          "rmse_dbm": 2.7799
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.6527,
+          "rmse_dbm": 3.3837
+        }
+      },
+      "parameters": 135,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 1,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9281684080913384,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.24829269624379405,
+          0.30097251936458363,
+          0.25495203076969036,
+          0.25657345373673257,
+          0.2615815866627776,
+          0.34038061390056995,
+          0.22841478982059826,
+          0.34432413351567426,
+          0.2941403329429682
+        ]
+      },
+      "elapsed_seconds": 0.07071389900011127
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.1045,
+      "val_rmse_dbm": 2.7701,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.3451,
+          "rmse_dbm": 3.0417
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9206,
+          "rmse_dbm": 2.4982
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.0761,
+          "rmse_dbm": 2.7197
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4793,
+          "rmse_dbm": 3.1818
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.6002,
+          "rmse_dbm": 2.154
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.515,
+          "rmse_dbm": 2.0807
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.166,
+          "rmse_dbm": 2.8209
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.1874,
+          "rmse_dbm": 2.7751
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.651,
+          "rmse_dbm": 3.3796
+        }
+      },
+      "parameters": 135,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 1,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9120282794533769,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.26626146382661997,
+          0.3157278047757101,
+          0.2753145340891176,
+          0.27454679486063266,
+          0.2799901404925348,
+          0.34905269565159003,
+          0.24763194099062652,
+          0.3488978070030546,
+          0.3020589163101024
+        ]
+      },
+      "elapsed_seconds": 0.07187378199978411
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.2447,
+      "val_rmse_dbm": 2.9023,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.3862,
+          "rmse_dbm": 3.0849
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.9792,
+          "rmse_dbm": 2.5672
+        },
+        "RSSI_03": {
+          "mae_dbm": 2.3203,
+          "rmse_dbm": 2.9794
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.5205,
+          "rmse_dbm": 3.199
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.9543,
+          "rmse_dbm": 2.5248
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.6199,
+          "rmse_dbm": 2.1794
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.5963,
+          "rmse_dbm": 3.2455
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.167,
+          "rmse_dbm": 2.7448
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.6584,
+          "rmse_dbm": 3.377
+        }
+      },
+      "parameters": 135,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 1,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7257,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8828081205848278,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.35235204343695414,
+          0.37645816378978575,
+          0.4014831817256904,
+          0.3746782616813122,
+          0.39887180965345537,
+          0.4520399038888803,
+          0.36872196210368247,
+          0.37267413363751306,
+          0.3441941671625955
+        ]
+      },
+      "elapsed_seconds": 0.07540369899970756
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 0.01,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9549,
+      "val_rmse_dbm": 2.6645,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.248,
+          "rmse_dbm": 3.062
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7671,
+          "rmse_dbm": 2.3925
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.857,
+          "rmse_dbm": 2.4641
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4085,
+          "rmse_dbm": 3.1943
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4013,
+          "rmse_dbm": 1.9661
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4504,
+          "rmse_dbm": 2.0247
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.796,
+          "rmse_dbm": 2.4226
+        },
+        "RSSI_08": {
+          "mae_dbm": 1.9272,
+          "rmse_dbm": 2.532
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.7383,
+          "rmse_dbm": 3.5039
+        }
+      },
+      "parameters": 135,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 1,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7252,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.44846054741078295,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.18819756279672148,
+          -0.06314614792550563,
+          0.058873844186170594,
+          -0.017307463122863492,
+          0.017407248955527966,
+          0.09251074916783548,
+          -0.09425022284309625,
+          -0.32253122729464423,
+          -0.46097954161777865
+        ]
+      },
+      "elapsed_seconds": 0.06979572899990671
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 1.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9547,
+      "val_rmse_dbm": 2.6643,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.245,
+          "rmse_dbm": 3.057
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7704,
+          "rmse_dbm": 2.3955
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8599,
+          "rmse_dbm": 2.4678
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4083,
+          "rmse_dbm": 3.1905
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.3986,
+          "rmse_dbm": 1.9659
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4457,
+          "rmse_dbm": 2.0204
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.7977,
+          "rmse_dbm": 2.4256
+        },
+        "RSSI_08": {
+          "mae_dbm": 1.9291,
+          "rmse_dbm": 2.5335
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.738,
+          "rmse_dbm": 3.5051
+        }
+      },
+      "parameters": 135,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 1,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7252,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.4753270294073296,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.21875009298661588,
+          -0.10573634724157181,
+          -0.005477193819661782,
+          -0.06755078656528253,
+          -0.041189476985431774,
+          0.07639706291240392,
+          -0.14493667150677045,
+          -0.3316962349343709,
+          -0.45043601997027816
+        ]
+      },
+      "elapsed_seconds": 0.07164631900013774
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 1,
+        "alpha": 10.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9694,
+      "val_rmse_dbm": 2.6821,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2544,
+          "rmse_dbm": 3.0647
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7976,
+          "rmse_dbm": 2.4231
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8817,
+          "rmse_dbm": 2.4975
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4228,
+          "rmse_dbm": 3.2007
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4064,
+          "rmse_dbm": 1.9813
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4438,
+          "rmse_dbm": 2.0211
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8188,
+          "rmse_dbm": 2.4565
+        },
+        "RSSI_08": {
+          "mae_dbm": 1.9498,
+          "rmse_dbm": 2.5547
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.7491,
+          "rmse_dbm": 3.5248
+        }
+      },
+      "parameters": 135,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 1,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7252,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.4770214373084828,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.2475876362284699,
+          -0.15434072710095195,
+          -0.060964446504677534,
+          -0.12061045363034802,
+          -0.08209713093754245,
+          0.09941631898823927,
+          -0.19792416734164672,
+          -0.3134563215683169,
+          -0.38036532478484614
+        ]
+      },
+      "elapsed_seconds": 0.07129567499987388
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9393,
+      "val_rmse_dbm": 2.5727,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2209,
+          "rmse_dbm": 2.9048
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.755,
+          "rmse_dbm": 2.3165
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8509,
+          "rmse_dbm": 2.4396
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.3288,
+          "rmse_dbm": 3.0342
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.426,
+          "rmse_dbm": 1.9467
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.496,
+          "rmse_dbm": 2.0297
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8147,
+          "rmse_dbm": 2.3895
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.0196,
+          "rmse_dbm": 2.5652
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5415,
+          "rmse_dbm": 3.2261
+        }
+      },
+      "parameters": 297,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 3,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9927205353373535,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.7594672338647375,
+          -0.7463168700908992,
+          -0.7617149217282656,
+          -0.8817688994744093,
+          -0.7551096430583166,
+          -0.7473313589227661,
+          -0.757635173259946,
+          -0.7572944393609871,
+          -0.8502685636431984
+        ]
+      },
+      "elapsed_seconds": 0.18396825499985425
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.953,
+      "val_rmse_dbm": 2.5876,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2248,
+          "rmse_dbm": 2.9172
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7482,
+          "rmse_dbm": 2.2974
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8561,
+          "rmse_dbm": 2.4378
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.3435,
+          "rmse_dbm": 3.058
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4244,
+          "rmse_dbm": 1.9348
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4689,
+          "rmse_dbm": 1.9982
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8467,
+          "rmse_dbm": 2.4165
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.0928,
+          "rmse_dbm": 2.6374
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5718,
+          "rmse_dbm": 3.2627
+        }
+      },
+      "parameters": 297,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 3,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9701234750100216,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.34573453724290343,
+          0.29601827406541464,
+          0.3112530222285688,
+          0.35146969194750716,
+          0.28615535814779963,
+          0.46504044874835804,
+          0.216313346185273,
+          0.35813015264982134,
+          0.30547654851592315
+        ]
+      },
+      "elapsed_seconds": 0.1414213779999045
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.0409,
+      "val_rmse_dbm": 2.6732,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2703,
+          "rmse_dbm": 2.9411
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.8159,
+          "rmse_dbm": 2.3762
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.9979,
+          "rmse_dbm": 2.6103
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.3847,
+          "rmse_dbm": 3.0688
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5771,
+          "rmse_dbm": 2.1206
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5316,
+          "rmse_dbm": 2.0683
+        },
+        "RSSI_07": {
+          "mae_dbm": 2.0638,
+          "rmse_dbm": 2.6423
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.133,
+          "rmse_dbm": 2.6839
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5935,
+          "rmse_dbm": 3.29
+        }
+      },
+      "parameters": 297,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 3,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7247,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.900776639870283,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.4331683463962202,
+          0.4410259934567707,
+          0.47395044263607783,
+          0.47160232221721615,
+          0.4663586343415259,
+          0.5588384216058577,
+          0.41844934628318214,
+          0.4270393348771772,
+          0.4229298883714672
+        ]
+      },
+      "elapsed_seconds": 0.15196598100010306
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 0.01,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.0287,
+      "val_rmse_dbm": 2.6838,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.326,
+          "rmse_dbm": 3.0634
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.8518,
+          "rmse_dbm": 2.4324
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.9533,
+          "rmse_dbm": 2.5488
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4629,
+          "rmse_dbm": 3.2159
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5266,
+          "rmse_dbm": 2.0597
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5653,
+          "rmse_dbm": 2.0751
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8869,
+          "rmse_dbm": 2.4403
+        },
+        "RSSI_08": {
+          "mae_dbm": 1.9992,
+          "rmse_dbm": 2.5633
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.6861,
+          "rmse_dbm": 3.4074
+        }
+      },
+      "parameters": 297,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 3,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7242,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8148616322304905,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921,
+          -0.9499963477960921
+        ]
+      },
+      "elapsed_seconds": 0.3464465580000251
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 1.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.0185,
+      "val_rmse_dbm": 2.6806,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.3315,
+          "rmse_dbm": 3.063
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.8485,
+          "rmse_dbm": 2.4311
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.9694,
+          "rmse_dbm": 2.5658
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4704,
+          "rmse_dbm": 3.2216
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.5415,
+          "rmse_dbm": 2.0736
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4523,
+          "rmse_dbm": 2.0215
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8671,
+          "rmse_dbm": 2.4181
+        },
+        "RSSI_08": {
+          "mae_dbm": 1.999,
+          "rmse_dbm": 2.5606
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.6868,
+          "rmse_dbm": 3.4096
+        }
+      },
+      "parameters": 297,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 3,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7242,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.7833108891892874,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.9499963477960921,
+          -0.9492720692274962,
+          -0.9499963477960921,
+          -0.9499939538451029,
+          -0.9499939836367816,
+          -0.07854015568530692,
+          -0.9455502561524434,
+          -0.9499963477960921,
+          -0.9499963477960921
+        ]
+      },
+      "elapsed_seconds": 0.3100804880000396
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 3,
+        "alpha": 10.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9618,
+      "val_rmse_dbm": 2.6511,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2257,
+          "rmse_dbm": 2.9848
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7847,
+          "rmse_dbm": 2.4117
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8727,
+          "rmse_dbm": 2.4893
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.405,
+          "rmse_dbm": 3.1775
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.413,
+          "rmse_dbm": 1.9815
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4454,
+          "rmse_dbm": 2.0192
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8019,
+          "rmse_dbm": 2.4313
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.0205,
+          "rmse_dbm": 2.582
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.6869,
+          "rmse_dbm": 3.4138
+        }
+      },
+      "parameters": 297,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 3,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7242,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.5447612053429718,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.4134565820220851,
+          -0.2665829845329086,
+          -0.15395958118456884,
+          -0.23448722130936983,
+          -0.18289309973071938,
+          0.09154161007117703,
+          -0.33078476470682394,
+          -0.9499959831324473,
+          -0.9461264520363817
+        ]
+      },
+      "elapsed_seconds": 0.18356858100014506
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 0.01,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9683,
+      "val_rmse_dbm": 2.5979,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2269,
+          "rmse_dbm": 2.9167
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7641,
+          "rmse_dbm": 2.3215
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.9115,
+          "rmse_dbm": 2.4847
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.3924,
+          "rmse_dbm": 3.096
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4608,
+          "rmse_dbm": 1.9427
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.499,
+          "rmse_dbm": 2.0288
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8187,
+          "rmse_dbm": 2.3738
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.0495,
+          "rmse_dbm": 2.5982
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5915,
+          "rmse_dbm": 3.2879
+        }
+      },
+      "parameters": 540,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 6,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9972250926217558,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.7599704248009886,
+          -0.7083533775767826,
+          -0.9302868163875457,
+          -0.9135735597925944,
+          -0.9241344469987248,
+          -0.5891583317647461,
+          -0.9087144092237041,
+          -0.4226528680731224,
+          -0.9367115676924935
+        ]
+      },
+      "elapsed_seconds": 0.40523092000012184
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 1.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.955,
+      "val_rmse_dbm": 2.5923,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2332,
+          "rmse_dbm": 2.9194
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7686,
+          "rmse_dbm": 2.3186
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8544,
+          "rmse_dbm": 2.4464
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.3311,
+          "rmse_dbm": 3.0516
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4276,
+          "rmse_dbm": 1.9423
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4861,
+          "rmse_dbm": 2.0216
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8469,
+          "rmse_dbm": 2.4212
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.0704,
+          "rmse_dbm": 2.6238
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5771,
+          "rmse_dbm": 3.2679
+        }
+      },
+      "parameters": 540,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 6,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9847971568435824,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.39569752181847684,
+          0.34664613083254625,
+          0.40351843535042753,
+          0.42839115932271077,
+          0.3792924010465272,
+          0.5401535175410818,
+          0.3423366300613491,
+          0.36534772527679155,
+          0.38206776498960476
+        ]
+      },
+      "elapsed_seconds": 0.2618086800002857
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 10.0,
+        "difference": 0
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.0134,
+      "val_rmse_dbm": 2.651,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2628,
+          "rmse_dbm": 2.9272
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.8123,
+          "rmse_dbm": 2.3776
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.9464,
+          "rmse_dbm": 2.5644
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.3738,
+          "rmse_dbm": 3.0714
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4976,
+          "rmse_dbm": 2.0381
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5398,
+          "rmse_dbm": 2.0871
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.965,
+          "rmse_dbm": 2.5413
+        },
+        "RSSI_08": {
+          "mae_dbm": 2.1304,
+          "rmse_dbm": 2.693
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5927,
+          "rmse_dbm": 3.2865
+        }
+      },
+      "parameters": 540,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 6,
+        "d": 0,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7232,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.9626426388441738,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          0.43804106911094937,
+          0.4472457986907637,
+          0.48580589031512106,
+          0.4860923575421008,
+          0.47064698455463705,
+          0.5927668271464704,
+          0.4270115060250444,
+          0.4298224218888061,
+          0.4278956996231336
+        ]
+      },
+      "elapsed_seconds": 0.2915685090001716
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 0.01,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 2.002,
+      "val_rmse_dbm": 2.6495,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.3125,
+          "rmse_dbm": 3.0423
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.8358,
+          "rmse_dbm": 2.4249
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.9092,
+          "rmse_dbm": 2.5131
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4884,
+          "rmse_dbm": 3.1949
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4794,
+          "rmse_dbm": 1.971
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.5633,
+          "rmse_dbm": 2.0551
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8535,
+          "rmse_dbm": 2.4357
+        },
+        "RSSI_08": {
+          "mae_dbm": 1.9386,
+          "rmse_dbm": 2.5267
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.637,
+          "rmse_dbm": 3.3305
+        }
+      },
+      "parameters": 540,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 6,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7227,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8895618284938343,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.9341068860221496,
+          -0.9331487605158882,
+          -0.9248729400399603,
+          -0.9303761292797331,
+          -0.9137723094223835,
+          -0.9321145774549261,
+          -0.9276510023184649,
+          -0.9355304380304195,
+          -0.9361838111498537
+        ]
+      },
+      "elapsed_seconds": 0.45231731400008357
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 1.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9795,
+      "val_rmse_dbm": 2.6309,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2922,
+          "rmse_dbm": 3.0136
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.8201,
+          "rmse_dbm": 2.4129
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8988,
+          "rmse_dbm": 2.5017
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4669,
+          "rmse_dbm": 3.1733
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.4712,
+          "rmse_dbm": 1.9634
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4763,
+          "rmse_dbm": 2.0155
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.8374,
+          "rmse_dbm": 2.4182
+        },
+        "RSSI_08": {
+          "mae_dbm": 1.9289,
+          "rmse_dbm": 2.5099
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.6237,
+          "rmse_dbm": 3.3164
+        }
+      },
+      "parameters": 540,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 6,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7227,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8957258746314357,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.9280466993072815,
+          -0.928327518376836,
+          -0.9143157615450749,
+          -0.9232830339756323,
+          -0.8966836253614052,
+          -0.29866886814296456,
+          -0.9205051144031173,
+          -0.932553932453399,
+          -0.9334417743556648
+        ]
+      },
+      "elapsed_seconds": 0.4327996450001592
+    },
+    {
+      "model": "VARIMAX",
+      "config": {
+        "lags": 6,
+        "alpha": 10.0,
+        "difference": 1
+      },
+      "status": "ok",
+      "val_mae_dbm": 1.9417,
+      "val_rmse_dbm": 2.6117,
+      "per_node": {
+        "RSSI_01": {
+          "mae_dbm": 2.2227,
+          "rmse_dbm": 2.9714
+        },
+        "RSSI_02": {
+          "mae_dbm": 1.7849,
+          "rmse_dbm": 2.3995
+        },
+        "RSSI_03": {
+          "mae_dbm": 1.8689,
+          "rmse_dbm": 2.4746
+        },
+        "RSSI_04": {
+          "mae_dbm": 2.4036,
+          "rmse_dbm": 3.1618
+        },
+        "RSSI_05": {
+          "mae_dbm": 1.43,
+          "rmse_dbm": 1.9727
+        },
+        "RSSI_06": {
+          "mae_dbm": 1.4554,
+          "rmse_dbm": 2.0072
+        },
+        "RSSI_07": {
+          "mae_dbm": 1.807,
+          "rmse_dbm": 2.4195
+        },
+        "RSSI_08": {
+          "mae_dbm": 1.9114,
+          "rmse_dbm": 2.4736
+        },
+        "RSSI_09": {
+          "mae_dbm": 2.5918,
+          "rmse_dbm": 3.2845
+        }
+      },
+      "parameters": 540,
+      "training": {
+        "estimator": "ridge conditional sum of squares; profiled diagonal MA(1)",
+        "joint": true,
+        "p": 6,
+        "d": 1,
+        "q": 1,
+        "ma_structure": "diagonal",
+        "weather_lag_hours": 1,
+        "training_segment_lengths": [
+          2032,
+          1638,
+          327,
+          1489,
+          1776
+        ],
+        "conditional_observations": 7227,
+        "excluded_short_segment_rows": 1,
+        "spectral_radius": 0.8116084461890712,
+        "converged_per_node": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "innovation_initialization": "zero independently at each segment/window",
+        "ma_coefficients": [
+          -0.4600797120794708,
+          -0.2995020285888438,
+          -0.19555816146997168,
+          -0.28817511770510235,
+          -0.2290509928328667,
+          0.050721986491159894,
+          -0.3837397135743624,
+          -0.9102117499984602,
+          -0.9140319937755755
+        ]
+      },
+      "elapsed_seconds": 0.31590535999976055
+    }
+  ]
+}

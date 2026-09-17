@@ -9,6 +9,8 @@ Ensures strict zero-leakage:
 """
 
 from typing import Dict, List, Tuple, Optional
+import json
+from pathlib import Path
 import os
 import numpy as np
 import pandas as pd
@@ -179,16 +181,25 @@ def get_prepared_datasets(
     Build chronological datasets from complete, strictly hourly windows.
     """
     raw_df = load_raw_data(file_path=file_path)
+    target_cols = sorted(
+        (column for column in raw_df.columns if column.startswith("RSSI_")),
+        key=lambda column: int(column.split("_")[-1]),
+    )
+    if not target_cols:
+        raise ValueError("Dataset must contain columns named RSSI_01, RSSI_02, ...")
+    missing_exogenous = set(EXOGENOUS_COLS) - set(raw_df.columns)
+    if missing_exogenous:
+        raise ValueError(f"Dataset is missing exogenous columns {sorted(missing_exogenous)}")
     train_df, val_df, test_df = split_chronological(raw_df, train_ratio, val_ratio)
 
-    pipeline = LoRaDataPipeline(TARGET_COLS, EXOGENOUS_COLS)
+    pipeline = LoRaDataPipeline(target_cols, EXOGENOUS_COLS)
     pipeline.fit(train_df)
 
     train_scaled = pipeline.transform(train_df)
     val_scaled = pipeline.transform(val_df)
     test_scaled = pipeline.transform(test_df)
 
-    n_targets = len(TARGET_COLS)
+    n_targets = len(target_cols)
     X_train, y_train, train_idx = create_sliding_windows(
         train_scaled.values, seq_length, pred_length, n_targets, _timestamps(train_df), return_origins=True
     )
@@ -226,15 +237,16 @@ def get_prepared_datasets(
     return {
         "training_segments": train_segments,
         "pipeline": pipeline,
-        "target_scale": np.array([1.0 / pipeline.scalers[c].scale_[0] for c in TARGET_COLS]),
+        "target_scale": np.array([1.0 / pipeline.scalers[c].scale_[0] for c in target_cols]),
         "origin_timestamps": {"train": _timestamps(train_df)[train_idx],
                               "val": _timestamps(val_df)[val_idx],
                               "test": _timestamps(test_df)[test_idx]},
         "train": (X_train, y_train),
         "val": (X_val, y_val),
         "test": (X_test, y_test),
-        "target_names": TARGET_COLS,
+        "target_names": target_cols,
         "feature_names": pipeline.all_cols,
+        "topology": _load_topology(file_path, target_cols),
         "quality_report": {
             "policy": "complete strictly-hourly windows; no imputation",
             "valid_windows": {
@@ -247,3 +259,34 @@ def get_prepared_datasets(
             },
         }
     }
+
+
+def _load_topology(file_path: str, target_cols: List[str]) -> Dict[str, np.ndarray]:
+    """Load portable topology metadata or use the vineyard deployment defaults."""
+    from src.node_topology import (
+        NODE_COORDS, GATEWAY_COORDS, GW_DISTANCES_M, haversine_distance,
+    )
+
+    sidecar = Path(file_path).with_suffix(".topology.json")
+    if sidecar.exists():
+        payload = json.loads(sidecar.read_text(encoding="utf-8"))
+        if payload.get("target_names") != target_cols:
+            raise ValueError(f"Topology target order does not match {target_cols}")
+        node_coords = np.asarray(payload["node_coordinates"], dtype=np.float64)
+        gateway_coords = np.asarray(payload["gateway_coordinates"], dtype=np.float64)
+        gateway_distances = np.asarray([
+            haversine_distance(lat, lon, gateway_coords[0], gateway_coords[1])
+            for lat, lon in node_coords
+        ], dtype=np.float64)
+        source = str(sidecar)
+    elif len(target_cols) == len(NODE_COORDS):
+        node_coords, gateway_coords, source = NODE_COORDS.copy(), GATEWAY_COORDS.copy(), "vineyard-default"
+        gateway_distances = GW_DISTANCES_M.copy()
+    else:
+        raise ValueError(
+            f"Dataset with {len(target_cols)} nodes requires topology sidecar {sidecar}"
+        )
+    if node_coords.shape != (len(target_cols), 2) or gateway_coords.shape != (2,):
+        raise ValueError("Invalid node/gateway coordinate dimensions in topology metadata")
+    return {"node_coordinates": node_coords, "gateway_coordinates": gateway_coords,
+            "gateway_distances_m": gateway_distances, "source": source}
