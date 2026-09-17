@@ -63,9 +63,9 @@ def plot_benchmark_metrics(
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     models = list(results.keys())
     params = [results[m].get("parameters", 0) for m in models]
-    latencies = [results[m].get("latency_ms", 0.0) for m in models]
     instances = [results[m].get("model_instances", 1) for m in models]
     training = [results[m].get("training_seconds", 0.0) for m in models]
+    storage = [results[m].get("parameter_storage_kib", 0.0) for m in models]
 
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(14, 10))
 
@@ -97,14 +97,13 @@ def plot_benchmark_metrics(
         ax3.annotate(f"{int(b.get_height()):,}", (b.get_x() + b.get_width() / 2, b.get_height()),
                      ha="center", va="bottom", fontsize=8)
 
-    # 4. Inference Latency (ms)
-    bars4 = ax4.bar(models, latencies, color="#d62728", edgecolor="black")
-    ax4.set_title("Inference Latency per Pass (ms) - Lower is better", fontweight="bold")
-    ax4.set_ylabel("Latency (ms)")
+    bars4 = ax4.bar(models, storage, color="#9467bd", edgecolor="black")
+    ax4.set_title("Serialized coefficient storage estimate", fontweight="bold")
+    ax4.set_ylabel("KiB")
     ax4.tick_params(axis="x", rotation=25)
     ax4.grid(axis="y", linestyle=":", alpha=0.7)
     for b in bars4:
-        ax4.annotate(f"{b.get_height():.2f}ms", (b.get_x() + b.get_width() / 2, b.get_height()),
+        ax4.annotate(f"{b.get_height():.1f}", (b.get_x() + b.get_width() / 2, b.get_height()),
                      ha="center", va="bottom", fontsize=9)
 
     plt.tight_layout()
@@ -117,9 +116,9 @@ def plot_node_metrics(results: Dict[str, Any], target_names: List[str],
     """Heatmaps make node-level accuracy the primary benchmark view."""
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     models = list(results)
-    mae = np.array([[results[m]["metrics"]["per_node"][n]["mae_dbm"]
+    mae = np.array([[results[m]["metrics"]["per_node"][n]["mae_db"]
                      for n in target_names] for m in models])
-    rmse = np.array([[results[m]["metrics"]["per_node"][n]["rmse_dbm"]
+    rmse = np.array([[results[m]["metrics"]["per_node"][n]["rmse_db"]
                       for n in target_names] for m in models])
     fig, axes = plt.subplots(1, 2, figsize=(17, max(5, 0.65 * len(models))))
     for ax, values, title in zip(axes, (mae, rmse), ("MAE by node (dB)", "RMSE by node (dB)")):
@@ -131,47 +130,6 @@ def plot_node_metrics(results: Dict[str, Any], target_names: List[str],
             for j in range(len(target_names)):
                 ax.text(j, i, f"{values[i, j]:.2f}", ha="center", va="center", fontsize=8)
         fig.colorbar(im, ax=ax, shrink=0.8)
-    plt.tight_layout()
-    plt.savefig(save_path, dpi=200)
-    plt.close()
-
-
-def plot_multi_horizon_degradation(
-    multi_horizon_results: Dict[int, Dict[str, Any]],
-    save_path: str = "benchmark_results/multi_horizon_degradation.png"
-):
-    """
-    Plots error degradation across forecasting horizons (H = 1, 6, 12, 24 hours).
-    """
-    os.makedirs(os.path.dirname(save_path), exist_ok=True)
-    horizons = sorted(multi_horizon_results.keys())
-    models = list(multi_horizon_results[horizons[0]].keys())
-
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
-    markers = ["o", "s", "^", "D", "v", "x", "p"]
-
-    for idx, m in enumerate(models):
-        mae_curve = [multi_horizon_results[h][m]["metrics"]["terminal_horizon"]["mae_dbm"] for h in horizons]
-        rmse_curve = [multi_horizon_results[h][m]["metrics"]["terminal_horizon"]["rmse_dbm"] for h in horizons]
-        marker = markers[idx % len(markers)]
-
-        ax1.plot(horizons, mae_curve, marker=marker, linewidth=2, label=m)
-        ax2.plot(horizons, rmse_curve, marker=marker, linewidth=2, label=m)
-
-    ax1.set_title("Terminal-step MAE across Forecasting Horizons", fontsize=12, fontweight="bold")
-    ax1.set_xlabel("Prediction Horizon H (Hours)", fontsize=11)
-    ax1.set_ylabel("MAE (dB)", fontsize=11)
-    ax1.set_xticks(horizons)
-    ax1.grid(True, linestyle=":", alpha=0.7)
-    ax1.legend(fontsize=9)
-
-    ax2.set_title("Terminal-step RMSE across Forecasting Horizons", fontsize=12, fontweight="bold")
-    ax2.set_xlabel("Prediction Horizon H (Hours)", fontsize=11)
-    ax2.set_ylabel("RMSE (dB)", fontsize=11)
-    ax2.set_xticks(horizons)
-    ax2.grid(True, linestyle=":", alpha=0.7)
-    ax2.legend(fontsize=9)
-
     plt.tight_layout()
     plt.savefig(save_path, dpi=200)
     plt.close()

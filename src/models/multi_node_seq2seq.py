@@ -11,10 +11,8 @@ allowing the neural network to focus exclusively on learning the dynamic
 variations (Delta RSSI) rather than re-learning the static DC offset.
 """
 
-from typing import Optional
 import torch
 import torch.nn as nn
-from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
 from src.models.training import fit_network
 

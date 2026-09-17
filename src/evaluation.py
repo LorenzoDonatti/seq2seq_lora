@@ -8,15 +8,13 @@ import time
 from pathlib import Path
 import numpy as np
 import torch
-from src.config_store import PROTOCOL_VERSION
 from src.data_loader import get_prepared_datasets
-from src.metrics import calculate_metrics, measure_inference_speed
+from src.metrics import calculate_metrics
 from src.model_registry import (DEFAULTS, NEURAL_MODELS, GRAPH_ABLATIONS,
                                 make_neural, make_statistical, model_metadata)
 from src.runtime import resolve_device, seed_everything, synchronize
 from src.plotting import (plot_predictions_comparison, plot_benchmark_metrics,
-                         plot_node_metrics, plot_multi_horizon_degradation,
-                         plot_learned_adjacency_heatmap)
+                         plot_node_metrics, plot_learned_adjacency_heatmap)
 
 
 def run_full_benchmark(data_file="data/combined_hourly_data.csv", seq_length=24,
@@ -65,8 +63,6 @@ def run_full_benchmark(data_file="data/combined_hourly_data.csv", seq_length=24,
         predict = model.predict if neural else lambda x: model.predict(x, pred_length)
         prediction = pipeline.inverse_transform_targets(predict(Xt))
         predictions[name] = prediction
-        latency = {str(batch): measure_inference_speed(
-            predict, Xt[:batch], device=actual_device) for batch in (1, 32)}
         parameters = model.total_parameters()
         metadata = model_metadata(name, len(names))
         entry = {
@@ -76,12 +72,11 @@ def run_full_benchmark(data_file="data/combined_hourly_data.csv", seq_length=24,
             "parameter_storage_kib": parameters * (4 if neural else 8) / 1024,
             "training_seconds": training_seconds,
             "training": getattr(model, "training_summary", {}),
-            "latency_ms": latency["32"], "latency_ms_by_batch": latency,
             "device": actual_device, "config": cfg,
             "ablation_control": "fixed hybrid-selected configuration, refitted" if name in GRAPH_ABLATIONS else None,
         }
         results[name] = entry
-        print(f"{name}: MAE={entry['metrics']['global']['mae_dbm']:.4f} dB; "
+        print(f"{name}: MAE={entry['metrics']['global']['mae_db']:.4f} dB; "
               f"params={parameters}; fit={training_seconds:.1f}s", flush=True)
         if name == "PhysicalAdaptive_STGNN" or name in GRAPH_ABLATIONS:
             graph = model.graph_diagnostics()
@@ -100,7 +95,7 @@ def run_full_benchmark(data_file="data/combined_hourly_data.csv", seq_length=24,
         writer.writerow(["model", "node", "mae_db", "rmse_db"])
         for name, entry in results.items():
             for node, metric in entry["metrics"]["per_node"].items():
-                writer.writerow([name, node, metric["mae_dbm"], metric["rmse_dbm"]])
+                writer.writerow([name, node, metric["mae_db"], metric["rmse_db"]])
     (out / f"benchmark_summary_H{pred_length}.json").write_text(json.dumps(results, indent=2))
     try:
         revision = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
@@ -108,27 +103,28 @@ def run_full_benchmark(data_file="data/combined_hourly_data.csv", seq_length=24,
     except (OSError, subprocess.CalledProcessError):
         revision, dirty = None, None
     protocol = {
-        "protocol_version": PROTOCOL_VERSION, "seed": seed,
+        "seed": seed,
         "history_hours": seq_length, "forecast_horizon_hours": pred_length,
         "epochs": epochs, "patience": patience, "graph_ablations": graph_ablations,
         "hyperparameter_source": config_source, "selected_hyperparameters": configs,
         "data_quality": data["quality_report"],
-        "task": "rolling_origin_multi_horizon",
+        "task": "rolling_origin_one_step_ahead",
         "forecast_strategies": {name: model_metadata(name)["forecast_strategy"] for name in models},
         "statistical_exogenous_policy": f"weather delayed by H={pred_length}; no future values or forecasts",
-        "statistical_estimator": "ridge conditional sum of squares, diagonal MA(1), d=0/1 selected on validation",
+        "statistical_estimator": "ARIMAX: segmented exact state-space likelihood and training AICc; "
+                                 "VARX: regularized conditional least squares and training BIC",
         "training_support": "statistical: complete contiguous train segments; neural: complete train forecast windows",
         "graph_ablation_policy": "fixed hybrid validation-selected hyperparameters, retrained per ablation",
         "scalers": {col: {"scale": float(sc.scale_[0]), "min": float(sc.min_[0])}
                     for col,sc in pipeline.scalers.items()},
-        "training_objective": "macro MAE in dB, best validation checkpoint, early stopping",
+        "training_objective": "neural models: macro MAE in dB, best validation checkpoint, early stopping; "
+                              "statistical models: training-only information criteria",
         "metric_semantics": {"global": "mean across origins, leads and nodes",
                              "terminal_horizon": f"error at t+{pred_length}",
-                             "legacy_json_keys": "mae_dbm/rmse_dbm retained; errors are dB"},
-        "latency": "median of 30 calls after 5 warmups; all nodes; batches 1 and 32; "
-                   "synchronized; includes NumPy/device transfers; statistical models use CPU",
+                             "error_unit": "dB"},
         "resource_metrics": "weight/coefficients bytes only, excluding buffers/framework/activations; "
-                            "fit time excludes hyperparameter search",
+                            "fit time excludes hyperparameter search; model-instance count is the primary "
+                            "operational-consolidation measure",
         "data_sha256": hashlib.sha256(Path(data_file).read_bytes()).hexdigest(),
         "topology": {
             "source": data["topology"]["source"],
@@ -154,19 +150,4 @@ def run_full_benchmark(data_file="data/combined_hourly_data.csv", seq_length=24,
                                 save_path=str(out / f"predictions_comparison_H{pred_length}.png"))
     plot_benchmark_metrics(results, str(out / f"metrics_comparison_H{pred_length}.png"))
     plot_node_metrics(results, names, str(out / f"metrics_per_node_H{pred_length}.png"))
-    return results
-
-
-def run_multi_horizon_benchmark(horizons=(1,6,12,24), data_file="data/combined_hourly_data.csv",
-                                seq_length=24, epochs=64, output_dir="benchmark_results",
-                                seed=42, selected_configs_by_horizon=None,
-                                config_source="built_in_defaults", device="auto", patience=10,
-                                graph_ablations=False):
-    results = {}
-    for h in horizons:
-        results[h] = run_full_benchmark(
-            data_file, seq_length, h, epochs, output_dir, seed,
-            (selected_configs_by_horizon or {}).get(h), config_source, device, patience, graph_ablations)
-    plot_multi_horizon_degradation(results, str(Path(output_dir) / "multi_horizon_degradation.png"))
-    (Path(output_dir) / "multi_horizon_summary.json").write_text(json.dumps(results, indent=2))
     return results

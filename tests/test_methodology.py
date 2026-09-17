@@ -1,9 +1,12 @@
 import numpy as np
 import json
+from copy import deepcopy
 
-from src.config_store import load_optimized_configs, save_optimized_configs
+from src.config_store import load_optimized_config, save_optimized_config
 from src.data_loader import create_sliding_windows
 from src.metrics import calculate_metrics
+from src.model_registry import DEFAULTS
+from src.hyperparameter_search import save_search
 from src.models.stgnn import AdaptiveSTGNNTrainer
 
 
@@ -25,9 +28,18 @@ def test_metrics_separate_average_and_terminal_horizon():
 
     metrics = calculate_metrics(truth, pred, ["node"])
 
-    assert metrics["global"]["mae_dbm"] == 2.0
-    assert metrics["terminal_horizon"]["mae_dbm"] == 3.0
-    assert metrics["per_lead_time"]["t+1"]["mae_dbm"] == 1.0
+    assert metrics["global"]["mae_db"] == 2.0
+    assert metrics["terminal_horizon"]["mae_db"] == 3.0
+    assert metrics["per_lead_time"]["t+1"]["mae_db"] == 1.0
+
+
+def test_search_checkpoint_serializes_numpy_values_atomically(tmp_path):
+    destination = tmp_path / "search.json"
+    save_search({"flag": np.bool_(True), "count": np.int64(3),
+                 "values": np.array([1.0, 2.0])}, destination)
+    assert json.loads(destination.read_text()) == {
+        "flag": True, "count": 3, "values": [1.0, 2.0]}
+    assert not destination.with_suffix(".json.tmp").exists()
 
 
 def test_physical_adaptive_graph_is_row_stochastic():
@@ -39,22 +51,23 @@ def test_physical_adaptive_graph_is_row_stochastic():
     assert (adjacency >= 0).all()
 
 
-def test_last_optimized_configs_are_reused_by_horizon(tmp_path):
+def test_last_optimized_config_is_reused(tmp_path):
     store = tmp_path / "last.json"
-    configs = {1: {"ARX": {"lags": 12}}, 6: {"ARX": {"lags": 24}}}
+    first_config = deepcopy(DEFAULTS)
+    first_config["ARIMAX"] = {"orders": [[1, 0, 1]]}
     data_file = str(tmp_path / "data.csv")
 
-    save_optimized_configs(
-        configs, data_file=data_file, history=24, seed=42, trials=12,
+    save_optimized_config(
+        first_config, data_file=data_file, history=24, seed=42, trials=12,
         search_epochs=10, path=store,
     )
 
-    assert load_optimized_configs(
-        [1, 6], data_file=data_file, history=24, path=store,
-    ) == configs
+    assert load_optimized_config(
+        data_file=data_file, history=24, path=store,
+    ) == first_config
     payload = json.loads(store.read_text())
     experiment = next(iter(payload["experiments"].values()))
-    assert experiment["histories"]["24"]["horizons"]["1"]["seed"] == 42
+    assert experiment["histories"]["24"]["seed"] == 42
 
 
 def test_optimized_configs_are_isolated_by_dataset(tmp_path):
@@ -62,17 +75,20 @@ def test_optimized_configs_are_isolated_by_dataset(tmp_path):
     first, second = tmp_path / "first.csv", tmp_path / "second.csv"
     first.write_text("first")
     second.write_text("second")
-    save_optimized_configs(
-        {1: {"model": {"value": 1}}}, data_file=str(first), history=24,
+    first_config, second_config = deepcopy(DEFAULTS), deepcopy(DEFAULTS)
+    first_config["VARX"]["alpha"] = 1.0
+    second_config["VARX"]["alpha"] = 10.0
+    save_optimized_config(
+        first_config, data_file=str(first), history=24,
         seed=42, trials=1, search_epochs=1, path=store,
     )
-    save_optimized_configs(
-        {1: {"model": {"value": 2}}}, data_file=str(second), history=24,
+    save_optimized_config(
+        second_config, data_file=str(second), history=24,
         seed=42, trials=1, search_epochs=1, path=store,
     )
-    assert load_optimized_configs(
-        [1], data_file=str(first), history=24, path=store,
-    )[1]["model"]["value"] == 1
-    assert load_optimized_configs(
-        [1], data_file=str(second), history=24, path=store,
-    )[1]["model"]["value"] == 2
+    assert load_optimized_config(
+        data_file=str(first), history=24, path=store,
+    )["VARX"]["alpha"] == 1.0
+    assert load_optimized_config(
+        data_file=str(second), history=24, path=store,
+    )["VARX"]["alpha"] == 10.0

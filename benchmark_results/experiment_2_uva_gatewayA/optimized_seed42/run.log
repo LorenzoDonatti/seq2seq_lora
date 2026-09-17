@@ -1,0 +1,311 @@
+
+========================================================================
+Otimizando horizonte H=1
+========================================================================
+
+Statistical diagnostics: ADF/KPSS and Johansen rank...
+Johansen ranks for k_diff=1,2,3: [9, 9, 9] (dimension=9)
+Starting per-node Box-Jenkins ARIMAX identification...
+ARIMAX RSSI_01: evaluating 6 Box-Jenkins candidates...
+  ARIMAX RSSI_01: 1/6 order=(0, 0, 1) status=ok (1.8s)
+  ARIMAX RSSI_01: 2/6 order=(1, 0, 0) status=ok (2.6s)
+  ARIMAX RSSI_01: 3/6 order=(1, 0, 1) status=ok (2.7s)
+  ARIMAX RSSI_01: 4/6 order=(3, 0, 3) status=ok (12.5s)
+  ARIMAX RSSI_01: 5/6 order=(4, 0, 2) status=ok (16.5s)
+  ARIMAX RSSI_01: 6/6 order=(4, 0, 3) status=ok (14.1s)
+ARIMAX RSSI_01: order=(4, 0, 2) AICc=-20303.95
+ARIMAX RSSI_02: evaluating 6 Box-Jenkins candidates...
+  ARIMAX RSSI_02: 1/6 order=(0, 0, 1) status=ok (2.2s)
+  ARIMAX RSSI_02: 2/6 order=(1, 0, 0) status=ok (3.0s)
+  ARIMAX RSSI_02: 3/6 order=(1, 0, 1) status=ok (5.6s)
+  ARIMAX RSSI_02: 4/6 order=(3, 0, 3) status=ok (17.8s)
+  ARIMAX RSSI_02: 5/6 order=(4, 0, 2) status=ok (15.1s)
+  ARIMAX RSSI_02: 6/6 order=(4, 0, 3) status=ok (13.6s)
+ARIMAX RSSI_02: order=(3, 0, 3) AICc=-21571.46
+ARIMAX RSSI_03: evaluating 6 Box-Jenkins candidates...
+  ARIMAX RSSI_03: 1/6 order=(0, 0, 1) status=ok (2.2s)
+  ARIMAX RSSI_03: 2/6 order=(1, 0, 0) status=ok (2.8s)
+  ARIMAX RSSI_03: 3/6 order=(1, 0, 1) status=ok (3.0s)
+  ARIMAX RSSI_03: 4/6 order=(3, 0, 3) status=ok (14.9s)
+  ARIMAX RSSI_03: 5/6 order=(4, 0, 2) status=ok (13.6s)
+  ARIMAX RSSI_03: 6/6 order=(4, 0, 3) status=ok (13.3s)
+ARIMAX RSSI_03: order=(4, 0, 3) AICc=-24109.64
+ARIMAX RSSI_04: evaluating 6 Box-Jenkins candidates...
+  ARIMAX RSSI_04: 1/6 order=(0, 0, 1) status=ok (1.7s)
+  ARIMAX RSSI_04: 2/6 order=(1, 0, 0) status=ok (1.8s)
+  ARIMAX RSSI_04: 3/6 order=(1, 0, 1) status=ok (4.6s)
+  ARIMAX RSSI_04: 4/6 order=(3, 0, 3) status=ok (12.7s)
+  ARIMAX RSSI_04: 5/6 order=(4, 0, 2) status=ok (36.3s)
+  ARIMAX RSSI_04: 6/6 order=(4, 0, 3) status=ok (13.5s)
+ARIMAX RSSI_04: order=(4, 0, 3) AICc=-21621.86
+ARIMAX RSSI_05: evaluating 6 Box-Jenkins candidates...
+  ARIMAX RSSI_05: 1/6 order=(0, 0, 1) status=ok (2.3s)
+  ARIMAX RSSI_05: 2/6 order=(1, 0, 0) status=ok (3.0s)
+  ARIMAX RSSI_05: 3/6 order=(1, 0, 1) status=ok (3.9s)
+  ARIMAX RSSI_05: 4/6 order=(3, 0, 3) status=ok (17.3s)
+  ARIMAX RSSI_05: 5/6 order=(4, 0, 2) status=ok (17.2s)
+  ARIMAX RSSI_05: 6/6 order=(4, 0, 3) status=ok (12.7s)
+ARIMAX RSSI_05: order=(4, 0, 3) AICc=-23931.21
+ARIMAX RSSI_06: evaluating 7 Box-Jenkins candidates...
+  ARIMAX RSSI_06: 1/7 order=(0, 0, 1) status=ok (2.2s)
+  ARIMAX RSSI_06: 2/7 order=(1, 0, 0) status=ok (3.0s)
+  ARIMAX RSSI_06: 3/7 order=(1, 0, 1) status=ok (3.6s)
+  ARIMAX RSSI_06: 4/7 order=(1, 0, 3) status=ok (8.1s)
+  ARIMAX RSSI_06: 5/7 order=(2, 0, 2) status=ok (7.0s)
+  ARIMAX RSSI_06: 6/7 order=(2, 0, 3) status=ok (8.2s)
+  ARIMAX RSSI_06: 7/7 order=(3, 0, 3) status=ok (30.4s)
+ARIMAX RSSI_06: order=(3, 0, 3) AICc=-25414.26
+ARIMAX RSSI_07: evaluating 6 Box-Jenkins candidates...
+  ARIMAX RSSI_07: 1/6 order=(0, 0, 1) status=ok (2.2s)
+  ARIMAX RSSI_07: 2/6 order=(1, 0, 0) status=ok (2.2s)
+  ARIMAX RSSI_07: 3/6 order=(1, 0, 1) status=ok (4.0s)
+  ARIMAX RSSI_07: 4/6 order=(3, 0, 3) status=ok (9.7s)
+  ARIMAX RSSI_07: 5/6 order=(4, 0, 2) status=ok (9.1s)
+  ARIMAX RSSI_07: 6/6 order=(4, 0, 3) status=ok (8.3s)
+ARIMAX RSSI_07: order=(3, 0, 3) AICc=-22484.92
+ARIMAX RSSI_08: evaluating 6 Box-Jenkins candidates...
+  ARIMAX RSSI_08: 1/6 order=(0, 0, 1) status=ok (2.1s)
+  ARIMAX RSSI_08: 2/6 order=(1, 0, 0) status=ok (2.2s)
+  ARIMAX RSSI_08: 3/6 order=(1, 0, 1) status=ok (4.4s)
+  ARIMAX RSSI_08: 4/6 order=(3, 0, 3) status=ok (13.5s)
+  ARIMAX RSSI_08: 5/6 order=(4, 0, 2) status=ok (17.3s)
+  ARIMAX RSSI_08: 6/6 order=(4, 0, 3) status=ok (16.0s)
+ARIMAX RSSI_08: order=(4, 0, 2) AICc=-19369.78
+ARIMAX RSSI_09: evaluating 6 Box-Jenkins candidates...
+  ARIMAX RSSI_09: 1/6 order=(0, 0, 1) status=ok (1.8s)
+  ARIMAX RSSI_09: 2/6 order=(1, 0, 0) status=ok (1.8s)
+  ARIMAX RSSI_09: 3/6 order=(1, 0, 1) status=ok (3.7s)
+  ARIMAX RSSI_09: 4/6 order=(3, 0, 3) status=rejected_nonconverged (35.1s)
+  ARIMAX RSSI_09: 5/6 order=(4, 0, 2) status=rejected_nonconverged (36.4s)
+  ARIMAX RSSI_09: 6/6 order=(4, 0, 3) status=ok (34.9s)
+ARIMAX RSSI_09: order=(4, 0, 3) AICc=-19179.19
+VARX: evaluating 26 lag structures × 3 penalties (78 candidates)...
+  VARX: 1/78 lags=1..1 alpha=0.01 BIC=-436459.31
+  VARX: 2/78 lags=1..1 alpha=1 BIC=-436162.75
+  VARX: 3/78 lags=1..1 alpha=10 BIC=-424229.55
+  VARX: 4/78 lags=1..2 alpha=0.01 BIC=-441088.41
+  VARX: 5/78 lags=1..2 alpha=1 BIC=-440783.15
+  VARX: 6/78 lags=1..2 alpha=10 BIC=-433707.79
+  VARX: 7/78 lags=1..3 alpha=0.01 BIC=-441145.06
+  VARX: 8/78 lags=1..3 alpha=1 BIC=-440768.39
+  VARX: 9/78 lags=1..3 alpha=10 BIC=-434927.82
+  VARX: 10/78 lags=1..4 alpha=0.01 BIC=-440764.70
+  VARX: 11/78 lags=1..4 alpha=1 BIC=-440338.36
+  VARX: 12/78 lags=1..4 alpha=10 BIC=-434696.05
+  VARX: 13/78 lags=1..5 alpha=0.01 BIC=-440107.72
+  VARX: 14/78 lags=1..5 alpha=1 BIC=-439660.96
+  VARX: 15/78 lags=1..5 alpha=10 BIC=-433946.25
+  VARX: 16/78 lags=1..6 alpha=0.01 BIC=-439316.99
+  VARX: 17/78 lags=1..6 alpha=1 BIC=-438848.17
+  VARX: 18/78 lags=1..6 alpha=10 BIC=-432925.00
+  VARX: 19/78 lags=1..7 alpha=0.01 BIC=-438499.53
+  VARX: 20/78 lags=1..7 alpha=1 BIC=-438018.51
+  VARX: 21/78 lags=1..7 alpha=10 BIC=-431914.56
+  VARX: 22/78 lags=1..8 alpha=0.01 BIC=-437672.65
+  VARX: 23/78 lags=1..8 alpha=1 BIC=-437179.78
+  VARX: 24/78 lags=1..8 alpha=10 BIC=-430910.33
+  VARX: 25/78 lags=1..9 alpha=0.01 BIC=-436858.30
+  VARX: 26/78 lags=1..9 alpha=1 BIC=-436360.41
+  VARX: 27/78 lags=1..9 alpha=10 BIC=-429969.60
+  VARX: 28/78 lags=1..10 alpha=0.01 BIC=-436040.17
+  VARX: 29/78 lags=1..10 alpha=1 BIC=-435536.21
+  VARX: 30/78 lags=1..10 alpha=10 BIC=-429048.21
+  VARX: 31/78 lags=1..11 alpha=0.01 BIC=-435155.21
+  VARX: 32/78 lags=1..11 alpha=1 BIC=-434646.75
+  VARX: 33/78 lags=1..11 alpha=10 BIC=-428084.25
+  VARX: 34/78 lags=1..12 alpha=0.01 BIC=-434276.38
+  VARX: 35/78 lags=1..12 alpha=1 BIC=-433763.15
+  VARX: 36/78 lags=1..12 alpha=10 BIC=-427134.75
+  VARX: 37/78 lags=1..13 alpha=0.01 BIC=-433403.27
+  VARX: 38/78 lags=1..13 alpha=1 BIC=-432883.34
+  VARX: 39/78 lags=1..13 alpha=10 BIC=-426196.21
+  VARX: 40/78 lags=1..14 alpha=0.01 BIC=-432495.84
+  VARX: 41/78 lags=1..14 alpha=1 BIC=-431968.27
+  VARX: 42/78 lags=1..14 alpha=10 BIC=-425235.95
+  VARX: 43/78 lags=1..15 alpha=0.01 BIC=-431683.01
+  VARX: 44/78 lags=1..15 alpha=1 BIC=-431146.82
+  VARX: 45/78 lags=1..15 alpha=10 BIC=-424347.93
+  VARX: 46/78 lags=1..16 alpha=0.01 BIC=-430881.11
+  VARX: 47/78 lags=1..16 alpha=1 BIC=-430345.49
+  VARX: 48/78 lags=1..16 alpha=10 BIC=-423525.78
+  VARX: 49/78 lags=1..17 alpha=0.01 BIC=-430145.39
+  VARX: 50/78 lags=1..17 alpha=1 BIC=-429606.68
+  VARX: 51/78 lags=1..17 alpha=10 BIC=-422771.74
+  VARX: 52/78 lags=1..18 alpha=0.01 BIC=-429362.72
+  VARX: 53/78 lags=1..18 alpha=1 BIC=-428819.25
+  VARX: 54/78 lags=1..18 alpha=10 BIC=-421984.04
+  VARX: 55/78 lags=1..19 alpha=0.01 BIC=-428577.16
+  VARX: 56/78 lags=1..19 alpha=1 BIC=-428029.03
+  VARX: 57/78 lags=1..19 alpha=10 BIC=-421194.34
+  VARX: 58/78 lags=1..20 alpha=0.01 BIC=-427887.63
+  VARX: 59/78 lags=1..20 alpha=1 BIC=-427334.26
+  VARX: 60/78 lags=1..20 alpha=10 BIC=-420474.21
+  VARX: 61/78 lags=1..21 alpha=0.01 BIC=-427127.35
+  VARX: 62/78 lags=1..21 alpha=1 BIC=-426569.75
+  VARX: 63/78 lags=1..21 alpha=10 BIC=-419712.11
+  VARX: 64/78 lags=1..22 alpha=0.01 BIC=-426407.58
+  VARX: 65/78 lags=1..22 alpha=1 BIC=-425840.82
+  VARX: 66/78 lags=1..22 alpha=10 BIC=-418944.56
+  VARX: 67/78 lags=1..23 alpha=0.01 BIC=-425519.11
+  VARX: 68/78 lags=1..23 alpha=1 BIC=-424954.50
+  VARX: 69/78 lags=1..23 alpha=10 BIC=-418075.00
+  VARX: 70/78 lags=1..24 alpha=0.01 BIC=-424646.89
+  VARX: 71/78 lags=1..24 alpha=1 BIC=-424073.06
+  VARX: 72/78 lags=1..24 alpha=10 BIC=-417193.23
+  VARX: 73/78 lags={1,6,12,24} alpha=0.01 BIC=-432485.52
+  VARX: 74/78 lags={1,6,12,24} alpha=1 BIC=-432066.51
+  VARX: 75/78 lags={1,6,12,24} alpha=10 BIC=-424175.31
+  VARX: 76/78 lags={1,2,3,6,12,24} alpha=0.01 BIC=-434678.78
+  VARX: 77/78 lags={1,2,3,6,12,24} alpha=1 BIC=-434261.74
+  VARX: 78/78 lags={1,2,3,6,12,24} alpha=10 BIC=-428723.68
+VARX: config={'lags': [1, 2, 3], 'alpha': 0.01} selected by training BIC
+SingleNode_Seq2Seq H=1 trial=1/12: val MAE=2.0385 dB (135.7s)
+SingleNode_Seq2Seq H=1 trial=2/12: val MAE=2.0362 dB (47.8s)
+SingleNode_Seq2Seq H=1 trial=3/12: val MAE=2.0339 dB (21.5s)
+SingleNode_Seq2Seq H=1 trial=4/12: val MAE=2.0445 dB (66.6s)
+SingleNode_Seq2Seq H=1 trial=5/12: val MAE=2.0319 dB (47.8s)
+SingleNode_Seq2Seq H=1 trial=6/12: val MAE=2.0297 dB (21.7s)
+SingleNode_Seq2Seq H=1 trial=7/12: val MAE=2.0408 dB (17.3s)
+SingleNode_Seq2Seq H=1 trial=8/12: val MAE=2.0335 dB (62.0s)
+SingleNode_Seq2Seq H=1 trial=9/12: val MAE=2.0457 dB (23.4s)
+SingleNode_Seq2Seq H=1 trial=10/12: val MAE=2.0491 dB (79.7s)
+SingleNode_Seq2Seq H=1 trial=11/12: val MAE=2.0358 dB (66.5s)
+SingleNode_Seq2Seq H=1 trial=12/12: val MAE=2.0432 dB (19.5s)
+MultiNode_Seq2Seq H=1 trial=1/12: val MAE=2.0662 dB (12.1s)
+MultiNode_Seq2Seq H=1 trial=2/12: val MAE=1.9767 dB (5.8s)
+MultiNode_Seq2Seq H=1 trial=3/12: val MAE=2.0140 dB (2.5s)
+MultiNode_Seq2Seq H=1 trial=4/12: val MAE=1.9628 dB (8.7s)
+MultiNode_Seq2Seq H=1 trial=5/12: val MAE=2.0199 dB (5.7s)
+MultiNode_Seq2Seq H=1 trial=6/12: val MAE=1.9864 dB (2.5s)
+MultiNode_Seq2Seq H=1 trial=7/12: val MAE=2.0343 dB (2.0s)
+MultiNode_Seq2Seq H=1 trial=8/12: val MAE=1.9411 dB (9.5s)
+MultiNode_Seq2Seq H=1 trial=9/12: val MAE=2.0160 dB (3.2s)
+MultiNode_Seq2Seq H=1 trial=10/12: val MAE=2.0708 dB (11.0s)
+MultiNode_Seq2Seq H=1 trial=11/12: val MAE=1.9335 dB (8.2s)
+MultiNode_Seq2Seq H=1 trial=12/12: val MAE=2.0497 dB (2.9s)
+SingleNode_NLinear H=1 trial=1/12: val MAE=2.0499 dB (2.7s)
+SingleNode_NLinear H=1 trial=2/12: val MAE=2.0500 dB (2.7s)
+SingleNode_NLinear H=1 trial=3/12: val MAE=2.1148 dB (9.0s)
+SingleNode_NLinear H=1 trial=4/12: val MAE=2.0485 dB (8.1s)
+SingleNode_NLinear H=1 trial=5/12: val MAE=2.0323 dB (2.4s)
+SingleNode_NLinear H=1 trial=6/12: val MAE=2.0336 dB (8.8s)
+SingleNode_NLinear H=1 trial=7/12: val MAE=2.0328 dB (2.5s)
+SingleNode_NLinear H=1 trial=8/12: val MAE=3.2793 dB (2.5s)
+SingleNode_NLinear H=1 trial=9/12: val MAE=2.0332 dB (8.4s)
+SingleNode_NLinear H=1 trial=10/12: val MAE=2.1146 dB (8.8s)
+SingleNode_NLinear H=1 trial=11/12: val MAE=3.2796 dB (2.5s)
+SingleNode_NLinear H=1 trial=12/12: val MAE=2.0431 dB (7.8s)
+MultiNode_NLinear H=1 trial=1/12: val MAE=2.0645 dB (0.3s)
+MultiNode_NLinear H=1 trial=2/12: val MAE=2.0644 dB (0.3s)
+MultiNode_NLinear H=1 trial=3/12: val MAE=2.1168 dB (1.2s)
+MultiNode_NLinear H=1 trial=4/12: val MAE=2.0788 dB (1.1s)
+MultiNode_NLinear H=1 trial=5/12: val MAE=2.0619 dB (0.3s)
+MultiNode_NLinear H=1 trial=6/12: val MAE=2.0527 dB (1.1s)
+MultiNode_NLinear H=1 trial=7/12: val MAE=2.0607 dB (0.3s)
+MultiNode_NLinear H=1 trial=8/12: val MAE=4.2092 dB (0.3s)
+MultiNode_NLinear H=1 trial=9/12: val MAE=2.0531 dB (1.1s)
+MultiNode_NLinear H=1 trial=10/12: val MAE=2.1167 dB (1.1s)
+MultiNode_NLinear H=1 trial=11/12: val MAE=4.2097 dB (0.3s)
+MultiNode_NLinear H=1 trial=12/12: val MAE=2.0740 dB (1.1s)
+SingleNode_DLinear H=1 trial=1/12: val MAE=2.0500 dB (3.4s)
+SingleNode_DLinear H=1 trial=2/12: val MAE=2.0520 dB (3.2s)
+SingleNode_DLinear H=1 trial=3/12: val MAE=2.3582 dB (12.3s)
+SingleNode_DLinear H=1 trial=4/12: val MAE=2.1011 dB (10.9s)
+SingleNode_DLinear H=1 trial=5/12: val MAE=2.0543 dB (3.1s)
+SingleNode_DLinear H=1 trial=6/12: val MAE=2.0420 dB (12.4s)
+SingleNode_DLinear H=1 trial=7/12: val MAE=2.0835 dB (3.8s)
+SingleNode_DLinear H=1 trial=8/12: val MAE=3.7825 dB (4.0s)
+SingleNode_DLinear H=1 trial=9/12: val MAE=2.0416 dB (12.1s)
+SingleNode_DLinear H=1 trial=10/12: val MAE=2.3587 dB (12.4s)
+SingleNode_DLinear H=1 trial=11/12: val MAE=3.7827 dB (3.2s)
+SingleNode_DLinear H=1 trial=12/12: val MAE=2.0964 dB (10.2s)
+MultiNode_DLinear H=1 trial=1/12: val MAE=2.0708 dB (0.6s)
+MultiNode_DLinear H=1 trial=2/12: val MAE=2.0664 dB (0.6s)
+MultiNode_DLinear H=1 trial=3/12: val MAE=2.1448 dB (1.9s)
+MultiNode_DLinear H=1 trial=4/12: val MAE=2.0692 dB (1.9s)
+MultiNode_DLinear H=1 trial=5/12: val MAE=2.0978 dB (0.6s)
+MultiNode_DLinear H=1 trial=6/12: val MAE=2.0577 dB (1.6s)
+MultiNode_DLinear H=1 trial=7/12: val MAE=2.0700 dB (0.5s)
+MultiNode_DLinear H=1 trial=8/12: val MAE=3.4527 dB (0.5s)
+MultiNode_DLinear H=1 trial=9/12: val MAE=2.0626 dB (1.5s)
+MultiNode_DLinear H=1 trial=10/12: val MAE=2.1446 dB (1.5s)
+MultiNode_DLinear H=1 trial=11/12: val MAE=3.4531 dB (0.5s)
+MultiNode_DLinear H=1 trial=12/12: val MAE=2.1144 dB (1.5s)
+PhysicalAdaptive_STGNN H=1 trial=1/12: val MAE=2.0335 dB (14.3s)
+PhysicalAdaptive_STGNN H=1 trial=2/12: val MAE=2.1661 dB (32.0s)
+PhysicalAdaptive_STGNN H=1 trial=3/12: val MAE=2.0310 dB (24.5s)
+PhysicalAdaptive_STGNN H=1 trial=4/12: val MAE=1.8326 dB (104.4s)
+PhysicalAdaptive_STGNN H=1 trial=5/12: val MAE=2.0094 dB (119.2s)
+PhysicalAdaptive_STGNN H=1 trial=6/12: val MAE=2.0395 dB (10.3s)
+PhysicalAdaptive_STGNN H=1 trial=7/12: val MAE=1.8567 dB (20.5s)
+PhysicalAdaptive_STGNN H=1 trial=8/12: val MAE=2.0355 dB (15.2s)
+PhysicalAdaptive_STGNN H=1 trial=9/12: val MAE=2.0147 dB (132.5s)
+PhysicalAdaptive_STGNN H=1 trial=10/12: val MAE=1.8982 dB (25.1s)
+PhysicalAdaptive_STGNN H=1 trial=11/12: val MAE=2.0275 dB (25.1s)
+PhysicalAdaptive_STGNN H=1 trial=12/12: val MAE=1.8816 dB (62.5s)
+
+Otimização concluída; executando benchmark final...
+
+H=1: device=cpu; windows={'train': 7145, 'validation': 1369, 'test': 1015}
+ARIMAX: MAE=2.1999 dB; params=112; fit=165.3s
+VARX: MAE=2.0484 dB; params=288; fit=0.0s
+SingleNode_Seq2Seq: MAE=2.0491 dB; params=160137; fit=25.0s
+MultiNode_Seq2Seq: MAE=1.9869 dB; params=106249; fit=7.6s
+SingleNode_NLinear: MAE=2.1068 dB; params=225; fit=2.8s
+MultiNode_NLinear: MAE=2.1128 dB; params=25; fit=1.3s
+SingleNode_DLinear: MAE=2.0909 dB; params=450; fit=14.6s
+MultiNode_DLinear: MAE=2.0975 dB; params=50; fit=1.9s
+PhysicalAdaptive_STGNN: MAE=1.9124 dB; params=165459; fit=80.5s
+STGNN_NoGraph: MAE=2.0341 dB; params=157121; fit=62.2s
+STGNN_PhysicalOnly: MAE=1.9249 dB; params=165313; fit=70.4s
+STGNN_AdaptiveOnly: MAE=1.8836 dB; params=165457; fit=72.5s
+
+===========================================================================
+ BENCHMARK SUMMARY (Horizon H = 1 hour(s))
+===========================================================================
+Model                    | MAE (dB)   | RMSE (dB)  | Params    | Models
+-----------------------------------------------------------------------
+STGNN_AdaptiveOnly       | 1.8836     | 2.6333     | 165,457   | 1     
+PhysicalAdaptive_STGNN   | 1.9124     | 2.6682     | 165,459   | 1     
+STGNN_PhysicalOnly       | 1.9249     | 2.7137     | 165,313   | 1     
+MultiNode_Seq2Seq        | 1.9869     | 2.7820     | 106,249   | 1     
+STGNN_NoGraph            | 2.0341     | 2.8436     | 157,121   | 1     
+VARX                     | 2.0484     | 2.8463     | 288       | 1     
+SingleNode_Seq2Seq       | 2.0491     | 2.8812     | 160,137   | 9     
+SingleNode_DLinear       | 2.0909     | 2.9469     | 450       | 9     
+MultiNode_DLinear        | 2.0975     | 2.9608     | 50        | 1     
+SingleNode_NLinear       | 2.1068     | 2.9755     | 225       | 9     
+MultiNode_NLinear        | 2.1128     | 2.9883     | 25        | 1     
+ARIMAX                   | 2.1999     | 3.0758     | 112       | 9     
+===========================================================================
+
+MAE POR NÓ (dB; menor é melhor)
+Model                    | RSSI_01 | RSSI_02 | RSSI_03 | RSSI_04 | RSSI_05 | RSSI_06 | RSSI_07 | RSSI_08 | RSSI_09 | média
+--------------------------------------------------------------------------------------------------------------------------
+STGNN_AdaptiveOnly       | 2.4058  | 1.5774  | 1.6166  | 2.2084  | 1.4563  | 1.2854  | 2.2454  | 1.9832  | 2.1739  | 1.8836
+PhysicalAdaptive_STGNN   | 2.4302  | 1.6236  | 1.6171  | 2.2493  | 1.4773  | 1.3447  | 2.2677  | 2.0015  | 2.2005  | 1.9124
+STGNN_PhysicalOnly       | 2.4141  | 1.6583  | 1.6313  | 2.2658  | 1.4642  | 1.3364  | 2.2800  | 2.0221  | 2.2521  | 1.9249
+MultiNode_Seq2Seq        | 2.4387  | 1.6966  | 1.6686  | 2.3779  | 1.5761  | 1.3730  | 2.4416  | 2.0724  | 2.2377  | 1.9869
+STGNN_NoGraph            | 2.5299  | 1.6990  | 1.7156  | 2.4137  | 1.6191  | 1.3912  | 2.4341  | 2.1475  | 2.3571  | 2.0341
+VARX                     | 2.4522  | 1.7378  | 1.7245  | 2.3679  | 1.6432  | 1.5069  | 2.5190  | 2.2576  | 2.2266  | 2.0484
+SingleNode_Seq2Seq       | 2.5561  | 1.7228  | 1.7666  | 2.4801  | 1.6265  | 1.3425  | 2.4775  | 2.1366  | 2.3334  | 2.0491
+SingleNode_DLinear       | 2.5744  | 1.7759  | 1.7807  | 2.4932  | 1.7124  | 1.3999  | 2.4759  | 2.1946  | 2.4108  | 2.0909
+MultiNode_DLinear        | 2.5811  | 1.7632  | 1.7689  | 2.4890  | 1.6923  | 1.4196  | 2.4746  | 2.2279  | 2.4606  | 2.0975
+SingleNode_NLinear       | 2.5624  | 1.7916  | 1.7871  | 2.5140  | 1.7702  | 1.4344  | 2.4735  | 2.2188  | 2.4095  | 2.1068
+MultiNode_NLinear        | 2.5949  | 1.7733  | 1.7725  | 2.5153  | 1.7078  | 1.4206  | 2.5013  | 2.2474  | 2.4823  | 2.1128
+ARIMAX                   | 2.6044  | 1.8538  | 1.8783  | 2.6193  | 1.7938  | 1.5303  | 2.6810  | 2.3366  | 2.5020  | 2.1999
+
+CUSTO PARA ATENDER TODOS OS NÓS
+Model                    | preditores |   parâmetros |  KiB pesos | treino(s)
+STGNN_AdaptiveOnly       |          1 |      165,457 |     646.32 |     72.51
+PhysicalAdaptive_STGNN   |          1 |      165,459 |     646.32 |     80.47
+STGNN_PhysicalOnly       |          1 |      165,313 |     645.75 |     70.37
+MultiNode_Seq2Seq        |          1 |      106,249 |     415.04 |      7.62
+STGNN_NoGraph            |          1 |      157,121 |     613.75 |     62.17
+VARX                     |          1 |          288 |       2.25 |      0.02
+SingleNode_Seq2Seq       |          9 |      160,137 |     625.54 |     25.00
+SingleNode_DLinear       |          9 |          450 |       1.76 |     14.59
+MultiNode_DLinear        |          1 |           50 |       0.20 |      1.88
+SingleNode_NLinear       |          9 |          225 |       0.88 |      2.77
+MultiNode_NLinear        |          1 |           25 |       0.10 |      1.35
+ARIMAX                   |          9 |          112 |       0.88 |    165.27

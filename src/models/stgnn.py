@@ -10,11 +10,10 @@ Formulation:
 - Residual Link: Directly anchored to the last observed RSSI (X_{t-1}).
 """
 
-from typing import Optional, List
+from typing import Optional
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
 from src.models.training import fit_network
 

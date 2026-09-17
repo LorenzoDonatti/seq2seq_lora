@@ -1,0 +1,6 @@
+One joint model forecasts all LoRaWAN links from a shared observation window
+A physical-adaptive graph captures static and data-driven link dependencies
+Per-link accuracy is evaluated under leakage-safe chronological validation
+Joint forecasting consolidates multiple independently managed predictors
+Two real deployments test transfer across propagation environments
+

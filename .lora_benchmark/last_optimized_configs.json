@@ -1,170 +1,120 @@
 {
-  "version": 4,
   "experiments": {
-    "sha256:c58da8397d9db7d28135c8d6de27ab00c3b6d3c848ad6fb6af20d4db1c6028f0": {
-      "data_file": "combined_hourly_data.csv",
-      "histories": {
-        "13": {
-          "horizons": {
-            "1": {
-              "configs": {
-                "ARX": {
-                  "lags": 6,
-                  "alpha": 0.01,
-                  "difference": 0
-                },
-                "ARIMAX": {
-                  "lags": 3,
-                  "alpha": 0.01,
-                  "difference": 0
-                },
-                "VARX": {
-                  "lags": 3,
-                  "alpha": 0.01,
-                  "difference": 0
-                },
-                "VARIMAX": {
-                  "lags": 3,
-                  "alpha": 0.01,
-                  "difference": 0
-                },
-                "SingleNode_Seq2Seq": {
-                  "lr": 0.003,
-                  "dropout": 0.0,
-                  "weight_decay": 0.0,
-                  "batch_size": 128,
-                  "hidden_dim": 64,
-                  "num_layers": 2
-                },
-                "MultiNode_Seq2Seq": {
-                  "lr": 0.003,
-                  "dropout": 0.1,
-                  "weight_decay": 0.001,
-                  "batch_size": 128,
-                  "hidden_dim": 32,
-                  "num_layers": 1
-                },
-                "SingleNode_NLinear": {
-                  "lr": 0.01,
-                  "weight_decay": 0.0,
-                  "batch_size": 32
-                },
-                "MultiNode_NLinear": {
-                  "lr": 0.01,
-                  "weight_decay": 0.001,
-                  "batch_size": 32
-                },
-                "SingleNode_DLinear": {
-                  "lr": 0.01,
-                  "weight_decay": 0.0,
-                  "batch_size": 32
-                },
-                "MultiNode_DLinear": {
-                  "lr": 0.01,
-                  "weight_decay": 0.0,
-                  "batch_size": 128
-                },
-                "PhysicalAdaptive_STGNN": {
-                  "lr": 0.003,
-                  "dropout": 0.0,
-                  "weight_decay": 0.0,
-                  "batch_size": 32,
-                  "hidden_dim": 16,
-                  "blocks": 3
-                }
-              },
-              "history": 13,
-              "seed": 42,
-              "trials": 12,
-              "search_epochs": 64,
-              "optimized_at": "2026-09-17T13:35:57.967818+00:00"
-            }
-          }
-        }
-      }
-    },
     "sha256:9367f815befec509f739bbba3230d988294044b6d928af2eb49204fb4adc75c9": {
       "data_file": "experiment_2_uva_gatewayA_hourly.csv",
       "histories": {
         "24": {
-          "horizons": {
-            "1": {
-              "configs": {
-                "ARX": {
-                  "lags": 3,
-                  "alpha": 0.01,
-                  "difference": 0
-                },
-                "ARIMAX": {
-                  "lags": 1,
-                  "alpha": 0.01,
-                  "difference": 1
-                },
-                "VARX": {
-                  "lags": 3,
-                  "alpha": 0.01,
-                  "difference": 0
-                },
-                "VARIMAX": {
-                  "lags": 3,
-                  "alpha": 0.01,
-                  "difference": 0
-                },
-                "SingleNode_Seq2Seq": {
-                  "lr": 0.003,
-                  "dropout": 0.1,
-                  "weight_decay": 0.001,
-                  "batch_size": 128,
-                  "hidden_dim": 32,
-                  "num_layers": 1
-                },
-                "MultiNode_Seq2Seq": {
-                  "lr": 0.003,
-                  "dropout": 0.0,
-                  "weight_decay": 0.0,
-                  "batch_size": 128,
-                  "hidden_dim": 64,
-                  "num_layers": 2
-                },
-                "SingleNode_NLinear": {
-                  "lr": 0.01,
-                  "weight_decay": 0.0,
-                  "batch_size": 128
-                },
-                "MultiNode_NLinear": {
-                  "lr": 0.001,
-                  "weight_decay": 0.001,
-                  "batch_size": 32
-                },
-                "SingleNode_DLinear": {
-                  "lr": 0.001,
-                  "weight_decay": 0.0,
-                  "batch_size": 32
-                },
-                "MultiNode_DLinear": {
-                  "lr": 0.001,
-                  "weight_decay": 0.001,
-                  "batch_size": 32
-                },
-                "PhysicalAdaptive_STGNN": {
-                  "lr": 0.001,
-                  "dropout": 0.0,
-                  "weight_decay": 0.0,
-                  "batch_size": 32,
-                  "hidden_dim": 64,
-                  "blocks": 2
-                }
-              },
-              "history": 24,
-              "seed": 42,
-              "trials": 12,
-              "search_epochs": 16,
-              "optimized_at": "2026-09-17T14:17:58.048359+00:00"
+          "configs": {
+            "ARIMAX": {
+              "orders": [
+                [
+                  4,
+                  0,
+                  2
+                ],
+                [
+                  3,
+                  0,
+                  3
+                ],
+                [
+                  4,
+                  0,
+                  3
+                ],
+                [
+                  4,
+                  0,
+                  3
+                ],
+                [
+                  4,
+                  0,
+                  3
+                ],
+                [
+                  3,
+                  0,
+                  3
+                ],
+                [
+                  3,
+                  0,
+                  3
+                ],
+                [
+                  4,
+                  0,
+                  2
+                ],
+                [
+                  4,
+                  0,
+                  3
+                ]
+              ]
+            },
+            "VARX": {
+              "lags": [
+                1,
+                2,
+                3
+              ],
+              "alpha": 0.01
+            },
+            "SingleNode_Seq2Seq": {
+              "lr": 0.003,
+              "dropout": 0.1,
+              "weight_decay": 0.001,
+              "batch_size": 128,
+              "hidden_dim": 32,
+              "num_layers": 1
+            },
+            "MultiNode_Seq2Seq": {
+              "lr": 0.003,
+              "dropout": 0.0,
+              "weight_decay": 0.0,
+              "batch_size": 128,
+              "hidden_dim": 64,
+              "num_layers": 2
+            },
+            "SingleNode_NLinear": {
+              "lr": 0.01,
+              "weight_decay": 0.0,
+              "batch_size": 128
+            },
+            "MultiNode_NLinear": {
+              "lr": 0.001,
+              "weight_decay": 0.001,
+              "batch_size": 32
+            },
+            "SingleNode_DLinear": {
+              "lr": 0.001,
+              "weight_decay": 0.0,
+              "batch_size": 32
+            },
+            "MultiNode_DLinear": {
+              "lr": 0.001,
+              "weight_decay": 0.001,
+              "batch_size": 32
+            },
+            "PhysicalAdaptive_STGNN": {
+              "lr": 0.001,
+              "dropout": 0.0,
+              "weight_decay": 0.0,
+              "batch_size": 32,
+              "hidden_dim": 64,
+              "blocks": 2
             }
-          }
+          },
+          "history": 24,
+          "seed": 42,
+          "trials": 12,
+          "search_epochs": 16,
+          "optimized_at": "2026-09-17T19:08:18.462494+00:00"
         }
       }
     }
   },
-  "updated_at": "2026-09-17T14:17:58.048359+00:00"
+  "updated_at": "2026-09-17T19:08:18.462494+00:00"
 }

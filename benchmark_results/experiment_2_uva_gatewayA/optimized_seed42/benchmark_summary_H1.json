@@ -1,0 +1,1657 @@
+{
+  "ARIMAX": {
+    "metrics": {
+      "global": {
+        "mae_db": 2.1999,
+        "rmse_db": 3.0758
+      },
+      "terminal_horizon": {
+        "mae_db": 2.1999,
+        "rmse_db": 3.0758
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 2.1999,
+          "rmse_db": 3.0758
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.6044,
+          "rmse_db": 3.6088
+        },
+        "RSSI_02": {
+          "mae_db": 1.8538,
+          "rmse_db": 2.6272
+        },
+        "RSSI_03": {
+          "mae_db": 1.8783,
+          "rmse_db": 2.6309
+        },
+        "RSSI_04": {
+          "mae_db": 2.6193,
+          "rmse_db": 3.4815
+        },
+        "RSSI_05": {
+          "mae_db": 1.7938,
+          "rmse_db": 2.5703
+        },
+        "RSSI_06": {
+          "mae_db": 1.5303,
+          "rmse_db": 2.311
+        },
+        "RSSI_07": {
+          "mae_db": 2.681,
+          "rmse_db": 3.6931
+        },
+        "RSSI_08": {
+          "mae_db": 2.3366,
+          "rmse_db": 3.0506
+        },
+        "RSSI_09": {
+          "mae_db": 2.502,
+          "rmse_db": 3.3594
+        }
+      }
+    },
+    "parameters": 112,
+    "parameters_per_node": 12.444444444444445,
+    "model_instances": 9,
+    "joint_multi_node_model": false,
+    "cross_node_inputs": false,
+    "parameter_sharing": false,
+    "uses_historical_weather": true,
+    "uses_geometry": false,
+    "integration": "dedicated",
+    "forecast_strategy": "recursive",
+    "parameter_storage_kib": 0.875,
+    "training_seconds": 165.2676165710036,
+    "training": {
+      "estimator": "exact Gaussian state-space likelihood summed over independent contiguous segments",
+      "selection": "training-only AICc per node; ACF/PACF bound candidate orders",
+      "joint": false,
+      "orders": [
+        [
+          4,
+          0,
+          2
+        ],
+        [
+          3,
+          0,
+          3
+        ],
+        [
+          4,
+          0,
+          3
+        ],
+        [
+          4,
+          0,
+          3
+        ],
+        [
+          4,
+          0,
+          3
+        ],
+        [
+          3,
+          0,
+          3
+        ],
+        [
+          3,
+          0,
+          3
+        ],
+        [
+          4,
+          0,
+          2
+        ],
+        [
+          4,
+          0,
+          3
+        ]
+      ],
+      "weather_lag_hours": 1,
+      "diagnostics": [
+        {
+          "order": [
+            4,
+            0,
+            2
+          ],
+          "log_likelihood": 10163.995293458418,
+          "aic": -20303.990586916836,
+          "aicc": -20303.947516789834,
+          "bic": -20221.3139253255,
+          "nobs": 7257,
+          "parameters": 12,
+          "converged": true,
+          "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "ljung_box_min_pvalue": 1.1797973448141034e-33,
+          "diagnostic_residuals": 7232,
+          "segment_lengths": [
+            2031,
+            1637,
+            326,
+            1488,
+            1775
+          ]
+        },
+        {
+          "order": [
+            3,
+            0,
+            3
+          ],
+          "log_likelihood": 10797.753831719796,
+          "aic": -21571.507663439592,
+          "aicc": -21571.46459331259,
+          "bic": -21488.831001848255,
+          "nobs": 7257,
+          "parameters": 12,
+          "converged": true,
+          "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "ljung_box_min_pvalue": 2.762468351904675e-88,
+          "diagnostic_residuals": 7237,
+          "segment_lengths": [
+            2031,
+            1637,
+            326,
+            1488,
+            1775
+          ]
+        },
+        {
+          "order": [
+            4,
+            0,
+            3
+          ],
+          "log_likelihood": 12067.84652696699,
+          "aic": -24109.69305393398,
+          "aicc": -24109.642798514957,
+          "bic": -24020.126670543366,
+          "nobs": 7257,
+          "parameters": 13,
+          "converged": true,
+          "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "ljung_box_min_pvalue": 7.844316195680226e-60,
+          "diagnostic_residuals": 7232,
+          "segment_lengths": [
+            2031,
+            1637,
+            326,
+            1488,
+            1775
+          ]
+        },
+        {
+          "order": [
+            4,
+            0,
+            3
+          ],
+          "log_likelihood": 10823.954262126459,
+          "aic": -21621.908524252918,
+          "aicc": -21621.858268833894,
+          "bic": -21532.342140862303,
+          "nobs": 7257,
+          "parameters": 13,
+          "converged": true,
+          "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "ljung_box_min_pvalue": 1.2449948376377824e-38,
+          "diagnostic_residuals": 7232,
+          "segment_lengths": [
+            2031,
+            1637,
+            326,
+            1488,
+            1775
+          ]
+        },
+        {
+          "order": [
+            4,
+            0,
+            3
+          ],
+          "log_likelihood": 11978.630257050347,
+          "aic": -23931.260514100693,
+          "aicc": -23931.21025868167,
+          "bic": -23841.69413071008,
+          "nobs": 7257,
+          "parameters": 13,
+          "converged": true,
+          "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "ljung_box_min_pvalue": 9.079914076698954e-66,
+          "diagnostic_residuals": 7232,
+          "segment_lengths": [
+            2031,
+            1637,
+            326,
+            1488,
+            1775
+          ]
+        },
+        {
+          "order": [
+            3,
+            0,
+            3
+          ],
+          "log_likelihood": 12719.15286067452,
+          "aic": -25414.30572134904,
+          "aicc": -25414.262651222038,
+          "bic": -25331.629059757703,
+          "nobs": 7257,
+          "parameters": 12,
+          "converged": true,
+          "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "ljung_box_min_pvalue": 1.4485458669349273e-81,
+          "diagnostic_residuals": 7237,
+          "segment_lengths": [
+            2031,
+            1637,
+            326,
+            1488,
+            1775
+          ]
+        },
+        {
+          "order": [
+            3,
+            0,
+            3
+          ],
+          "log_likelihood": 11254.483237160468,
+          "aic": -22484.966474320936,
+          "aicc": -22484.923404193934,
+          "bic": -22402.2898127296,
+          "nobs": 7257,
+          "parameters": 12,
+          "converged": true,
+          "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "ljung_box_min_pvalue": 3.775794051192535e-35,
+          "diagnostic_residuals": 7237,
+          "segment_lengths": [
+            2031,
+            1637,
+            326,
+            1488,
+            1775
+          ]
+        },
+        {
+          "order": [
+            4,
+            0,
+            2
+          ],
+          "log_likelihood": 9696.909505661797,
+          "aic": -19369.819011323594,
+          "aicc": -19369.775941196593,
+          "bic": -19287.142349732258,
+          "nobs": 7257,
+          "parameters": 12,
+          "converged": true,
+          "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "ljung_box_min_pvalue": 1.286161696501851e-57,
+          "diagnostic_residuals": 7232,
+          "segment_lengths": [
+            2031,
+            1637,
+            326,
+            1488,
+            1775
+          ]
+        },
+        {
+          "order": [
+            4,
+            0,
+            3
+          ],
+          "log_likelihood": 9602.622526386864,
+          "aic": -19179.245052773727,
+          "aicc": -19179.194797354703,
+          "bic": -19089.678669383113,
+          "nobs": 7257,
+          "parameters": 13,
+          "converged": true,
+          "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "ljung_box_min_pvalue": 1.870423051859329e-39,
+          "diagnostic_residuals": 7232,
+          "segment_lengths": [
+            2031,
+            1637,
+            326,
+            1488,
+            1775
+          ]
+        }
+      ],
+      "innovation_initialization": "stationary initialization independently per segment/window"
+    },
+    "device": "cpu",
+    "config": {
+      "orders": [
+        [
+          4,
+          0,
+          2
+        ],
+        [
+          3,
+          0,
+          3
+        ],
+        [
+          4,
+          0,
+          3
+        ],
+        [
+          4,
+          0,
+          3
+        ],
+        [
+          4,
+          0,
+          3
+        ],
+        [
+          3,
+          0,
+          3
+        ],
+        [
+          3,
+          0,
+          3
+        ],
+        [
+          4,
+          0,
+          2
+        ],
+        [
+          4,
+          0,
+          3
+        ]
+      ]
+    },
+    "ablation_control": null
+  },
+  "VARX": {
+    "metrics": {
+      "global": {
+        "mae_db": 2.0484,
+        "rmse_db": 2.8463
+      },
+      "terminal_horizon": {
+        "mae_db": 2.0484,
+        "rmse_db": 2.8463
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 2.0484,
+          "rmse_db": 2.8463
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.4522,
+          "rmse_db": 3.3826
+        },
+        "RSSI_02": {
+          "mae_db": 1.7378,
+          "rmse_db": 2.4545
+        },
+        "RSSI_03": {
+          "mae_db": 1.7245,
+          "rmse_db": 2.4658
+        },
+        "RSSI_04": {
+          "mae_db": 2.3679,
+          "rmse_db": 3.1708
+        },
+        "RSSI_05": {
+          "mae_db": 1.6432,
+          "rmse_db": 2.3495
+        },
+        "RSSI_06": {
+          "mae_db": 1.5069,
+          "rmse_db": 2.2531
+        },
+        "RSSI_07": {
+          "mae_db": 2.519,
+          "rmse_db": 3.3632
+        },
+        "RSSI_08": {
+          "mae_db": 2.2576,
+          "rmse_db": 2.9456
+        },
+        "RSSI_09": {
+          "mae_db": 2.2266,
+          "rmse_db": 2.9543
+        }
+      }
+    },
+    "parameters": 288,
+    "parameters_per_node": 32.0,
+    "model_instances": 1,
+    "joint_multi_node_model": true,
+    "cross_node_inputs": true,
+    "parameter_sharing": false,
+    "uses_historical_weather": true,
+    "uses_geometry": false,
+    "integration": "cross_node",
+    "forecast_strategy": "recursive",
+    "parameter_storage_kib": 2.25,
+    "training_seconds": 0.023464808000426274,
+    "training": {
+      "estimator": "regularized conditional sum of squares",
+      "joint": true,
+      "p_max": 3,
+      "lag_indices": [
+        1,
+        2,
+        3
+      ],
+      "d": 0,
+      "q": 0,
+      "weather_lag_hours": 1,
+      "training_segment_lengths": [
+        2032,
+        1638,
+        327,
+        1489,
+        1776
+      ],
+      "conditional_observations": 7247,
+      "excluded_short_segment_rows": 1,
+      "spectral_radius": 0.9813108525022728,
+      "conditional_sse": 163.3424618381297,
+      "residual_logdet": -61.28120346191986,
+      "bic_parameter_count": 333,
+      "bic": -441145.0633131198
+    },
+    "device": "cpu",
+    "config": {
+      "lags": [
+        1,
+        2,
+        3
+      ],
+      "alpha": 0.01
+    },
+    "ablation_control": null
+  },
+  "SingleNode_Seq2Seq": {
+    "metrics": {
+      "global": {
+        "mae_db": 2.0491,
+        "rmse_db": 2.8812
+      },
+      "terminal_horizon": {
+        "mae_db": 2.0491,
+        "rmse_db": 2.8812
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 2.0491,
+          "rmse_db": 2.8812
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.5561,
+          "rmse_db": 3.5014
+        },
+        "RSSI_02": {
+          "mae_db": 1.7228,
+          "rmse_db": 2.4068
+        },
+        "RSSI_03": {
+          "mae_db": 1.7666,
+          "rmse_db": 2.485
+        },
+        "RSSI_04": {
+          "mae_db": 2.4801,
+          "rmse_db": 3.2994
+        },
+        "RSSI_05": {
+          "mae_db": 1.6265,
+          "rmse_db": 2.3781
+        },
+        "RSSI_06": {
+          "mae_db": 1.3425,
+          "rmse_db": 2.0797
+        },
+        "RSSI_07": {
+          "mae_db": 2.4775,
+          "rmse_db": 3.4374
+        },
+        "RSSI_08": {
+          "mae_db": 2.1366,
+          "rmse_db": 2.8188
+        },
+        "RSSI_09": {
+          "mae_db": 2.3334,
+          "rmse_db": 3.1399
+        }
+      }
+    },
+    "parameters": 160137,
+    "parameters_per_node": 17793.0,
+    "model_instances": 9,
+    "joint_multi_node_model": false,
+    "cross_node_inputs": false,
+    "parameter_sharing": false,
+    "uses_historical_weather": true,
+    "uses_geometry": false,
+    "integration": "dedicated",
+    "forecast_strategy": "recursive",
+    "parameter_storage_kib": 625.53515625,
+    "training_seconds": 24.995080656000937,
+    "training": {
+      "per_node": [
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 12,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.345905065536499
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 16,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.835438847541809
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 15,
+          "best_epoch": 5,
+          "optimizer_updates": 840,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.9259225130081177
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 6,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.4280154705047607
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 16,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.4601805210113525
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 15,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.4049328565597534
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 10,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.9005459547042847
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 13,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.1072137355804443
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 16,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.8588414192199707
+        }
+      ],
+      "epochs_requested": 16,
+      "best_epoch_per_node": [
+        12,
+        16,
+        5,
+        6,
+        16,
+        15,
+        10,
+        13,
+        16
+      ],
+      "optimizer_updates": 8008
+    },
+    "device": "cpu",
+    "config": {
+      "lr": 0.003,
+      "dropout": 0.1,
+      "weight_decay": 0.001,
+      "batch_size": 128,
+      "hidden_dim": 32,
+      "num_layers": 1
+    },
+    "ablation_control": null
+  },
+  "MultiNode_Seq2Seq": {
+    "metrics": {
+      "global": {
+        "mae_db": 1.9869,
+        "rmse_db": 2.782
+      },
+      "terminal_horizon": {
+        "mae_db": 1.9869,
+        "rmse_db": 2.782
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 1.9869,
+          "rmse_db": 2.782
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.4387,
+          "rmse_db": 3.37
+        },
+        "RSSI_02": {
+          "mae_db": 1.6966,
+          "rmse_db": 2.3806
+        },
+        "RSSI_03": {
+          "mae_db": 1.6686,
+          "rmse_db": 2.3588
+        },
+        "RSSI_04": {
+          "mae_db": 2.3779,
+          "rmse_db": 3.1643
+        },
+        "RSSI_05": {
+          "mae_db": 1.5761,
+          "rmse_db": 2.2995
+        },
+        "RSSI_06": {
+          "mae_db": 1.373,
+          "rmse_db": 2.0942
+        },
+        "RSSI_07": {
+          "mae_db": 2.4416,
+          "rmse_db": 3.3501
+        },
+        "RSSI_08": {
+          "mae_db": 2.0724,
+          "rmse_db": 2.7168
+        },
+        "RSSI_09": {
+          "mae_db": 2.2377,
+          "rmse_db": 2.9622
+        }
+      }
+    },
+    "parameters": 106249,
+    "parameters_per_node": 11805.444444444445,
+    "model_instances": 1,
+    "joint_multi_node_model": true,
+    "cross_node_inputs": true,
+    "parameter_sharing": true,
+    "uses_historical_weather": true,
+    "uses_geometry": false,
+    "integration": "cross_node",
+    "forecast_strategy": "recursive",
+    "parameter_storage_kib": 415.03515625,
+    "training_seconds": 7.61878342899945,
+    "training": {
+      "epochs_requested": 16,
+      "epochs_executed": 16,
+      "best_epoch": 15,
+      "optimizer_updates": 896,
+      "batch_size": 128,
+      "patience": 10,
+      "selection_metric": "MAE_dB",
+      "best_validation_loss": 1.9335111379623413
+    },
+    "device": "cpu",
+    "config": {
+      "lr": 0.003,
+      "dropout": 0.0,
+      "weight_decay": 0.0,
+      "batch_size": 128,
+      "hidden_dim": 64,
+      "num_layers": 2
+    },
+    "ablation_control": null
+  },
+  "SingleNode_NLinear": {
+    "metrics": {
+      "global": {
+        "mae_db": 2.1068,
+        "rmse_db": 2.9755
+      },
+      "terminal_horizon": {
+        "mae_db": 2.1068,
+        "rmse_db": 2.9755
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 2.1068,
+          "rmse_db": 2.9755
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.5624,
+          "rmse_db": 3.5529
+        },
+        "RSSI_02": {
+          "mae_db": 1.7916,
+          "rmse_db": 2.5475
+        },
+        "RSSI_03": {
+          "mae_db": 1.7871,
+          "rmse_db": 2.5184
+        },
+        "RSSI_04": {
+          "mae_db": 2.514,
+          "rmse_db": 3.3446
+        },
+        "RSSI_05": {
+          "mae_db": 1.7702,
+          "rmse_db": 2.5714
+        },
+        "RSSI_06": {
+          "mae_db": 1.4344,
+          "rmse_db": 2.2658
+        },
+        "RSSI_07": {
+          "mae_db": 2.4735,
+          "rmse_db": 3.4854
+        },
+        "RSSI_08": {
+          "mae_db": 2.2188,
+          "rmse_db": 2.9258
+        },
+        "RSSI_09": {
+          "mae_db": 2.4095,
+          "rmse_db": 3.2533
+        }
+      }
+    },
+    "parameters": 225,
+    "parameters_per_node": 25.0,
+    "model_instances": 9,
+    "joint_multi_node_model": false,
+    "cross_node_inputs": false,
+    "parameter_sharing": false,
+    "uses_historical_weather": false,
+    "uses_geometry": false,
+    "integration": "dedicated",
+    "forecast_strategy": "direct",
+    "parameter_storage_kib": 0.87890625,
+    "training_seconds": 2.7688664269990113,
+    "training": {
+      "per_node": [
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 9,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.3567922115325928
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 16,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.8517907857894897
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 11,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.9186128377914429
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 14,
+          "best_epoch": 4,
+          "optimizer_updates": 784,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.4462475776672363
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 13,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.421491265296936
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 11,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.3874589204788208
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 8,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.9071124792099
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 9,
+          "optimizer_updates": 896,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.1208550930023193
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 12,
+          "best_epoch": 2,
+          "optimizer_updates": 672,
+          "batch_size": 128,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.8805618286132812
+        }
+      ],
+      "epochs_requested": 16,
+      "best_epoch_per_node": [
+        9,
+        16,
+        11,
+        4,
+        13,
+        11,
+        8,
+        9,
+        2
+      ],
+      "optimizer_updates": 7728
+    },
+    "device": "cpu",
+    "config": {
+      "lr": 0.01,
+      "weight_decay": 0.0,
+      "batch_size": 128
+    },
+    "ablation_control": null
+  },
+  "MultiNode_NLinear": {
+    "metrics": {
+      "global": {
+        "mae_db": 2.1128,
+        "rmse_db": 2.9883
+      },
+      "terminal_horizon": {
+        "mae_db": 2.1128,
+        "rmse_db": 2.9883
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 2.1128,
+          "rmse_db": 2.9883
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.5949,
+          "rmse_db": 3.5963
+        },
+        "RSSI_02": {
+          "mae_db": 1.7733,
+          "rmse_db": 2.5464
+        },
+        "RSSI_03": {
+          "mae_db": 1.7725,
+          "rmse_db": 2.5186
+        },
+        "RSSI_04": {
+          "mae_db": 2.5153,
+          "rmse_db": 3.3407
+        },
+        "RSSI_05": {
+          "mae_db": 1.7078,
+          "rmse_db": 2.4872
+        },
+        "RSSI_06": {
+          "mae_db": 1.4206,
+          "rmse_db": 2.2187
+        },
+        "RSSI_07": {
+          "mae_db": 2.5013,
+          "rmse_db": 3.5251
+        },
+        "RSSI_08": {
+          "mae_db": 2.2474,
+          "rmse_db": 2.9632
+        },
+        "RSSI_09": {
+          "mae_db": 2.4823,
+          "rmse_db": 3.337
+        }
+      }
+    },
+    "parameters": 25,
+    "parameters_per_node": 2.7777777777777777,
+    "model_instances": 1,
+    "joint_multi_node_model": false,
+    "cross_node_inputs": false,
+    "parameter_sharing": true,
+    "uses_historical_weather": false,
+    "uses_geometry": false,
+    "integration": "shared_channel_independent",
+    "forecast_strategy": "direct",
+    "parameter_storage_kib": 0.09765625,
+    "training_seconds": 1.3464173039974412,
+    "training": {
+      "epochs_requested": 16,
+      "epochs_executed": 16,
+      "best_epoch": 8,
+      "optimizer_updates": 3584,
+      "batch_size": 32,
+      "patience": 10,
+      "selection_metric": "MAE_dB",
+      "best_validation_loss": 2.0527050495147705
+    },
+    "device": "cpu",
+    "config": {
+      "lr": 0.001,
+      "weight_decay": 0.001,
+      "batch_size": 32
+    },
+    "ablation_control": null
+  },
+  "SingleNode_DLinear": {
+    "metrics": {
+      "global": {
+        "mae_db": 2.0909,
+        "rmse_db": 2.9469
+      },
+      "terminal_horizon": {
+        "mae_db": 2.0909,
+        "rmse_db": 2.9469
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 2.0909,
+          "rmse_db": 2.9469
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.5744,
+          "rmse_db": 3.5374
+        },
+        "RSSI_02": {
+          "mae_db": 1.7759,
+          "rmse_db": 2.5351
+        },
+        "RSSI_03": {
+          "mae_db": 1.7807,
+          "rmse_db": 2.52
+        },
+        "RSSI_04": {
+          "mae_db": 2.4932,
+          "rmse_db": 3.3075
+        },
+        "RSSI_05": {
+          "mae_db": 1.7124,
+          "rmse_db": 2.491
+        },
+        "RSSI_06": {
+          "mae_db": 1.3999,
+          "rmse_db": 2.2021
+        },
+        "RSSI_07": {
+          "mae_db": 2.4759,
+          "rmse_db": 3.4786
+        },
+        "RSSI_08": {
+          "mae_db": 2.1946,
+          "rmse_db": 2.8741
+        },
+        "RSSI_09": {
+          "mae_db": 2.4108,
+          "rmse_db": 3.2427
+        }
+      }
+    },
+    "parameters": 450,
+    "parameters_per_node": 50.0,
+    "model_instances": 9,
+    "joint_multi_node_model": false,
+    "cross_node_inputs": false,
+    "parameter_sharing": false,
+    "uses_historical_weather": false,
+    "uses_geometry": false,
+    "integration": "dedicated",
+    "forecast_strategy": "direct",
+    "parameter_storage_kib": 1.7578125,
+    "training_seconds": 14.592180843999813,
+    "training": {
+      "per_node": [
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 7,
+          "optimizer_updates": 3584,
+          "batch_size": 32,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.3694796562194824
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 15,
+          "optimizer_updates": 3584,
+          "batch_size": 32,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.8646676540374756
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 15,
+          "optimizer_updates": 3584,
+          "batch_size": 32,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.9208862781524658
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 10,
+          "optimizer_updates": 3584,
+          "batch_size": 32,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.43558669090271
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 12,
+          "optimizer_updates": 3584,
+          "batch_size": 32,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.4507555961608887
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 15,
+          "optimizer_updates": 3584,
+          "batch_size": 32,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.3798911571502686
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 14,
+          "optimizer_updates": 3584,
+          "batch_size": 32,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 1.9097179174423218
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 14,
+          "optimizer_updates": 3584,
+          "batch_size": 32,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.155177593231201
+        },
+        {
+          "epochs_requested": 16,
+          "epochs_executed": 16,
+          "best_epoch": 15,
+          "optimizer_updates": 3584,
+          "batch_size": 32,
+          "patience": 10,
+          "selection_metric": "MAE_dB",
+          "best_validation_loss": 2.8884682655334473
+        }
+      ],
+      "epochs_requested": 16,
+      "best_epoch_per_node": [
+        7,
+        15,
+        15,
+        10,
+        12,
+        15,
+        14,
+        14,
+        15
+      ],
+      "optimizer_updates": 32256
+    },
+    "device": "cpu",
+    "config": {
+      "lr": 0.001,
+      "weight_decay": 0.0,
+      "batch_size": 32
+    },
+    "ablation_control": null
+  },
+  "MultiNode_DLinear": {
+    "metrics": {
+      "global": {
+        "mae_db": 2.0975,
+        "rmse_db": 2.9608
+      },
+      "terminal_horizon": {
+        "mae_db": 2.0975,
+        "rmse_db": 2.9608
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 2.0975,
+          "rmse_db": 2.9608
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.5811,
+          "rmse_db": 3.5655
+        },
+        "RSSI_02": {
+          "mae_db": 1.7632,
+          "rmse_db": 2.528
+        },
+        "RSSI_03": {
+          "mae_db": 1.7689,
+          "rmse_db": 2.5083
+        },
+        "RSSI_04": {
+          "mae_db": 2.489,
+          "rmse_db": 3.2966
+        },
+        "RSSI_05": {
+          "mae_db": 1.6923,
+          "rmse_db": 2.469
+        },
+        "RSSI_06": {
+          "mae_db": 1.4196,
+          "rmse_db": 2.2
+        },
+        "RSSI_07": {
+          "mae_db": 2.4746,
+          "rmse_db": 3.4879
+        },
+        "RSSI_08": {
+          "mae_db": 2.2279,
+          "rmse_db": 2.9302
+        },
+        "RSSI_09": {
+          "mae_db": 2.4606,
+          "rmse_db": 3.3087
+        }
+      }
+    },
+    "parameters": 50,
+    "parameters_per_node": 5.555555555555555,
+    "model_instances": 1,
+    "joint_multi_node_model": false,
+    "cross_node_inputs": false,
+    "parameter_sharing": true,
+    "uses_historical_weather": false,
+    "uses_geometry": false,
+    "integration": "shared_channel_independent",
+    "forecast_strategy": "direct",
+    "parameter_storage_kib": 0.1953125,
+    "training_seconds": 1.878809514997556,
+    "training": {
+      "epochs_requested": 16,
+      "epochs_executed": 16,
+      "best_epoch": 12,
+      "optimizer_updates": 3584,
+      "batch_size": 32,
+      "patience": 10,
+      "selection_metric": "MAE_dB",
+      "best_validation_loss": 2.0576839447021484
+    },
+    "device": "cpu",
+    "config": {
+      "lr": 0.001,
+      "weight_decay": 0.001,
+      "batch_size": 32
+    },
+    "ablation_control": null
+  },
+  "PhysicalAdaptive_STGNN": {
+    "metrics": {
+      "global": {
+        "mae_db": 1.9124,
+        "rmse_db": 2.6682
+      },
+      "terminal_horizon": {
+        "mae_db": 1.9124,
+        "rmse_db": 2.6682
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 1.9124,
+          "rmse_db": 2.6682
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.4302,
+          "rmse_db": 3.3211
+        },
+        "RSSI_02": {
+          "mae_db": 1.6236,
+          "rmse_db": 2.2984
+        },
+        "RSSI_03": {
+          "mae_db": 1.6171,
+          "rmse_db": 2.2968
+        },
+        "RSSI_04": {
+          "mae_db": 2.2493,
+          "rmse_db": 2.9647
+        },
+        "RSSI_05": {
+          "mae_db": 1.4773,
+          "rmse_db": 2.156
+        },
+        "RSSI_06": {
+          "mae_db": 1.3447,
+          "rmse_db": 2.0359
+        },
+        "RSSI_07": {
+          "mae_db": 2.2677,
+          "rmse_db": 3.0995
+        },
+        "RSSI_08": {
+          "mae_db": 2.0015,
+          "rmse_db": 2.6228
+        },
+        "RSSI_09": {
+          "mae_db": 2.2005,
+          "rmse_db": 2.9014
+        }
+      }
+    },
+    "parameters": 165459,
+    "parameters_per_node": 18384.333333333332,
+    "model_instances": 1,
+    "joint_multi_node_model": true,
+    "cross_node_inputs": true,
+    "parameter_sharing": true,
+    "uses_historical_weather": true,
+    "uses_geometry": true,
+    "integration": "cross_node",
+    "forecast_strategy": "direct",
+    "parameter_storage_kib": 646.32421875,
+    "training_seconds": 80.47428229700017,
+    "training": {
+      "epochs_requested": 16,
+      "epochs_executed": 16,
+      "best_epoch": 16,
+      "optimizer_updates": 3584,
+      "batch_size": 32,
+      "patience": 10,
+      "selection_metric": "MAE_dB",
+      "best_validation_loss": 1.8326096534729004
+    },
+    "device": "cpu",
+    "config": {
+      "lr": 0.001,
+      "dropout": 0.0,
+      "weight_decay": 0.0,
+      "batch_size": 32,
+      "hidden_dim": 64,
+      "blocks": 2
+    },
+    "ablation_control": null
+  },
+  "STGNN_NoGraph": {
+    "metrics": {
+      "global": {
+        "mae_db": 2.0341,
+        "rmse_db": 2.8436
+      },
+      "terminal_horizon": {
+        "mae_db": 2.0341,
+        "rmse_db": 2.8436
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 2.0341,
+          "rmse_db": 2.8436
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.5299,
+          "rmse_db": 3.4689
+        },
+        "RSSI_02": {
+          "mae_db": 1.699,
+          "rmse_db": 2.3992
+        },
+        "RSSI_03": {
+          "mae_db": 1.7156,
+          "rmse_db": 2.426
+        },
+        "RSSI_04": {
+          "mae_db": 2.4137,
+          "rmse_db": 3.1807
+        },
+        "RSSI_05": {
+          "mae_db": 1.6191,
+          "rmse_db": 2.3599
+        },
+        "RSSI_06": {
+          "mae_db": 1.3912,
+          "rmse_db": 2.0982
+        },
+        "RSSI_07": {
+          "mae_db": 2.4341,
+          "rmse_db": 3.3484
+        },
+        "RSSI_08": {
+          "mae_db": 2.1475,
+          "rmse_db": 2.7979
+        },
+        "RSSI_09": {
+          "mae_db": 2.3571,
+          "rmse_db": 3.1579
+        }
+      }
+    },
+    "parameters": 157121,
+    "parameters_per_node": 17457.88888888889,
+    "model_instances": 1,
+    "joint_multi_node_model": false,
+    "cross_node_inputs": false,
+    "parameter_sharing": true,
+    "uses_historical_weather": true,
+    "uses_geometry": true,
+    "integration": "shared_channel_independent",
+    "forecast_strategy": "direct",
+    "parameter_storage_kib": 613.75390625,
+    "training_seconds": 62.16617105799742,
+    "training": {
+      "epochs_requested": 16,
+      "epochs_executed": 16,
+      "best_epoch": 16,
+      "optimizer_updates": 3584,
+      "batch_size": 32,
+      "patience": 10,
+      "selection_metric": "MAE_dB",
+      "best_validation_loss": 1.9942166805267334
+    },
+    "device": "cpu",
+    "config": {
+      "lr": 0.001,
+      "dropout": 0.0,
+      "weight_decay": 0.0,
+      "batch_size": 32,
+      "hidden_dim": 64,
+      "blocks": 2
+    },
+    "ablation_control": "fixed hybrid-selected configuration, refitted"
+  },
+  "STGNN_PhysicalOnly": {
+    "metrics": {
+      "global": {
+        "mae_db": 1.9249,
+        "rmse_db": 2.7137
+      },
+      "terminal_horizon": {
+        "mae_db": 1.9249,
+        "rmse_db": 2.7137
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 1.9249,
+          "rmse_db": 2.7137
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.4141,
+          "rmse_db": 3.3202
+        },
+        "RSSI_02": {
+          "mae_db": 1.6583,
+          "rmse_db": 2.3874
+        },
+        "RSSI_03": {
+          "mae_db": 1.6313,
+          "rmse_db": 2.3093
+        },
+        "RSSI_04": {
+          "mae_db": 2.2658,
+          "rmse_db": 3.0
+        },
+        "RSSI_05": {
+          "mae_db": 1.4642,
+          "rmse_db": 2.1876
+        },
+        "RSSI_06": {
+          "mae_db": 1.3364,
+          "rmse_db": 2.069
+        },
+        "RSSI_07": {
+          "mae_db": 2.28,
+          "rmse_db": 3.149
+        },
+        "RSSI_08": {
+          "mae_db": 2.0221,
+          "rmse_db": 2.6809
+        },
+        "RSSI_09": {
+          "mae_db": 2.2521,
+          "rmse_db": 3.0084
+        }
+      }
+    },
+    "parameters": 165313,
+    "parameters_per_node": 18368.11111111111,
+    "model_instances": 1,
+    "joint_multi_node_model": true,
+    "cross_node_inputs": true,
+    "parameter_sharing": true,
+    "uses_historical_weather": true,
+    "uses_geometry": true,
+    "integration": "cross_node",
+    "forecast_strategy": "direct",
+    "parameter_storage_kib": 645.75390625,
+    "training_seconds": 70.36862333399768,
+    "training": {
+      "epochs_requested": 16,
+      "epochs_executed": 16,
+      "best_epoch": 15,
+      "optimizer_updates": 3584,
+      "batch_size": 32,
+      "patience": 10,
+      "selection_metric": "MAE_dB",
+      "best_validation_loss": 1.8390295505523682
+    },
+    "device": "cpu",
+    "config": {
+      "lr": 0.001,
+      "dropout": 0.0,
+      "weight_decay": 0.0,
+      "batch_size": 32,
+      "hidden_dim": 64,
+      "blocks": 2
+    },
+    "ablation_control": "fixed hybrid-selected configuration, refitted"
+  },
+  "STGNN_AdaptiveOnly": {
+    "metrics": {
+      "global": {
+        "mae_db": 1.8836,
+        "rmse_db": 2.6333
+      },
+      "terminal_horizon": {
+        "mae_db": 1.8836,
+        "rmse_db": 2.6333
+      },
+      "per_lead_time": {
+        "t+1": {
+          "mae_db": 1.8836,
+          "rmse_db": 2.6333
+        }
+      },
+      "per_node": {
+        "RSSI_01": {
+          "mae_db": 2.4058,
+          "rmse_db": 3.28
+        },
+        "RSSI_02": {
+          "mae_db": 1.5774,
+          "rmse_db": 2.2411
+        },
+        "RSSI_03": {
+          "mae_db": 1.6166,
+          "rmse_db": 2.2977
+        },
+        "RSSI_04": {
+          "mae_db": 2.2084,
+          "rmse_db": 2.9186
+        },
+        "RSSI_05": {
+          "mae_db": 1.4563,
+          "rmse_db": 2.1238
+        },
+        "RSSI_06": {
+          "mae_db": 1.2854,
+          "rmse_db": 1.986
+        },
+        "RSSI_07": {
+          "mae_db": 2.2454,
+          "rmse_db": 3.0812
+        },
+        "RSSI_08": {
+          "mae_db": 1.9832,
+          "rmse_db": 2.5938
+        },
+        "RSSI_09": {
+          "mae_db": 2.1739,
+          "rmse_db": 2.855
+        }
+      }
+    },
+    "parameters": 165457,
+    "parameters_per_node": 18384.11111111111,
+    "model_instances": 1,
+    "joint_multi_node_model": true,
+    "cross_node_inputs": true,
+    "parameter_sharing": true,
+    "uses_historical_weather": true,
+    "uses_geometry": true,
+    "integration": "cross_node",
+    "forecast_strategy": "direct",
+    "parameter_storage_kib": 646.31640625,
+    "training_seconds": 72.51358116499978,
+    "training": {
+      "epochs_requested": 16,
+      "epochs_executed": 16,
+      "best_epoch": 16,
+      "optimizer_updates": 3584,
+      "batch_size": 32,
+      "patience": 10,
+      "selection_metric": "MAE_dB",
+      "best_validation_loss": 1.811769723892212
+    },
+    "device": "cpu",
+    "config": {
+      "lr": 0.001,
+      "dropout": 0.0,
+      "weight_decay": 0.0,
+      "batch_size": 32,
+      "hidden_dim": 64,
+      "blocks": 2
+    },
+    "ablation_control": "fixed hybrid-selected configuration, refitted"
+  }
+}

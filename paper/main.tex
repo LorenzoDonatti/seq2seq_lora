@@ -1,0 +1,227 @@
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage{amsmath,amssymb,graphicx}
+\journal{Internet of Things}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Topology-aware joint RSSI forecasting for network-wide LoRaWAN monitoring}
+
+\author[inst1]{Author One}
+\author[inst1]{Author Two\corref{cor1}}
+\cortext[cor1]{Corresponding author.}
+\address[inst1]{Institution, city, country}
+
+\begin{abstract}
+Forecasting received signal strength can support proactive monitoring of low-power
+wide-area networks, yet conventional studies commonly train one predictor for each
+radio link. We formulate LoRaWAN RSSI forecasting as a network-wide multivariate task
+in which one model produces forecasts for all observed nodes. The proposed
+spatio-temporal graph neural network combines a geographical prior with an adaptive
+adjacency learned from data, thereby representing both physical proximity and latent
+cross-link dependencies. A leakage-safe protocol compares dedicated and joint
+predictors on two real deployments using chronological splits, training-only scaling,
+strictly consecutive hourly windows, and per-node error as the primary outcome.
+Statistical baselines follow Box--Jenkins identification and include dedicated ARIMAX
+and joint VARX; neural controls include dedicated and joint
+sequence-to-sequence models. Model orders are selected using training information
+criteria, whereas neural hyperparameters and checkpoints use validation data only.
+Confirmatory results over multiple gateways and random seeds will quantify whether
+joint graph forecasting improves link-level accuracy while reducing the number of
+independently trained, versioned and served predictors. [TODO: insert frozen numerical
+results and uncertainty intervals.]
+\end{abstract}
+
+\begin{keyword}
+LoRaWAN \sep RSSI forecasting \sep graph neural network \sep multivariate time series
+\sep Internet of Things \sep network monitoring
+\end{keyword}
+\end{frontmatter}
+
+\section{Introduction}
+LoRaWAN enables long-range connectivity for constrained Internet of Things (IoT)
+devices, but its received signal strength varies with propagation conditions, weather,
+and local obstruction. Prior work has shown that RSSI can be forecast with statistical
+and machine-learning models and that parsimonious ARIMA models remain strong
+competitors~\cite{guerra2024forecasting}. The common per-link formulation, however,
+ignores dependencies among nodes received by the same gateway and requires a separate
+predictor to be trained and managed for every link.
+
+This study asks a network-level question: can a single model forecast all links at
+once, retaining or improving per-node accuracy while consolidating model management?
+This framing matches IoT ecosystems as multicomponent systems with dynamic
+dependencies and uses graph learning to encode the monitored deployment rather than
+treating its time series as unrelated channels. Graph-based models have already proved
+useful for representing heterogeneous IoT structure and joint spatial--temporal
+dynamics~\cite{ali2024powerful,abdelbaky2024gcn}.
+
+The contributions are:
+\begin{itemize}
+  \item a network-wide formulation that predicts every LoRaWAN RSSI series with one
+        jointly trained model;
+  \item a physical-adaptive graph that combines distance-based structure and learned
+        cross-node affinities;
+  \item a paired comparison of dedicated and joint statistical and neural predictors,
+        with per-node accuracy as the primary outcome and model-instance count as the
+        primary consolidation measure; and
+  \item a reproducible, leakage-safe evaluation on distinct real deployments, with
+        Box--Jenkins identification and explicit integration/cointegration checks.
+\end{itemize}
+
+\section{Related work}
+\subsection{RSSI forecasting in LoRaWAN}
+Guerra et al.~\cite{guerra2024forecasting} studied weather-assisted LoRaWAN RSSI
+forecasting using ARIMA, machine learning, LSTM and hybrid models. Our work changes the
+unit of modelling from one link to the gateway-level system and evaluates whether
+cross-link information can improve forecasts while consolidating predictors. Reviews
+of LoRaWAN optimization also emphasize that network decisions span interacting layers
+and operating conditions~\cite{loraReview2024}.
+
+\subsection{Joint spatio-temporal learning in IoT}
+Graph neural networks provide an inductive bias for variables embedded in a known or
+partly known topology. Physical structure alone can be incomplete, motivating learned
+adjacency mechanisms such as Graph WaveNet and multivariate graph learning
+networks~\cite{wu2019graph,wulog2020connecting}. Recent work in \emph{Internet of
+Things} combines graph convolution and recurrent modelling for dynamic IoT links and
+demonstrates the journal's interest in graph representations of IoT
+systems~\cite{abdelbaky2024gcn,ali2024powerful}.
+
+\section{Problem formulation}
+Let $\mathbf{x}_t\in\mathbb{R}^{N}$ contain the hourly mean RSSI of $N$ nodes observed
+by one gateway, and let $\mathbf{w}_t$ denote historical weather covariates. Given a
+history of length $L$, the task is
+\begin{equation}
+ f_\theta:\{\mathbf{x}_{t-L+1:t},\mathbf{w}_{t-L+1:t}\}
+ \mapsto \widehat{\mathbf{x}}_{t+1:t+H}.
+\end{equation}
+A dedicated strategy estimates $N$ independently parameterized functions; a joint
+strategy estimates one function whose output contains all nodes. Performance is
+reported for each node before any macro average.
+
+\section{Methodology}
+\subsection{Data control and forecasting protocol}
+Each gateway is treated as a separate deployment experiment. Observations are ordered
+chronologically and divided into 70\% training, 15\% validation and 15\% test
+partitions. All scalers are fitted on training data only. A sample is eligible only
+when the complete input and target interval is observed at exact hourly spacing for
+all included nodes; missing values and temporal gaps are never imputed across. Future
+weather is unavailable. For horizon $H$, statistical exogenous regressors are delayed
+by $H$ hours, so every model uses only information available at the forecast origin.
+
+The test partition is evaluated once after all decisions are frozen. Neural search and
+checkpoint selection use validation macro-MAE. Statistical identification is confined
+to training data and validation error is descriptive rather than selective.
+
+\subsection{Box--Jenkins identification and multivariate diagnostics}
+For each RSSI series, ADF and KPSS tests are applied in levels and first differences.
+They restrict the admissible differencing order. When ADF rejects a unit root but KPSS
+also rejects level stationarity, we retain $d=0$ to avoid overdifferencing and record
+the disagreement as a structural-instability warning; the multivariate rank diagnostic
+provides an additional system-level check. ACF and PACF are then computed
+on the corresponding transformed series. A pre-specified parsimonious shortlist
+contains the suggested $(p,q)$ order, its immediate neighbours, and the simple AR(1),
+MA(1), and ARMA(1,1) forms; this avoids an indiscriminate grid search while retaining
+diagnostic traceability. Each shortlisted ARIMAX $(p,d,q)$ is estimated by exact Gaussian state-space
+likelihood over independent contiguous training segments and selected by corrected
+Akaike information criterion,
+\begin{equation}
+ \mathrm{AICc}= -2\ell+2k+\frac{2k(k+1)}{n-k-1}.
+\end{equation}
+Ljung--Box statistics diagnose residual autocorrelation. The procedure produces a
+separate order for every dedicated link, consistent with the Box--Jenkins principle
+that model structure follows the observed series~\cite{box2015time,hyndman2008automatic}.
+
+For joint VAR models, integration is assessed for every endogenous and exogenous
+series and Johansen's trace test is applied to the RSSI vector on training data. A
+full-rank conclusion, checked for one to three lagged differences, supports a
+stationary level VAR. If the variables are $I(1)$ and the rank is reduced, level
+VARX is not fitted: the pre-specified remedy is a
+VECM/VECMX model, because differencing alone would discard the error-correction
+relation~\cite{johansen1991estimation,lutkepohl2005new}. VAR lag order and regularization
+are selected by training BIC. Candidate structures include dense lags $1,\ldots,p$
+up to 24 hours and parsimonious seasonal sets $\{1,6,12,24\}$ and
+$\{1,2,3,6,12,24\}$; unstable autoregressive dynamics are rejected. BIC is never
+compared across level and differenced dependent variables.
+
+\subsection{Neural baselines}
+The dedicated Seq2Seq baseline fits one recurrent encoder--decoder per node. Its joint
+counterpart encodes all RSSI and historical weather channels, then uses an
+autoregressive LSTM decoder with additive attention and a last-observation residual.
+Both use identical chronological partitions and stopping rules. [TODO: document the
+frozen search space and selected configurations in a supplementary table.]
+
+\subsection{Physical-adaptive spatio-temporal graph network}
+The graph model represents nodes with a fixed geographical adjacency
+$\mathbf{A}_{p}$ and a learned adaptive adjacency $\mathbf{A}_{a}$. The physical
+component is obtained from pairwise node distances and the adaptive component from
+trainable node embeddings. Their normalized combination drives graph message passing,
+while causal dilated temporal convolutions encode RSSI history. Self-edges are
+excluded. Ablations remove the graph, retain only the physical component, or retain
+only the adaptive component. These weights are predictive associations and are not
+interpreted as physical connectivity or causality.
+
+\section{Experimental design}
+\subsection{Deployments and gateways}
+[TODO: add a table containing deployment, gateway, date range, node count, missingness,
+and eligible train/validation/test origins. Explain gateway and node inclusion criteria
+before presenting performance. The vineyard deployment contains eight nodes; the UVA
+external deployment is evaluated gateway by gateway rather than pooling gateways.]
+
+\subsection{Outcomes and statistical analysis}
+Primary outcomes are MAE and RMSE in dB for every node. Macro averages, terminal-lead
+and lead-wise errors are secondary. Consolidation is measured primarily by the number
+of independently parameterized model instances required to cover all links, supported
+by coefficient count and serialized coefficient storage. Hardware-sensitive inference
+latency is not a primary scientific outcome.
+
+Confirmatory comparisons use identical forecast origins. [TODO: pre-specify repeated
+seeds for neural models, dependence-aware confidence intervals (for example a moving
+block bootstrap over forecast origins), paired effect sizes, multiplicity handling,
+and the rule for aggregating evidence across gateways.]
+
+\section{Results}
+\subsection{Stationarity, integration and model identification}
+[TODO: report ADF/KPSS conclusions, Johansen rank by gateway, selected ARIMAX orders,
+VAR orders, convergence and Ljung--Box diagnostics. Keep full numerical diagnostics in
+the supplement/repository.]
+
+\subsection{Per-node forecasting accuracy}
+[TODO: lead with a model-by-node MAE heatmap/table; report uncertainty and paired
+differences. Global means are supplementary and must not replace node-level results.]
+
+\subsection{Graph ablations and operational consolidation}
+[TODO: compare hybrid, physical-only, adaptive-only and no-graph variants. Report
+instances, parameter count and storage without claiming unmeasured energy or latency
+benefits.]
+
+\section{Discussion}
+The central interpretation is not that graph learning universally dominates all
+forecasters, but whether shared cross-link structure yields a consistent accuracy and
+management trade-off across gateways. Improvements of the adaptive-only model would
+support latent cross-link dependence; an additional gain from the hybrid graph would
+support the geographical prior. Gateway-specific failures and nodes that do not
+benefit are equally important to the conclusion.
+
+Hourly mean RSSI forecasting does not directly establish packet-level ADR, delivery
+ratio, energy consumption or outage prevention. Complete-window evaluation also does
+not demonstrate robustness to nodes disappearing online. These are downstream system
+questions rather than outcomes measured here.
+
+\section{Conclusion}
+[TODO: write after freezing confirmatory experiments. State the network-wide finding,
+its cross-deployment consistency, the consolidation trade-off, and no stronger claim.]
+
+\section*{Data and code availability}
+[TODO: add repository release, commit, licenses and permanent dataset identifiers.]
+
+\section*{CRediT authorship contribution statement}
+[TODO: list author roles.]
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or personal
+relationships that could have appeared to influence the work reported in this paper.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+\end{document}

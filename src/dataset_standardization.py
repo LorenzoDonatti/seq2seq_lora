@@ -6,7 +6,6 @@ import json
 from pathlib import Path
 from typing import Any, Dict
 
-import numpy as np
 import pandas as pd
 
 
@@ -108,4 +107,3 @@ def prepare_uva_gateway_a(
         json.dumps(report, indent=2), encoding="utf-8"
     )
     return report
-

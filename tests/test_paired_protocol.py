@@ -1,24 +1,31 @@
 import numpy as np
 import pytest
 import torch
-from src.models.baselines import HistoricalWeatherARIMAX
+from src.models.baselines import BoxJenkinsARIMAX, HistoricalWeatherVARX
 from src.models.stgnn import AdaptiveSTGNN, AdaptiveGraphConvolution, SpatioTemporalBlock
 from src.node_topology import compute_physical_adjacency
 from src.model_registry import DEFAULTS, NEURAL_MODELS, GRAPH_ABLATIONS, make_neural, model_metadata
 from src.runtime import seed_everything
+from src.statistical_search import _arimax_candidate_orders
 
 
-@pytest.mark.parametrize("joint", [False, True])
-@pytest.mark.parametrize("difference", [0, 1])
-def test_statistical_forecast_uses_only_delayed_observed_weather(joint, difference):
-    model = HistoricalWeatherARIMAX(2, 3, 1, joint=joint, difference=difference)
-    model.coefficients = ([np.array([0.,0.,0.,2.]),np.array([0.,0.,0.,3.])]
-                          if joint else [np.array([0.,0.,2.]),np.array([0.,0.,3.])])
-    model.ma = [0.,0.]
+def test_box_jenkins_shortlist_is_bounded_and_uses_admissible_difference():
+    diagnostic = {
+        "admissible_differences": [0],
+        "by_difference": {"0": {"suggested_p": 4, "suggested_q": 3}},
+    }
+    orders = _arimax_candidate_orders(diagnostic)
+    assert 1 <= len(orders) <= 8
+    assert all(order[1] == 0 for order in orders)
+    assert (4, 0, 3) in orders
+
+
+def test_varx_forecast_uses_only_delayed_observed_weather():
+    model = HistoricalWeatherVARX(2, 3, 1)
+    model.coefficients = [np.array([0.,0.,0.,2.]),np.array([0.,0.,0.,3.])]
     X = np.zeros((1,8,3))
     X[:,-3:,2] = [1.,2.,3.]
     expected = np.array([[[2.,3.],[4.,6.],[6.,9.]]])
-    if difference: expected = expected.cumsum(axis=1)
     np.testing.assert_allclose(model.predict(X),expected)
     changed = X.copy()
     changed[:,-1,2] = 100
@@ -26,21 +33,17 @@ def test_statistical_forecast_uses_only_delayed_observed_weather(joint, differen
     assert not np.allclose(model.predict(changed)[:,-1],expected[:,-1])
 
 
-def test_conditional_ma_forecast_reconstructs_innovations():
-    model = HistoricalWeatherARIMAX(1,2,1,moving_average=True)
-    model.coefficients = [np.array([0.,0.5,0.])]
-    model.ma = [0.2]
-    X = np.zeros((1,8,2))
-    X[0,:,0] = np.arange(8)/10
-    error = 0
-    for t in range(model.burn_in,8):
-        error = X[0,t,0] - .5*X[0,t-1,0] - .2*error
-    first = .5*X[0,-1,0] + .2*error
-    np.testing.assert_allclose(model.predict(X)[0,:,0],[first,.5*first],rtol=1e-6)
+def test_sparse_var_lags_use_only_declared_history_positions():
+    model = HistoricalWeatherVARX(1, 1, [1, 3])
+    model.coefficients = [np.array([0., 2., 5., 0.])]
+    X = np.zeros((1, 3, 2))
+    X[0, :, 0] = [7., 11., 13.]
+    # 2 * lag-1 + 5 * lag-3; lag 2 is deliberately absent.
+    np.testing.assert_allclose(model.predict(X)[0, 0, 0], 2 * 13 + 5 * 7)
+    assert model.lag_indices == [1, 3]
 
 
-@pytest.mark.parametrize("joint", [False,True])
-def test_statistical_fit_recovers_known_weather_effect_and_resets_gaps(joint):
+def test_varx_fit_recovers_known_weather_effect_and_resets_gaps():
     rng=np.random.default_rng(44)
     segments=[]
     for _ in range(2):
@@ -49,12 +52,28 @@ def test_statistical_fit_recovers_known_weather_effect_and_resets_gaps(joint):
         for t in range(3,250):
             y[t]=.5*y[t-1]+np.array([2.,3.])*x[t-3]
         segments.append(np.column_stack([y,x]))
-    model=HistoricalWeatherARIMAX(2,3,1,alpha=0,joint=joint)
+    model=HistoricalWeatherVARX(2,3,1,alpha=0)
     model.fit(np.zeros((1,12,3)),np.zeros((1,3,2)),training_segments=segments)
     assert model.training_summary['training_segment_lengths']==[250,250]
     assert model.training_summary['conditional_observations']==494
     for node,beta in enumerate(model.coefficients):
         assert beta[-1]==pytest.approx(2+node,abs=1e-6)
+
+
+def test_box_jenkins_arimax_uses_node_specific_orders_and_delayed_weather():
+    rng = np.random.default_rng(12)
+    weather = rng.normal(size=(100, 1))
+    target = np.zeros(100)
+    for t in range(1, 100):
+        target[t] = 0.4 * target[t-1] + 0.7 * weather[t-1, 0] + rng.normal(scale=.05)
+    segment = np.column_stack([target, weather])
+    model = BoxJenkinsARIMAX(1, 1, [(1, 0, 0)])
+    X = np.stack([segment[70:82], segment[80:92]]).astype(np.float32)
+    model.fit(X, np.zeros((2, 1, 1)), training_segments=[segment[:70]])
+    prediction = model.predict(X)
+    assert prediction.shape == (2, 1, 1)
+    assert np.isfinite(prediction).all()
+    assert model.training_summary["orders"] == [[1, 0, 0]]
 
 
 @pytest.mark.parametrize("mode", ["none","physical","adaptive","hybrid"])

@@ -1,4 +1,4 @@
-"""Persistent storage for the latest validation-selected model configurations."""
+"""Persistent storage for the latest pre-test-selected model configurations."""
 
 from __future__ import annotations
 
@@ -6,12 +6,15 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
-from typing import Any, Dict, Iterable
-
-
-PROTOCOL_VERSION = 4
+from typing import Any, Dict
+from src.model_registry import DEFAULTS
 
 DEFAULT_CONFIG_STORE = Path(".lora_benchmark/last_optimized_configs.json")
+
+
+def _valid_model_set(configs: Dict[str, Any]) -> bool:
+    """Only configurations for the current benchmark composition are accepted."""
+    return set(configs) == set(DEFAULTS)
 
 
 def _data_identity(path: str) -> str:
@@ -29,8 +32,8 @@ def _data_identity(path: str) -> str:
     return f"missing:{data_path.name}"
 
 
-def save_optimized_configs(
-    configs_by_horizon: Dict[int, Dict[str, Any]],
+def save_optimized_config(
+    configs: Dict[str, Any],
     *,
     data_file: str,
     history: int,
@@ -39,12 +42,12 @@ def save_optimized_configs(
     search_epochs: int,
     path: Path = DEFAULT_CONFIG_STORE,
 ) -> None:
-    """Merge newly optimized horizons into the project-local configuration store."""
-    payload: Dict[str, Any] = {"version": PROTOCOL_VERSION, "experiments": {}}
+    """Save the latest optimized configuration for a dataset and history."""
+    payload: Dict[str, Any] = {"experiments": {}}
     if path.exists():
         with path.open(encoding="utf-8") as file:
             existing = json.load(file)
-        if existing.get("version") == PROTOCOL_VERSION:
+        if set(existing) <= {"experiments", "updated_at"}:
             payload = existing
 
     optimized_at = datetime.now(timezone.utc).isoformat()
@@ -52,16 +55,16 @@ def save_optimized_configs(
     experiment = payload["experiments"].setdefault(identity, {
         "data_file": Path(data_file).name, "histories": {}
     })
-    stored = experiment["histories"].setdefault(str(history), {"horizons": {}})
-    for horizon, configs in configs_by_horizon.items():
-        stored["horizons"][str(horizon)] = {
-            "configs": configs,
-            "history": history,
-            "seed": seed,
-            "trials": trials,
-            "search_epochs": search_epochs,
-            "optimized_at": optimized_at,
-        }
+    if not _valid_model_set(configs):
+        raise ValueError("Optimized configurations do not match the current model set.")
+    experiment["histories"][str(history)] = {
+        "configs": configs,
+        "history": history,
+        "seed": seed,
+        "trials": trials,
+        "search_epochs": search_epochs,
+        "optimized_at": optimized_at,
+    }
     payload["updated_at"] = optimized_at
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(".tmp")
@@ -70,15 +73,13 @@ def save_optimized_configs(
     temporary.replace(path)
 
 
-def load_optimized_configs(
-    horizons: Iterable[int],
+def load_optimized_config(
     *,
     data_file: str,
     history: int,
     path: Path = DEFAULT_CONFIG_STORE,
-) -> Dict[int, Dict[str, Any]]:
+) -> Dict[str, Any]:
     """Load compatible optimized configurations or raise an actionable error."""
-    requested = list(horizons)
     if not path.exists():
         raise FileNotFoundError(
             f"Nenhuma configuração otimizada foi salva em {path}. "
@@ -87,17 +88,15 @@ def load_optimized_configs(
     with path.open(encoding="utf-8") as file:
         payload = json.load(file)
 
-    if payload.get("version") != PROTOCOL_VERSION:
-        raise ValueError("Protocolo/modelos alterados: execute novamente com --optimize.")
     identity = _data_identity(data_file)
     experiment = payload.get("experiments", {}).get(identity)
-    stored = ((experiment or {}).get("histories", {}).get(str(history), {})
-              .get("horizons", {}))
-    missing = [horizon for horizon in requested if str(horizon) not in stored]
-    if missing:
+    stored = (experiment or {}).get("histories", {}).get(str(history))
+    if not stored:
         raise ValueError(
-            f"Não há configuração otimizada salva para H={missing}. "
-            "Execute esses horizontes com --optimize."
+            "Não há configuração otimizada salva para esse dataset e histórico. "
+            "Execute com --optimize."
         )
-
-    return {horizon: stored[str(horizon)]["configs"] for horizon in requested}
+    configs = stored["configs"]
+    if not _valid_model_set(configs):
+        raise ValueError("Modelos salvos não correspondem ao benchmark atual; execute --optimize.")
+    return configs

@@ -5,15 +5,12 @@ Focuses on physical telecommunication units (dBm) and system efficiency trade-of
 - MAE (dBm)
 - RMSE (dBm)
 - Model parameter count
-- Inference latency (ms)
 - Storage footprint
 """
 
 from typing import Dict, List, Any
 import numpy as np
-import time
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error
-from src.runtime import synchronize
 
 
 def calculate_metrics(
@@ -42,8 +39,8 @@ def calculate_metrics(
         mae = float(mean_absolute_error(node_true, node_pred))
         rmse = float(root_mean_squared_error(node_true, node_pred))
         per_node[node_name] = {
-            "mae_dbm": round(mae, 4),
-            "rmse_dbm": round(rmse, 4)
+            "mae_db": round(mae, 4),
+            "rmse_db": round(rmse, 4)
         }
 
     global_true = y_true.flatten()
@@ -56,40 +53,16 @@ def calculate_metrics(
         lead_true = y_true[:, lead, :].flatten()
         lead_pred = y_pred[:, lead, :].flatten()
         per_lead_time[f"t+{lead + 1}"] = {
-            "mae_dbm": round(float(mean_absolute_error(lead_true, lead_pred)), 4),
-            "rmse_dbm": round(float(root_mean_squared_error(lead_true, lead_pred)), 4),
+            "mae_db": round(float(mean_absolute_error(lead_true, lead_pred)), 4),
+            "rmse_db": round(float(root_mean_squared_error(lead_true, lead_pred)), 4),
         }
 
     return {
         "global": {
-            "mae_dbm": round(global_mae, 4),
-            "rmse_dbm": round(global_rmse, 4)
+            "mae_db": round(global_mae, 4),
+            "rmse_db": round(global_rmse, 4)
         },
         "terminal_horizon": per_lead_time[f"t+{y_true.shape[1]}"],
         "per_lead_time": per_lead_time,
         "per_node": per_node
     }
-
-
-def measure_inference_speed(
-    predict_fn,
-    sample_input,
-    num_warmup: int = 5,
-    num_runs: int = 30,
-    device: str = "cpu"
-) -> float:
-    """
-    Measures average inference latency in milliseconds per forward pass.
-    """
-    for _ in range(num_warmup):
-        _ = predict_fn(sample_input)
-
-    latencies = []
-    for _ in range(num_runs):
-        synchronize(device)
-        start = time.perf_counter()
-        _ = predict_fn(sample_input)
-        synchronize(device)
-        latencies.append((time.perf_counter() - start) * 1000.0)
-
-    return float(np.median(latencies))

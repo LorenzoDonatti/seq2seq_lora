@@ -5,11 +5,10 @@ from __future__ import annotations
 import argparse
 from typing import Any, Dict
 
-from src.config_store import load_optimized_configs, save_optimized_configs
-from src.model_registry import STATISTICAL_MODELS
-from src.evaluation import run_full_benchmark, run_multi_horizon_benchmark
-from src.hyperparameter_search import search_integrated_models, save_search
-from src.statistical_search import search_statistical_models, save_statistical_search
+from src.config_store import load_optimized_config, save_optimized_config
+from src.evaluation import run_full_benchmark
+from src.hyperparameter_search import search_integrated_models
+from src.statistical_search import search_statistical_models
 
 
 def print_single_table(results: dict, horizon: int) -> None:
@@ -19,22 +18,21 @@ def print_single_table(results: dict, horizon: int) -> None:
     print(f"{'=' * 75}")
     header = (
         f"{'Model':<24} | {'MAE (dB)':<10} | {'RMSE (dB)':<10} | "
-        f"{'Params':<9} | {'Latency':<8}"
+        f"{'Params':<9} | {'Models':<6}"
     )
     print(header)
     print("-" * len(header))
     sorted_models = sorted(
-        results, key=lambda name: results[name]["metrics"]["global"]["mae_dbm"]
+        results, key=lambda name: results[name]["metrics"]["global"]["mae_db"]
     )
     for name in sorted_models:
         row = results[name]
         params = row.get("parameters", 0)
-        latency = row.get("latency_ms", 0.0)
         print(
-            f"{name:<24} | {row['metrics']['global']['mae_dbm']:<10.4f} | "
-            f"{row['metrics']['global']['rmse_dbm']:<10.4f} | "
+            f"{name:<24} | {row['metrics']['global']['mae_db']:<10.4f} | "
+            f"{row['metrics']['global']['rmse_db']:<10.4f} | "
             f"{f'{params:,}' if params else '-':<9} | "
-            f"{f'{latency:.2f}ms' if latency else '-':<8}"
+            f"{row.get('model_instances', 1):<6}"
         )
     print(f"{'=' * 75}\n")
 
@@ -45,8 +43,8 @@ def print_single_table(results: dict, horizon: int) -> None:
     print("-" * len(node_header))
     for name in sorted_models:
         values = results[name]["metrics"]["per_node"]
-        columns = "".join(f" | {values[node]['mae_dbm']:<7.4f}" for node in nodes)
-        print(f"{name:<24}{columns} | {results[name]['metrics']['global']['mae_dbm']:.4f}")
+        columns = "".join(f" | {values[node]['mae_db']:<7.4f}" for node in nodes)
+        print(f"{name:<24}{columns} | {results[name]['metrics']['global']['mae_db']:.4f}")
 
     print("\nCUSTO PARA ATENDER TODOS OS NÓS")
     print(
@@ -63,40 +61,9 @@ def print_single_table(results: dict, horizon: int) -> None:
         )
 
 
-def print_multi_horizon_table(multi_results: Dict[int, Dict[str, Any]]) -> None:
-    """Print the same global-MAE multi-horizon summary as the original CLI."""
-    horizons = sorted(multi_results)
-    models = list(multi_results[horizons[0]])
-    print(f"\n{'=' * 85}")
-    print(" CONSOLIDATED MULTI-HORIZON BENCHMARK (MAE in dB)")
-    print(f"{'=' * 85}")
-    header = (
-        f"{'Model':<24}" + "".join(f" | H={h:<5}" for h in horizons)
-        + " | Params   | Latency"
-    )
-    print(header)
-    print("-" * len(header))
-    for name in models:
-        values = "".join(
-            f" | {multi_results[h][name]['metrics']['global']['mae_dbm']:<7.4f}"
-            for h in horizons
-        )
-        row = multi_results[horizons[0]][name]
-        params = row.get("parameters", 0)
-        latency = row.get("latency_ms", 0.0)
-        print(
-            f"{name:<24}{values} | {f'{params:,}' if params else '-':<8} | "
-            f"{f'{latency:.2f}ms' if latency else '-':<8}"
-        )
-
-
 def _selected_configs(statistical: Dict[str, Any], neural: Dict[str, Any]) -> Dict[str, Any]:
-    """Extract validation-selected configurations from in-memory search reports."""
-    selected = {
-        name: min((row for row in statistical["trials"] if row["model"] == name and row.get("status") == "ok"),
-                  key=lambda row: row["val_mae_dbm"])["config"]
-        for name in STATISTICAL_MODELS
-    }
+    """Extract pre-test configurations from in-memory search reports."""
+    selected = dict(statistical["selected_configs"])
     selected.update({name: value["best"]["config"] for name, value in neural["models"].items()})
     return selected
 
@@ -106,18 +73,14 @@ def _optimize_horizon(args: argparse.Namespace, horizon: int) -> Dict[str, Any]:
     print(f"\n{'=' * 72}\nOtimizando horizonte H={horizon}\n{'=' * 72}\n", flush=True)
     statistical = search_statistical_models(args.data_file, args.history, horizon,
         checkpoint_path=f"{args.output_dir}/statistical_search_H{horizon}.json")
-    save_statistical_search(
-        statistical, f"{args.output_dir}/statistical_search_H{horizon}.json"
-    )
     neural = search_integrated_models(
         args.data_file, horizon, args.history, args.trials,
         args.search_epochs, args.seed, device=args.device, patience=args.patience,
         checkpoint_path=f"{args.output_dir}/neural_search_H{horizon}.json",
     )
-    save_search(neural, f"{args.output_dir}/neural_search_H{horizon}.json")
     selected = _selected_configs(statistical, neural)
-    save_optimized_configs(
-        {horizon: selected}, data_file=args.data_file, history=args.history,
+    save_optimized_config(
+        selected, data_file=args.data_file, history=args.history,
         seed=args.seed, trials=args.trials, search_epochs=args.search_epochs,
     )
     return selected
@@ -125,14 +88,12 @@ def _optimize_horizon(args: argparse.Namespace, horizon: int) -> Dict[str, Any]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="LoRaWAN multi-node RSSI benchmark")
-    horizon_group = parser.add_mutually_exclusive_group()
-    horizon_group.add_argument("--horizon", "-H", type=int, choices=[1])
-    horizon_group.add_argument("--horizons", nargs="+", type=int, choices=[1])
+    parser.add_argument("--horizon", "-H", type=int, choices=[1], default=1)
     parser.add_argument("--history", "-L", type=int, default=24)
     parser.add_argument("--epochs", "-e", type=int, default=64)
     config_group = parser.add_mutually_exclusive_group()
     config_group.add_argument("--optimize", "--search", action="store_true",
-                              help="Select and persist all model configurations on validation")
+                              help="Select and persist statistical configurations on training criteria and neural configurations on validation")
     config_group.add_argument("--use-defaults", action="store_true",
                               help="Ignore saved optimized configurations and use built-in defaults")
     parser.add_argument("--trials", type=int, default=12,
@@ -157,37 +118,24 @@ def main() -> None:
     except RuntimeError as error:
         parser.error(str(error))
     from pathlib import Path
-    requested = args.horizons or [args.horizon or 1]
-    if args.history < max(max(requested), 7):
-        parser.error("history must be at least the largest forecast horizon and 8 hours")
-    for h in requested:
-        if (Path(args.output_dir) / f"benchmark_summary_H{h}.json").exists():
-            parser.error("Results exist: choose a new --output-dir")
+    if args.history < 8:
+        parser.error("history must be at least 8 hours")
+    if (Path(args.output_dir) / f"benchmark_summary_H{args.horizon}.json").exists():
+        parser.error("Results exist: choose a new --output-dir")
     if (Path(args.output_dir) / "run.log").exists():
         parser.error("Run log exists: choose a new --output-dir")
-    if args.horizon is None and args.horizons is None:
-        args.horizon = 1
-
-    requested_horizons = [args.horizon] if args.horizon is not None else args.horizons
-    selected_configs_by_horizon = None
+    selected_configs = None
     config_source = "built_in_defaults"
     from src.runtime import start_run_log
     if args.optimize:
         start_run_log(args.output_dir, vars(args))
-        selected_configs_by_horizon = {
-            horizon: _optimize_horizon(args, horizon)
-            for horizon in requested_horizons
-        }
-        save_optimized_configs(
-            selected_configs_by_horizon, data_file=args.data_file, history=args.history,
-            seed=args.seed, trials=args.trials, search_epochs=args.search_epochs,
-        )
+        selected_configs = _optimize_horizon(args, args.horizon)
         config_source = "fresh_optimization"
         print("\nOtimização concluída; executando benchmark final...\n", flush=True)
     elif not args.use_defaults:
         try:
-            selected_configs_by_horizon = load_optimized_configs(
-                requested_horizons, data_file=args.data_file, history=args.history,
+            selected_configs = load_optimized_config(
+                data_file=args.data_file, history=args.history,
             )
         except (FileNotFoundError, ValueError) as error:
             parser.error(str(error))
@@ -202,28 +150,13 @@ def main() -> None:
         start_run_log(args.output_dir, vars(args))
         print("\nUsando configurações padrão por solicitação explícita.\n", flush=True)
 
-    selected_configs = (
-        selected_configs_by_horizon[args.horizon]
-        if args.horizon is not None and selected_configs_by_horizon else None
+    results = run_full_benchmark(
+        data_file=args.data_file, seq_length=args.history, pred_length=args.horizon,
+        epochs=args.epochs, output_dir=args.output_dir, seed=args.seed,
+        selected_configs=selected_configs, config_source=config_source,
+        device=args.device, patience=args.patience, graph_ablations=args.graph_ablations,
     )
-
-    if args.horizon is not None:
-        results = run_full_benchmark(
-            data_file=args.data_file, seq_length=args.history, pred_length=args.horizon,
-            epochs=args.epochs, output_dir=args.output_dir, seed=args.seed,
-            selected_configs=selected_configs, config_source=config_source,
-            device=args.device, patience=args.patience, graph_ablations=args.graph_ablations,
-        )
-        print_single_table(results, args.horizon)
-    else:
-        results = run_multi_horizon_benchmark(
-            horizons=args.horizons, data_file=args.data_file, seq_length=args.history,
-            epochs=args.epochs, output_dir=args.output_dir, seed=args.seed,
-            selected_configs_by_horizon=selected_configs_by_horizon,
-            config_source=config_source, device=args.device, patience=args.patience,
-            graph_ablations=args.graph_ablations,
-        )
-        print_multi_horizon_table(results)
+    print_single_table(results, args.horizon)
 
 
 if __name__ == "__main__":

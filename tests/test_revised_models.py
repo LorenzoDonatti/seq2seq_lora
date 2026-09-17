@@ -6,7 +6,7 @@ from src.data_loader import create_sliding_windows
 from src.models.dlinear import NLinear, DLinear
 from src.models.multi_node_seq2seq import MultiNodeSeq2SeqAttention
 from src.models.training import fit_network
-from src.config_store import load_optimized_configs
+from src.config_store import load_optimized_config
 
 
 def test_future_weather_is_not_required_but_future_targets_are():
@@ -65,11 +65,13 @@ def test_seq2seq_runs_recurrent_decoder_each_step_and_backpropagates():
     assert torch.isfinite(x.grad).all()
 
 
-def test_old_configuration_cache_is_rejected(tmp_path):
+def test_incompatible_configuration_cache_is_rejected(tmp_path):
     path=tmp_path/"cache.json"
-    path.write_text(json.dumps({"version":1,"horizons":{}}))
+    path.write_text(json.dumps({"experiments": {"missing:missing.csv": {
+        "histories": {"24": {"configs": {"ARIMAX": {}}}}
+    }}}))
     with pytest.raises(ValueError,match="optimize"):
-        load_optimized_configs([1],data_file="missing.csv",history=24,path=path)
+        load_optimized_config(data_file="missing.csv",history=24,path=path)
 
 
 def test_checkpoint_restores_best_validation_and_uses_physical_units():

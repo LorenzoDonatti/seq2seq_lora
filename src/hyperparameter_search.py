@@ -1,8 +1,9 @@
 """Validation-only search with the same stopping policy as final training."""
 import json
-import os
 import random
 import time
+from pathlib import Path
+import numpy as np
 from src.data_loader import get_prepared_datasets
 from src.metrics import calculate_metrics
 from src.model_registry import NEURAL_MODELS, make_neural
@@ -45,15 +46,15 @@ def search_integrated_models(data_file, horizon=6, history=24, trials=12,
             metrics = calculate_metrics(data["pipeline"].inverse_transform_targets(data["val"][1]),
                         data["pipeline"].inverse_transform_targets(prediction), data["target_names"])
             synchronize(device)
-            row = dict(trial=i, seed=seed, config=cfg, val_mae_dbm=metrics["global"]["mae_dbm"],
-                       val_rmse_dbm=metrics["global"]["rmse_dbm"], per_node=metrics["per_node"],
+            row = dict(trial=i, seed=seed, config=cfg, val_mae_db=metrics["global"]["mae_db"],
+                       val_rmse_db=metrics["global"]["rmse_db"], per_node=metrics["per_node"],
                        parameters=trainer.total_parameters(), training=trainer.training_summary,
                        elapsed_seconds=round(time.perf_counter()-start, 3))
             rows.append(row)
             print(f"{name} H={horizon} trial={i+1}/{min(trials,len(candidates))}: "
-                  f"val MAE={row['val_mae_dbm']:.4f} dB ({row['elapsed_seconds']:.1f}s)", flush=True)
+                  f"val MAE={row['val_mae_db']:.4f} dB ({row['elapsed_seconds']:.1f}s)", flush=True)
             del trainer
-        rows.sort(key=lambda r: r["val_mae_dbm"])
+        rows.sort(key=lambda r: r["val_mae_db"])
         result["models"][name] = {"best": rows[0], "trials": rows}
         if checkpoint_path is not None:
             save_search(result, checkpoint_path)
@@ -61,6 +62,17 @@ def search_integrated_models(data_file, horizon=6, history=24, trials=12,
 
 
 def save_search(result, path):
-    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=2)
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_suffix(target.suffix + ".tmp")
+
+    def numpy_json(value):
+        if isinstance(value, np.generic):
+            return value.item()
+        if isinstance(value, np.ndarray):
+            return value.tolist()
+        raise TypeError(f"Object of type {type(value).__name__} is not JSON serializable")
+
+    with temporary.open("w", encoding="utf-8") as file:
+        json.dump(result, file, indent=2, default=numpy_json)
+    temporary.replace(target)

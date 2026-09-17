@@ -1,18 +1,19 @@
 """Registry of paired statistical/neural families and graph ablations."""
-from src.models.baselines import HistoricalWeatherARIMAX
+from src.models.baselines import BoxJenkinsARIMAX, HistoricalWeatherVARX
 from src.models.dedicated import DedicatedNodeTrainer
 from src.models.multi_node_seq2seq import MultiNodeSeq2SeqTrainer
 from src.models.dlinear import NLinearTrainer, DLinearTrainer
 from src.models.stgnn import AdaptiveSTGNNTrainer
 
-STATISTICAL_MODELS = ("ARX", "ARIMAX", "VARX", "VARIMAX")
+STATISTICAL_MODELS = ("ARIMAX", "VARX")
 NEURAL_MODELS = ("SingleNode_Seq2Seq", "MultiNode_Seq2Seq",
                  "SingleNode_NLinear", "MultiNode_NLinear",
                  "SingleNode_DLinear", "MultiNode_DLinear", "PhysicalAdaptive_STGNN")
 GRAPH_ABLATIONS = {"STGNN_NoGraph": "none", "STGNN_PhysicalOnly": "physical",
                    "STGNN_AdaptiveOnly": "adaptive"}
 DEFAULTS = {
-    **{name: {"lags": 3, "alpha": 1.0, "difference": 0} for name in STATISTICAL_MODELS},
+    "ARIMAX": {"orders": None},
+    "VARX": {"lags": 3, "alpha": 0.01},
     **{name: {"hidden_dim": 24, "num_layers": 1, "blocks": 2,
               "lr": 0.001, "weight_decay": 0.0001, "dropout": 0.1,
               "batch_size": 32} for name in NEURAL_MODELS},
@@ -20,7 +21,7 @@ DEFAULTS = {
 
 
 def model_metadata(name, nodes=8):
-    local = name in ("ARX", "ARIMAX") or name.startswith("SingleNode_")
+    local = name == "ARIMAX" or name.startswith("SingleNode_")
     linear = name.endswith(("NLinear", "DLinear"))
     graph = name == "PhysicalAdaptive_STGNN" or name in GRAPH_ABLATIONS
     cross = not local and not linear and name != "STGNN_NoGraph"
@@ -35,10 +36,15 @@ def model_metadata(name, nodes=8):
 
 
 def make_statistical(name, cfg, data, horizon):
-    return HistoricalWeatherARIMAX(
-        n_targets=len(data["target_names"]), pred_length=horizon,
-        lags=cfg["lags"], alpha=cfg["alpha"], joint=name.startswith("V"),
-        difference=cfg["difference"], moving_average=name in ("ARIMAX", "VARIMAX"))
+    nodes = len(data["target_names"])
+    if name == "ARIMAX":
+        orders = cfg.get("orders") or [[1, 0, 1] for _ in range(nodes)]
+        return BoxJenkinsARIMAX(nodes, horizon, orders)
+    if name == "VARX":
+        return HistoricalWeatherVARX(
+            n_targets=nodes, pred_length=horizon, lags=cfg["lags"],
+            alpha=cfg["alpha"])
+    raise ValueError(name)
 
 
 def make_neural(name, cfg, data, horizon, device):

@@ -67,10 +67,6 @@ first differences have median 0.659. This is a strong, pre-modeling reason to ev
 joint predictors, but correlation is not causality and may reflect shared propagation,
 gateway behavior, channel hopping, weather, or deployment-wide changes.
 
-An audit-only one-hour persistence calculation gives test macro MAE about 2.294 dB. It
-was not used for selection. A formal persistence baseline should be reported in the
-paper even if it remains outside the paired-family optimization.
-
 ## Topology
 
 The sidecar maps `RSSI_01`–`RSSI_09` to sensor01–sensor09 coordinates and records the
